@@ -1,0 +1,166 @@
+.navbar{
+    height:60px;
+    justify-content:start;
+    align-items:center;
+    margin-right: 52px; /*? tại sao fixed lại ảnh hưởng margin*/
+    margin-left: 35px;
+    position: relative;
+}
+.textnav{
+    color: black;
+}
+.textnav.t{
+    color:white;
+}
+.fixed
+{
+    margin-right: 0px;
+    position: fixed;
+    z-index: 2;
+    background-color: white;
+    transition: 1s;
+}
+.fixed.t{
+    background-color: transparent;
+}
+.line{
+    width: 100vw;
+height: 1px;
+background: #FF9040;
+transition: 1s;
+}
+.line.t{
+    background-color: transparent;
+}
+.line2{
+    width: 100%;
+height: 1px;
+background: black;
+}
+.close-menu{
+    display: flex;
+    border:none;
+    background-color: transparent;
+    padding-left: 2rem;
+    font-size: 2rem;
+}
+.open-menu{
+    display: flex;
+    border:none;
+    background-color: transparent;
+    font-size: 1.5rem;
+}
+.bg{
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.20);
+    width: 100vw;
+    position: fixed;
+    height: 1000vh;
+}
+.nav-menu
+{
+    z-index: 2;
+background-color: white;
+width: 300px;
+height:100vh;
+display:flex;
+justify-content:center;
+position:fixed;
+top:0;
+left: -100%;
+transition: 250ms;
+}
+.nav-menu.active
+{
+    left: 0;
+    transition: 250ms;
+}
+.nav-menu::-webkit-scrollbar{display: none}
+.nav-title span
+{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    margin-top: 5px;
+    margin-left: 10px;
+}
+.nav-title-button{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    font-weight: bold;
+
+    height: 35px; 
+    border-radius: 8px;
+    background: white;
+    flex-shrink: 0;
+    border: none;
+}
+
+.nav-title-button:hover{
+    background-color: #999999;
+}
+
+.nav-title{
+    padding-left: 35px;
+    font-weight: bold;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    height: 40px;
+    text-decoration: none;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+.nav-button{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    padding-left:25px ;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    height: 20px;
+    padding-top: 17px;
+    border-radius: 8px;
+    padding-bottom: 17px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 90%;
+    background-color:transparent;
+    border: none;
+    text-decoration: none;
+}
+.nav-button:hover{
+    background-color:#999999;
+}
+
+.nav-title a :hover{
+    background-color: #999999;
+}
+.nav-title Button :hover{
+    background-color: #999999;
+}
+.nav-menu-items{
+width: 100%;
+}
+.nav-title a {
+    text-decoration: none;
+    color: black;
+}
+
+.menu-toggle a{
+    text-decoration: none;
+    color: black;
+}
+.menu-toggle{
+    list-style: none;
+    width: 100%;
+    height:60px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    list-style-type: none;
+    text-decoration: none;
+}
