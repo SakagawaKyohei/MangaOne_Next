@@ -3,31 +3,287 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
+  /* --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --background-end-rgb: 255, 255, 255; */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
+    /* --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0; */
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
-@layer utilities {
+/* @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+} */
+
+
+.App {
+  text-align: start;
+}
+.tacgiavschuyehuong
+{
+  display: flex;
+  flex-direction: row;
+}
+
+.khung
+{
+  border: 1px solid #D9D9D9;
+background: #FFF;
+margin-right: 50px;
+
+}
+.khung2
+{
+  border: 1px solid #D9D9D9;
+background: #FFF;
+
+}
+
+.chuyenhuong
+{
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+}
+.no{
+  color: #FF9040;
+font-size: 21px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+padding-right: 40px;
+}
+
+
+.center {
+  width: 7%;
+/*chinh lai center khong can dung div*/
+  /* Center horizontally*/
+  margin: 0 auto;
+}
+.centeravt {
+  width: 7%;
+/*chinh lai center khong can dung div*/
+  /* Center horizontally*/
+  margin: 0 45% 0 41%;
+}
+
+.hiddenscrollbar::-webkit-scrollbar {
+  display: none;
+}
+.title{
+  font-size: 30px;
+  margin: 30px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.xemnhieunhattitle
+{
+  color: #F3EB39;
+  text-shadow: 0px 2px 1px rgba(0, 0, 0, 0.80);
+  font-family: Tahoma;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  display: flex;
+  flex-direction: row;
+  padding-top: 15px;
+  padding-bottom : 0px 
+}
+
+.topmangatitle
+{
+  font-size: 40px;
+  font-weight: bold;
+  padding-bottom: 8px;
+}
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.topmangadetail
+{
+  width: 98%;
+  height: 95%;
+  margin-left: 1.125vh;
+  display: flex;
+  justify-content: start;
+}
+.topmanga{
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  width: auto;
+  overflow: hidden;
+}
+
+
+
+.topmangabg
+{
+  height: 350px;
+  background-size:100% 100%;
+  width: 100%;
+  position:absolute;
+  background: #0000002c;
+  z-index: -1;
+  /*background:url(D:\mangaone\src\images\mangaimage.jpg);
+  height: 350px;
+  background-size:100% 100%;
+  background-blend-mode: darken;
+  width: 100%;
+  position:absolute;
+  filter: blur(175px);
+/*blur lớn không tràn thế nào?*/
+}
+.topmangaavt{
+  width: 206px;
+  height: 100%;
+}
+.timebutton
+{
+  margin-top: 10px;
+  margin-bottom:20px;
+  width:100% ;
+  border-radius: 0px;
+  font-size: 18px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color:#D9D9D9;
+}
+.timebutton.selected
+{
+  color: white;
+  background-color:#FF9040;
+}
+.pagination
+{
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.topmangainfo
+{
+  padding-left: 10px;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+.buttontheloai
+{
+  padding: 3px;
+  border-radius: 7px;
+  background-color: #FFFFFF;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.tentacgia
+{
+  font-weight:600; font-size: 23px; margin: 5px; margin-left: 0px;
+}
+.noidung
+{
+  font-size: 16px;
+  height: 100%;
+  padding-top: 8px;
+}
+
+
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+*{
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.bgo{
+  border-radius: 3px;
+border: 1px solid #000;
+background: #D9D9D9;
+font-size: 20px;
+width: 100%;
+margin-bottom: 15px;
+}
+
+.bgo {
+  font-size: 18px;
+  padding: 5px;
+  width: 100%;
+  box-sizing: border-box; /* Đảm bảo rằng padding không làm tăng kích thước của input */
+}
+.bgo:focus
+{
+  border-color: #FF9040;
+}
+.bgo:hover
+{
+  border-color: #FF9040;
+}
+
+
+.biatruyen{
+  display: flex;
+  height:100%;
+flex-direction: column;
+  justify-content: end;
+  filter: blur(17.5px);
+
+  background-position: center -450px; /* căn giữa hình ảnh */
+  background-size: cover; /* hoặc background-size: contain; */
+}
+
+
+
+.upload
+{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
 }

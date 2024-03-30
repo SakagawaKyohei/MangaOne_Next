@@ -1,0 +1,48 @@
+
+.mangaimage
+{
+  width: 100%;
+}
+.chapterandtime
+{
+  display: flex;
+}
+.mangaitem
+{
+  overflow: hidden;
+}
+.mangaitemchapter
+{
+  width: 50%;
+  text-align: left;
+  font-size: 15px;  color: black;
+}
+
+.mangaitemchapter:hover
+{
+  color: blue;
+}
+  .mangaitem p {
+    padding: 7px;
+    padding-left: 0;
+  }
+  .mangaitemtitle
+  {
+    font-size: 20px !important;
+    color: black;
+  }
+  .mangaitemtitle:hover{color: blue}
+  .mangaitemtitle1
+  {
+
+    color: black;
+  }
+  .mangaitemtitle1:hover{color: blue}
+.mangaitemtime
+{
+  color: #c0c0c0;
+  font-size: 14px;
+  font-style: italic;
+  width: 50%;
+  text-align: right;
+}

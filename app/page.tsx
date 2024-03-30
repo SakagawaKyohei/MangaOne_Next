@@ -1,113 +1,163 @@
+"use client";
 import Image from "next/image";
+import MangaCart from "./ui/MangaCart/MangaCart";
+import { useState } from "react";
+import useMangaTopQuery from "@/hooks/useMangaTopQuery";
+import { useParams } from "next/navigation";
+import * as mdIcons from "react-icons/md";
+import { Button, Col, Flex, Pagination, Row } from "antd";
+import star from "../public/StarIcon.png";
+import useMangaListQuery from "@/hooks/mangalist/useMangaListQuery";
+import usePageMangaQuery from "@/hooks/mangalist/usePageMangaQuery";
 
 export default function Home() {
+  //top 1 truyen
+  const {
+    data: mangatop1,
+    isLoading: top1load,
+    isError: top1error,
+  } = useMangaTopQuery(); // Không thêm [0]
+
+  const {
+    data: mangalist,
+    isLoading: listload,
+    isError: listerror,
+  } = useMangaListQuery(); // Không thêm [0]
+
+  const {
+    data: pagemanga,
+    isLoading: pageload,
+    isError: pageerror,
+  } = usePageMangaQuery(1);
+
+  if (top1load || listload || pageload) {
+    return <div>Loading...</div>;
+  }
+
+  if (
+    top1error ||
+    listerror ||
+    !mangalist ||
+    !mangatop1 ||
+    !pagemanga ||
+    pageerror
+  ) {
+    return <div>Error</div>;
+  }
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
+    <div
+      style={{
+        marginLeft: 35,
+        marginRight: 35,
+      }}
+    >
+      <p style={{ fontSize: 0.01 }}>.</p> {/*collision tăng chiều cao cho div*/}
+      <p className="title" style={{ marginBottom: 30, marginTop: 90 }}>
+        Xem nhiều nhất
+      </p>
+      <Row>
+        <Col span={24}>
+          <a style={{ color: "black" }}>
+            <div className="topmanga">
+              <div className="topmangabg" />
+              <div className="topmangadetail">
+                <div className="topmangaavt">
+                  <img
+                    src={mangatop1[0].biatruyen as string}
+                    className="topmangaavt"
+                  />
+                </div>
+                <div className="topmangainfo">
+                  <p className="topmangatitle">{mangatop1[0].name}</p>
+                  <Flex gap={10} style={{ marginBottom: 10 }}>
+                    {mangatop1[0].genre?.map((item) => (
+                      <div className="buttontheloai">{item.toUpperCase()}</div>
+                    ))}
+                  </Flex>
+                  <div className="noidung" style={{ fontSize: 18 }}>
+                    {mangatop1[0].detail}
+                  </div>
+                  <div className="tacgiavschuyehuong">
+                    <div style={{ width: "50%" }}>
+                      <i className="tentacgia">{mangatop1[0].author}</i>
+                    </div>
+                    <div className="chuyenhuong">
+                      <i className="no">No.1</i>
+                      <mdIcons.MdArrowBackIos
+                        fontSize={25}
+                        style={{ marginTop: 5, marginRight: 30 }}
+                      />
+                      <mdIcons.MdArrowForwardIos
+                        fontSize={25}
+                        style={{ marginTop: 5, marginRight: 10 }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </a>
-        </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50 text-balance`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+        </Col>
+      </Row>
+      {/*truyen moi cap nhat*/}
+      {/*danh sách truyện*/}
+      <Row gutter={16}>
+        <Col span={16}>
+          <div>
+            <p className="title">Truyện mới cập nhật</p>
+          </div>
+          <div style={{ marginTop: 20 }}>
+            <Row gutter={[16, 24]}>
+              {pagemanga.map((item) => (
+                <Col span={6}>
+                  <MangaCart mangaid={item.id} />
+                </Col>
+              ))}
+            </Row>
+          </div>
+          <div className="pagination">
+            <Pagination
+              total={mangalist.length}
+              pageSize={12}
+              showSizeChanger={false}
+              showLessItems
+              //current={pages}
+              onChange={(e) => {
+                //navigate(("/" + e) as string);
+                //setpages(e);
+                //console.log(manga.data?.pagemanga);
+              }}
+            />
+          </div>
+        </Col>
+        {/*Xếp hạng theo mốc thời gian*/}
+        <Col span={8}>
+          <div className="xemnhieunhattitle" style={{ paddingTop: 30 }}>
+            <img height={40} width={40}></img>
+            <p style={{ paddingLeft: 10 }}>Xem nhiều nhất</p>
+          </div>
+          <div>
+            <Row gutter={18}>
+              <Col span={6}>
+                <Button className="timebutton selected">Ngày</Button>
+              </Col>
+              <Col span={6}>
+                <Button className="timebutton">Tuần</Button>
+              </Col>
+              <Col span={6}>
+                <Button className="timebutton">Tháng</Button>
+              </Col>
+              <Col span={6}>
+                <Button className="timebutton">Năm</Button>
+              </Col>
+            </Row>
+            {/* <Top1time />
+            <TimeManga keyy={1} />
+            <TimeManga keyy={3} />
+            <TimeManga keyy={5} /> */}
+          </div>
+        </Col>
+      </Row>
+    </div>
   );
 }

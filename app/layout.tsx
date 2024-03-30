@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ReactQueryClientProvider } from "@/components/ReactQueryClientProvider";
+import { ConfigProvider } from "antd";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,9 +18,20 @@ export default function RootLayout({
 }>) {
   return (
     <ReactQueryClientProvider>
-      <html lang="en">
-        <body className={inter.className}>{children}</body>
-      </html>
+      <ConfigProvider
+        theme={{
+          token: { colorPrimary: "FF9040" },
+          components: {
+            Pagination: {
+              itemSize: 50,
+            },
+          },
+        }}
+      >
+        <html lang="en">
+          <body className={inter.className}>{children}</body>
+        </html>
+      </ConfigProvider>
     </ReactQueryClientProvider>
   );
 }

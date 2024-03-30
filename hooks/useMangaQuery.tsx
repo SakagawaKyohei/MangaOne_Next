@@ -2,7 +2,7 @@ import { GetMangaByID } from "@/queries/GetMangaByID";
 import useSupabase from "./useSupabase";
 import { useQuery } from "@tanstack/react-query";
 
-function useOrganizationQuery(mangaId: number) {
+function useMangaQuery(mangaId: string) {
   const client = useSupabase();
   const queryKey = ["manga", mangaId];
 
@@ -13,4 +13,4 @@ function useOrganizationQuery(mangaId: number) {
   return useQuery({ queryKey, queryFn });
 }
 
-export default useOrganizationQuery;
+export default useMangaQuery;
