@@ -8,8 +8,6 @@ import * as FaUIcons from "react-icons/fa";
 import * as IoUIcons from "react-icons/io";
 // import { Link, useLocation, useNavigate } from "react-router-dom";
 //import logo from "../../images/logos.svg";
-//import chualogin from "../../images/Chualogin.svg";
-import noti from "../../images/Noti.svg";
 import { Input, Avatar, Row, Col, Dropdown, Button, MenuProps } from "antd";
 import { ConfigProvider } from "antd";
 //thêm màu cho selected color
@@ -19,6 +17,7 @@ import { ImBook } from "react-icons/im";
 import useSupabase from "@/hooks/useSupabase";
 import Link from "next/link";
 import useUser from "@/hooks/useUser";
+import Image from "next/image";
 
 const style: React.CSSProperties = {
   marginTop: 5,
@@ -313,7 +312,7 @@ function Navbar1() {
                     }}
                   >
                     <img
-                      // src={logo}
+                      src="https://zrhhzqtaizoqtwmnzzbi.supabase.co/storage/v1/object/public/avt/web/logos.svg?t=2024-03-31T03%3A30%3A17.716Z"
                       alt=""
                       width={55}
                       height={55}
@@ -349,7 +348,9 @@ function Navbar1() {
                   <Link href="/dang-nhap">
                     <Avatar
                       size={"large"}
-                      //src={chualogin}
+                      src={
+                        "https://zrhhzqtaizoqtwmnzzbi.supabase.co/storage/v1/object/public/avt/web/Chualogin.svg" //chualogin
+                      }
                       style={{ marginTop: 10, marginLeft: 40 }}
                     >
                       {" "}
@@ -377,8 +378,8 @@ function Navbar1() {
             <li className="menu-toggle">
               <Link href="/" style={{ display: "flex" }} onClick={showSlidebar}>
                 <img
-                  //src={logo}
-                  alt=""
+                  src="https://zrhhzqtaizoqtwmnzzbi.supabase.co/storage/v1/object/public/avt/web/logos.svg?t=2024-03-31T03%3A30%3A17.716Z"
+                  alt="a"
                   width={55}
                   height={55}
                   style={{ marginLeft: 23, marginRight: 10 }}

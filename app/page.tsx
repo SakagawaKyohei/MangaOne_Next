@@ -9,6 +9,8 @@ import { Button, Col, Flex, Pagination, Row } from "antd";
 import star from "../public/StarIcon.png";
 import useMangaListQuery from "@/hooks/mangalist/useMangaListQuery";
 import usePageMangaQuery from "@/hooks/mangalist/usePageMangaQuery";
+import Top1time from "./ui/TopTimeManga/Top1time";
+import TimeManga from "./ui/TopTimeManga/TimeManga";
 
 export default function Home() {
   //top 1 truyen
@@ -133,7 +135,11 @@ export default function Home() {
         {/*Xếp hạng theo mốc thời gian*/}
         <Col span={8}>
           <div className="xemnhieunhattitle" style={{ paddingTop: 30 }}>
-            <img height={40} width={40}></img>
+            <img
+              height={40}
+              width={40}
+              src="https://zrhhzqtaizoqtwmnzzbi.supabase.co/storage/v1/object/public/avt/web/StarIcon.png"
+            ></img>
             <p style={{ paddingLeft: 10 }}>Xem nhiều nhất</p>
           </div>
           <div>
@@ -151,10 +157,14 @@ export default function Home() {
                 <Button className="timebutton">Năm</Button>
               </Col>
             </Row>
-            {/* <Top1time />
-            <TimeManga keyy={1} />
-            <TimeManga keyy={3} />
-            <TimeManga keyy={5} /> */}
+            {
+              <>
+                <Top1time />
+                <TimeManga keyy={1} />
+                <TimeManga keyy={3} />
+                <TimeManga keyy={5} />
+              </>
+            }
           </div>
         </Col>
       </Row>

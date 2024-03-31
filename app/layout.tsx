@@ -4,8 +4,7 @@ import "./globals.css";
 import { ReactQueryClientProvider } from "@/components/ReactQueryClientProvider";
 import { ConfigProvider } from "antd";
 import Navbar1 from "./ui/Navbar/navbar1";
-
-const inter = Inter({ subsets: ["latin"] });
+import { inter } from "@/app/ui/fonts";
 
 export const metadata: Metadata = {
   title: "Create Next App",

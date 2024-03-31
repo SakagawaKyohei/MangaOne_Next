@@ -1,7 +1,7 @@
 import useSupabase from "@/hooks/useSupabase";
 import { TypeSupabaseClient } from "@/utils/supabase";
 
-export function GetChapterLast1(client: TypeSupabaseClient, mangaId: number) {
+export function GetChapterLast1(client: TypeSupabaseClient, mangaId: string) {
   return client
     .from("chapter")
     .select("*")
