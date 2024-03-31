@@ -1,0 +1,58 @@
+.center1 {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+
+    align-items: center;
+    flex-direction: column;
+}
+.centerLogo{
+    display: flex;
+    justify-content: center;
+    
+    align-items: center;
+}
+.Black{    background-image: url("https://zrhhzqtaizoqtwmnzzbi.supabase.co/storage/v1/object/public/avt/web/Saitama1.png?t=2024-03-31T12%3A20%3A30.832Z");
+
+    background-position-x: -10vw;
+    background-position-y: 10rem ;
+    background-repeat: no-repeat;
+    background-color:black;
+    background-size: 60rem;
+    /*sau xoa chu~ ok di*/
+}
+.loginBorder{
+    border-top: 4px solid rgba(235, 190, 101, 1);
+    height: 425px;
+    z-index: 6;
+    width: 600px;
+    background-color: rgba(54, 54, 54, 1) ;
+    display: flex;
+    justify-content: center;
+    align-items: center ;
+    flex-direction: column;
+}
+.loginBorder.signup
+{
+    height: 550px;
+}
+.loginBorder.f
+{
+    height: 400px;
+    justify-content: end;
+}
+.MangaOne{
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    margin-top: 0;
+}
+
+.GoogleIcon{
+    background-image: url('https://zrhhzqtaizoqtwmnzzbi.supabase.co/storage/v1/object/public/avt/web/GoogleAccountLogo.png?t=2024-03-31T12%3A21%3A14.048Z');
+    background-size: 25px;
+    background-repeat: no-repeat;
+    height: 100%;
+    background-position: left;
+    padding: auto;
+}
