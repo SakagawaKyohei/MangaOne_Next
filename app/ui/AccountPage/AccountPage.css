@@ -1,0 +1,20 @@
+.navbutton
+{
+    display: flex;
+    height: 8vh;
+    border-radius: 100px;
+    align-items: center;
+    font-size: 16px;
+    color: black;
+}
+.navbutton.selected
+{    color: white;
+    background-color: #FF9040;
+}
+.navbutton.selected:hover
+{    color: white;
+    background-color: #FF9040;
+}
+.navbutton:hover{
+    color: black;
+}
