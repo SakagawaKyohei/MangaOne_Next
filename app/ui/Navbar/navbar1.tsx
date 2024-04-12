@@ -17,7 +17,6 @@ import { ImBook } from "react-icons/im";
 import useSupabase from "@/hooks/useSupabase";
 import Link from "next/link";
 import useUser from "@/hooks/useUser";
-import Image from "next/image";
 import useLogout from "@/hooks/loginsystem/useLogout";
 
 const style: React.CSSProperties = {

@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import "./AccountPage.css";
 import { AccountbarData } from "./AccountbarData";
 import * as FaIcons from "react-icons/fa";

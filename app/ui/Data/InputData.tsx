@@ -19,6 +19,7 @@ import { Theloai } from "./TheLoai";
 import useUser from "@/hooks/useUser";
 import useUpdateUserMetadata from "@/hooks/loginsystem/useUpdateUserMetadata";
 import useLogout from "@/hooks/loginsystem/useLogout";
+import useUploadAvt from "@/hooks/useUploadAvt";
 const style: React.CSSProperties = {
   fontSize: 16,
   paddingBottom: 10,
@@ -773,7 +774,7 @@ export function InputInfo() {
   const inputref = useRef<HTMLInputElement | null>(null);
   const [image, setImage] = useState<Blob | null>(null);
   const [change, setchange] = useState(false);
-  // const upload = useUploadAvt(image);
+  const upload = useUploadAvt(image);
   const user = {
     ten: ten,
     ho: ho,
@@ -795,9 +796,9 @@ export function InputInfo() {
   {
     /*nghien cuu cach crop cho hop vi tri sau*/
   }
-  // if (upload.isError) {
-  //   return <>{(upload.error as any)?.message as string}</>;
-  // }
+  if (upload.isError) {
+    return <>{(upload.error as any)?.message as string}</>;
+  }
   //message
   const [messageApi, contextHolder] = message.useMessage();
   const successs = () => {
@@ -809,7 +810,7 @@ export function InputInfo() {
 
   // if (upload.isSuccess) {
   // }
-  if (updatemetadata.isSuccess && /*upload.isSuccess ||*/ image == null) {
+  if (updatemetadata.isSuccess && (upload.isSuccess || image == null)) {
     message.success("Cập nhật thông tin thành công");
     setTimeout(() => {
       window.location.reload();
@@ -1020,9 +1021,9 @@ export function InputInfo() {
               }}
               onClick={() => {
                 updatemetadata.mutate();
-                // if (change) {
-                //   upload.mutate();
-                // }
+                if (change) {
+                  upload.mutate();
+                }
               }}
             >
               <p>Cập nhật</p>

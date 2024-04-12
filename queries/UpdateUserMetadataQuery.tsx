@@ -32,7 +32,7 @@ export async function UpdateUserMetadataQuery(
 
   return client.auth.updateUser({
     data: {
-      ...user.user?.user_metadata,
+      ...user?.user_metadata,
       ten: metadata.ten,
       ho: metadata.ho,
       sdt: metadata.sdt,
