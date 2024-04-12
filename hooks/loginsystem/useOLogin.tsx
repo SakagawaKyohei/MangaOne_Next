@@ -1,14 +1,13 @@
-import { GetMangaTop } from "@/queries/GetMangaTop";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import useSupabase from "../useSupabase";
-import { LoginQuery } from "@/queries/AuthQuery/LoginQuery";
+import { OLoginQuery } from "@/queries/AuthQuery/OLoginQuery";
 
-function useLogin({ email, password }: { email: string; password: string }) {
+function useOLogin() {
   const client = useSupabase();
 
   const mutationFn = async () => {
     try {
-      const result = await LoginQuery(client, { email, password });
+      const result = await OLoginQuery(client);
       if (result.error) {
         console.log("a");
         throw new Error(result.error.message); // throw error if there is an error message
@@ -22,4 +21,4 @@ function useLogin({ email, password }: { email: string; password: string }) {
   return useMutation({ mutationFn });
 }
 
-export default useLogin;
+export default useOLogin;

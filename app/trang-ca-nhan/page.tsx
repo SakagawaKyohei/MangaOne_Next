@@ -1,5 +1,4 @@
 "use client";
-import "./login.css";
 import useLogin from "@/hooks/loginsystem/useLogin";
 import useOLogin from "@/hooks/loginsystem/useOLogin";
 import { Button, Form, Input } from "antd";

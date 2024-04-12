@@ -18,6 +18,7 @@ import useSupabase from "@/hooks/useSupabase";
 import Link from "next/link";
 import useUser from "@/hooks/useUser";
 import Image from "next/image";
+import useLogout from "@/hooks/loginsystem/useLogout";
 
 const style: React.CSSProperties = {
   marginTop: 5,
@@ -120,6 +121,7 @@ const SlidebarData = [
 ];
 function Navbar1() {
   const [slidebar, setslidebar] = useState(false);
+  const logoutmutation = useLogout();
   const { data: user, isLoading, isError } = useUser();
   if (isLoading) {
     return <div>Loading...</div>;
@@ -128,9 +130,9 @@ function Navbar1() {
   if (isError || !user) {
     return <div>Error</div>;
   }
-  let avt = "a";
-  let ten = "a";
-  let ho = "a";
+  let avt = user.user?.user_metadata.avt;
+  let ten = user.user?.user_metadata.ten;
+  let ho = user.user?.user_metadata.ho;
   if (avt == null) {
     avt =
       "https://zrhhzqtaizoqtwmnzzbi.supabase.co/storage/v1/object/public/avt/public/Chualogin.svg";
@@ -219,7 +221,7 @@ function Navbar1() {
     {
       key: "5",
       label: (
-        <div style={style} onClick={signout}>
+        <div style={style} onClick={() => logoutmutation.mutate()}>
           <IOIcons.IoLogOut
             style={{ fontSize: 27, marginRight: 12, marginLeft: 4 }}
           />
@@ -416,7 +418,7 @@ function Navbar1() {
               <li key={0} className="nav-title" style={{ paddingLeft: 0 }}>
                 <button
                   className="nav-title-button"
-                  onClick={() => signout()}
+                  onClick={() => logoutmutation.mutate}
                   style={{
                     paddingLeft: 35,
                     width: "90%",
