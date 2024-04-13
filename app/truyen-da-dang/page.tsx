@@ -7,8 +7,8 @@ import NeedLogin from "../ui/NeedLogin";
 import { TruyenDaDangData } from "../ui/Data/ComponentData";
 
 function TruyenDaDang() {
-  const user = useUser();
-  if (user.data == null) {
+  const { data: user, isLoading, isError } = useUser();
+  if (user?.user == null) {
     return <NeedLogin />;
   }
   return (

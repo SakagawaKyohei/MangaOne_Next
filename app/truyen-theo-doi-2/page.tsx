@@ -34,7 +34,7 @@ function TruyenTheoDoi2() {
     return <div>Loading...</div>;
   }
 
-  if (userError || midsError || !user || !mids) {
+  if (userError || midsError || !user || (!mids && user.user != null)) {
     return <div>Error</div>;
   }
 
@@ -64,7 +64,7 @@ function TruyenTheoDoi2() {
             <div style={style2}>
               <Row gutter={[16, 24]}>
                 {midsSuccess ? (
-                  mids.map((item) => (
+                  mids?.map((item) => (
                     <Col span={6} key={item.manga_id}>
                       <MangaCart mangaid={item.manga_id} />
                     </Col>

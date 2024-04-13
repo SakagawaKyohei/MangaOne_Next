@@ -39,6 +39,7 @@ import useUser from "@/hooks/useUser";
 import Link from "next/link";
 import useDeleteManga from "@/hooks/MangaManagement/useDeleteManga";
 import useGetMangaTrans from "@/hooks/GetMangaInfo/useGetMangaTrans";
+import NeedLogin from "../NeedLogin";
 // import useCreateChapter from "../../hooks/ChapterManagement/useCreateChapter";
 // import useGetChapter from "../../hooks/GetMangaInfo/useGetChapter";
 // import useDeleteChapter from "../../hooks/GetMangaInfo/useDeleteChapter";
@@ -543,6 +544,7 @@ export function TruyenDaDangData() {
   const [search, setsearch] = useState("");
   const [search1, setsearch1] = useState(""); //khi bấm tìm kiếm mới xử lý search
   const { data: user, isLoading, isError } = useUser();
+
   const deletemanga = useDeleteManga(mangaid);
   const {
     data: manga,
