@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { GetChapter } from "@/queries/GetChapter/GetChapter";
 import useSupabase from "../useSupabase";
 
-function useChapterQuery(mangaId: number) {
+function useChapterQuery(mangaId: any) {
   const client = useSupabase();
   const queryKey = ["chapter", mangaId];
 
