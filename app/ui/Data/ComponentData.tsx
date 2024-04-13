@@ -643,6 +643,7 @@ export function TruyenDaDangData() {
               <Checkbox
                 style={{ marginLeft: 10 }}
                 onChange={(e) => {
+                  console.log(mangaid);
                   setcheckall(!checkall);
                   if (e.target.checked) {
                     {

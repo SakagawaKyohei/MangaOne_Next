@@ -27,7 +27,7 @@ export async function DeleteManga(client: TypeSupabaseClient, id: string[]) {
         throw rateError;
       }
 
-      return client.from("manga").delete().eq("id", mangaId);
+      const {} = await client.from("manga").delete().eq("id", mangaId);
     } catch (error) {
       console.error("Error deleting:", error);
       // Handle or log the error as needed
