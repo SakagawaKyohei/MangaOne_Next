@@ -3,7 +3,7 @@ import "./Navbar.css";
 import * as FaIcons from "react-icons/fa";
 import * as aiIcons from "react-icons/ai";
 import * as IOIcons from "react-icons/io5";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as FaUIcons from "react-icons/fa";
 import * as IoUIcons from "react-icons/io";
 // import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -15,9 +15,10 @@ import { IoMdNotificationsOutline, IoMdPerson } from "react-icons/io";
 import React from "react";
 import { ImBook } from "react-icons/im";
 import useSupabase from "@/hooks/useSupabase";
-import Link from "next/link";
 import useUser from "@/hooks/useUser";
 import useLogout from "@/hooks/loginsystem/useLogout";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const style: React.CSSProperties = {
   marginTop: 5,
@@ -220,7 +221,13 @@ function Navbar1() {
     {
       key: "5",
       label: (
-        <div style={style} onClick={() => logoutmutation.mutate()}>
+        <div
+          style={style}
+          onClick={() => {
+            logoutmutation.mutate();
+            router.push("/dang-nhap");
+          }}
+        >
           <IOIcons.IoLogOut
             style={{ fontSize: 27, marginRight: 12, marginLeft: 4 }}
           />
@@ -245,7 +252,7 @@ function Navbar1() {
   // }, [loca]);
   const { Search } = Input;
   const showSlidebar = () => setslidebar(!slidebar);
-  // const navigate = useNavigate();
+  const router = useRouter();
   const TitleOrButton = (item: any) => {
     if (item.title == "Chọn ngẫu nhiên") {
       return (
@@ -417,7 +424,10 @@ function Navbar1() {
               <li key={0} className="nav-title" style={{ paddingLeft: 0 }}>
                 <button
                   className="nav-title-button"
-                  onClick={() => logoutmutation.mutate}
+                  onClick={() => {
+                    logoutmutation.mutate;
+                    router.push("/dang-nhap");
+                  }}
                   style={{
                     paddingLeft: 35,
                     width: "90%",

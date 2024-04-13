@@ -3,6 +3,7 @@ import { AccountbarData } from "./AccountbarData";
 import * as FaIcons from "react-icons/fa";
 import Link from "next/link";
 import useLogout from "@/hooks/loginsystem/useLogout";
+import { useRouter } from "next/navigation";
 
 //lam position fixed nhung khong loi
 interface Pros {
@@ -10,6 +11,7 @@ interface Pros {
 }
 
 function AccountPage(pros: Pros) {
+  const router = useRouter();
   const logout = useLogout();
   return (
     <div>
@@ -38,7 +40,10 @@ function AccountPage(pros: Pros) {
           flexDirection: "row",
         }}
         className="navbutton"
-        onClick={() => logout.mutate()}
+        onClick={() => {
+          logout.mutate();
+          router.push("/dang-nhap");
+        }}
       >
         <FaIcons.FaSignOutAlt style={{ marginRight: 15, fontSize: 18 }} />
         <p style={{ fontSize: 16 }}>Đăng xuất</p>

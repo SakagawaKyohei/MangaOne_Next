@@ -5,7 +5,7 @@ import useOLogin from "@/hooks/loginsystem/useOLogin";
 import { Button, Form, Input } from "antd";
 import { redirect } from "next/dist/server/api-utils";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function MangaPage({ params }: { params: { id: string } }) {
@@ -39,9 +39,9 @@ export default function MangaPage({ params }: { params: { id: string } }) {
 
   const loginMutation = useLogin({ email, password });
 
-  //const router = useRouter();
+  const router = useRouter();
   if (loginMutation.isSuccess) {
-    // router.push("/");
+    router.push("/");
     console.log("done");
     //tim cach de navigate trang login khi da dang nhap sang home ma khong can load, khi dang o trang khac thi khong navigate
   }

@@ -1,5 +1,6 @@
 "use client";
 import { Button, Col, ConfigProvider, Input, Row, Select } from "antd";
+import { useRouter } from "next/navigation";
 import mangaimage from "../../images/mangaimage.jpg";
 import {
   LoadingOutlined,
@@ -93,7 +94,7 @@ export function InputThemMoiTruyen() {
   const handleSelectChange = (selectedValues: any) => {
     setGenre(selectedValues); // Cập nhật state genre khi có giá trị được chọn
   };
-  // const nav = useNavigate();
+  const router = useRouter();
   if (createmanga.isSuccess) {
     // nav("/truyen-da-dang");
   }
@@ -1102,8 +1103,9 @@ export function InputInfo() {
 
 export function InputChangePass() {
   const [password, setPassword] = useState("");
+  const router = useRouter();
   const resetpassword = useResetPassword(password);
-  // const nav = useNavigate();
+
   const [messageApi, contextHolder] = message.useMessage();
 
   const success = () => {
@@ -1114,9 +1116,9 @@ export function InputChangePass() {
   };
   if (resetpassword.isSuccess) {
     message.success("Đổi mật khẩu thành công, bạn sẽ quay lại trang chủ");
-    // setTimeout(() => {
-    //   nav("/");
-    // }, 500);
+    setTimeout(() => {
+      router.push("/");
+    }, 500);
   }
   if (resetpassword.isError) {
     return <>{(resetpassword.error as any)?.message};</>;
