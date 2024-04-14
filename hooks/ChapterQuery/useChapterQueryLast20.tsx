@@ -5,7 +5,7 @@ import { GetChapterLast20 } from "@/queries/GetChapter/GetChapterLast20";
 
 function useChapterQueryLast20(mangaId: string) {
   const client = useSupabase();
-  const queryKey = ["chapter", mangaId];
+  const queryKey = ["chapterlast20", mangaId];
 
   const queryFn = async () => {
     return GetChapterLast20(client, mangaId).then((result) => result.data);

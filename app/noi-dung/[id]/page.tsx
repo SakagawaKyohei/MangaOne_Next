@@ -4,7 +4,6 @@ import { Button, Col, Row } from "antd";
 import { FaAngleDoubleRight } from "react-icons/fa";
 import TextArea from "antd/es/input/TextArea";
 import { useEffect, useRef, useState } from "react";
-// import useGetMangaView from "../hooks/GetMangaInfo/useGetViewManga";
 // import useAddHistory from "../hooks/history/useAddHistory";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -16,6 +15,7 @@ import useChapterQueryLast20 from "@/hooks/ChapterQuery/useChapterQueryLast20";
 import useDeleteFollow from "@/hooks/follow/useDeleteFollow";
 import useAddFollow from "@/hooks/follow/useAddFollow";
 import useIsFollow from "@/hooks/follow/useIsFollow";
+import useGetViewManga from "@/hooks/GetMangaInfo/useGetViewManga";
 function NoiDungTruyen() {
   const params = useParams<{
     id: string;
@@ -46,12 +46,16 @@ function NoiDungTruyen() {
     isLoading: cl20Loading,
     isError: cl20Error,
   } = useChapterQueryLast20(mid);
-
+  const {
+    data: getview,
+    isSuccess: gvSuccess,
+    isLoading: gvLoading,
+    isError: gvError,
+  } = useGetViewManga(params.id);
   const followdata = useIsFollow(user?.user?.id, mid);
   const follow = useAddFollow(user?.user?.id, mid);
   const unfollow = useDeleteFollow(user?.user?.id, mid);
   // const history = useAddHistory(user.user?.id, mid);
-  //const unfollow = useDeleteFollow(user?.user?.id, mid);
   let a = false;
 
   if (followdata.isSuccess) {
@@ -75,7 +79,6 @@ function NoiDungTruyen() {
 
   const [data, setdata] = useState<any[]>();
   const [more, setmore] = useState(false);
-  // const getview = useGetMangaView(params.id);
   useEffect(() => {
     if (chapterlast20 != null) {
       setdata(chapterlast20);
@@ -137,7 +140,14 @@ function NoiDungTruyen() {
       window.removeEventListener("resize", checkOverflow);
     };
   }, [manga?.detail]);
-  if (isLoading || mangaload || clLoading || cl20Loading || cLoading) {
+  if (
+    isLoading ||
+    mangaload ||
+    clLoading ||
+    cl20Loading ||
+    cLoading ||
+    gvLoading
+  ) {
     return <div>Loading...</div>;
   }
 
@@ -155,6 +165,7 @@ function NoiDungTruyen() {
   ) {
     return <div>Error</div>;
   }
+  console.log(getview);
   return (
     <div>
       <div
@@ -328,7 +339,7 @@ function NoiDungTruyen() {
                       }}
                     >
                       <faIcons.FaRegEye style={{ marginRight: 10 }} />
-                      {/* <p> {getview.data}</p> */}
+                      <p> {getview}</p>
                     </div>
                   </div>
                   {/*clear code sau*/}
