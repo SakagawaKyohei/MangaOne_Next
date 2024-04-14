@@ -1,17 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 import { GetChapter } from "@/queries/GetChapter/GetChapter";
 import useSupabase from "../useSupabase";
-import { GetChapterLast } from "@/queries/GetChapter/GetChapterLast";
+import { IsFollow } from "@/queries/follow/IsFollow";
 
-function useChapterQueryLast(mangaId: any) {
+function useIsFollow(userid: any, mangaId: any) {
   const client = useSupabase();
-  const queryKey = ["chapter", mangaId];
+  const queryKey = ["isFollow", mangaId];
 
   const queryFn = async () => {
-    return GetChapterLast(client, mangaId).then((result) => result.data);
+    return IsFollow(client, mangaId, userid).then((result) => result.data);
   };
 
   return useQuery({ queryKey, queryFn });
 }
 
-export default useChapterQueryLast;
+export default useIsFollow;

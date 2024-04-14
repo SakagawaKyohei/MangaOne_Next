@@ -14,33 +14,38 @@ function TimeManga(pros: Pros) {
     isError: toperror,
   } = useMangaTopQuery();
 
-  if (topload) {
-    return <div>Loading...</div>;
-  }
-
-  if (toperror || !mangatop) {
-    return <div>Error</div>;
-  }
-
   const {
     data: lastchap1,
     isLoading: lastchap1load,
     isError: lastchap1error,
-  } = useChapterQueryLast1(mangatop[pros.keyy].id);
+  } = useChapterQueryLast1(
+    mangatop && mangatop[pros.keyy] && mangatop[pros.keyy].id
+  );
 
   const {
     data: lastchap2,
     isLoading: lastchap2load,
     isError: lastchap2error,
-  } = useChapterQueryLast1(mangatop[pros.keyy + 1].id);
+  } = useChapterQueryLast1(
+    mangatop && mangatop[pros.keyy + 1] && mangatop[pros.keyy + 1].id
+  );
 
-  if (lastchap2load || lastchap1load) {
+  if (topload || lastchap1load || lastchap2load) {
     return <div>Loading...</div>;
   }
 
-  if (lastchap2error || !lastchap2 || lastchap1error || !lastchap1) {
+  if (
+    toperror ||
+    lastchap1error ||
+    lastchap2error ||
+    !mangatop ||
+    !lastchap1 ||
+    !lastchap2
+  ) {
     return <div>Error</div>;
   }
+
+  // Render your content using mangatop, lastchap1, and lastchap2
 
   return (
     <div>

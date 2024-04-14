@@ -3,7 +3,7 @@ import { GetChapter } from "@/queries/GetChapter/GetChapter";
 import useSupabase from "../useSupabase";
 import { GetChapterLast20 } from "@/queries/GetChapter/GetChapterLast20";
 
-function useChapterQueryLast20(mangaId: number) {
+function useChapterQueryLast20(mangaId: string) {
   const client = useSupabase();
   const queryKey = ["chapter", mangaId];
 

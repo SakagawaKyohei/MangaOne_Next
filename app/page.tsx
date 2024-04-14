@@ -3,7 +3,6 @@ import Image from "next/image";
 import MangaCart from "./ui/MangaCart/MangaCart";
 import { useState } from "react";
 import useMangaTopQuery from "@/hooks/useMangaTopQuery";
-import { useParams } from "next/navigation";
 import * as mdIcons from "react-icons/md";
 import { Button, Col, Flex, Pagination, Row } from "antd";
 import star from "../public/StarIcon.png";
@@ -12,9 +11,12 @@ import usePageMangaQuery from "@/hooks/mangalist/usePageMangaQuery";
 import Top1time from "./ui/TopTimeManga/Top1time";
 import TimeManga from "./ui/TopTimeManga/TimeManga";
 import Navbar1 from "./ui/Navbar/navbar1";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   //top 1 truyen
+  const [page, setpages] = useState(1);
+  const navigate = useRouter();
   const {
     data: mangatop1,
     isLoading: top1load,
@@ -31,7 +33,7 @@ export default function Home() {
     data: pagemanga,
     isLoading: pageload,
     isError: pageerror,
-  } = usePageMangaQuery(1);
+  } = usePageMangaQuery(page);
 
   if (top1load || listload || pageload) {
     return <div>Loading...</div>;
@@ -130,11 +132,10 @@ export default function Home() {
                 pageSize={12}
                 showSizeChanger={false}
                 showLessItems
-                //current={pages}
+                current={page}
                 onChange={(e) => {
-                  //navigate(("/" + e) as string);
-                  //setpages(e);
-                  //console.log(manga.data?.pagemanga);
+                  // navigate.push(("/" + e) as string);
+                  setpages(e);
                 }}
               />
             </div>

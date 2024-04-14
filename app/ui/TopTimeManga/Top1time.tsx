@@ -10,6 +10,11 @@ function Top1() {
     isError: toperror,
   } = useMangaTopQuery();
 
+  const {
+    data: chapterl,
+    isLoading: chapterlload,
+    isError: chapterlerror,
+  } = useChapterQueryLast(mangatop && mangatop[0] && mangatop[0].id);
   if (topload) {
     return <div>Loading...</div>;
   }
@@ -17,11 +22,6 @@ function Top1() {
   if (toperror || !mangatop) {
     return <div>Error</div>;
   }
-  const {
-    data: chapterl,
-    isLoading: chapterlload,
-    isError: chapterlerror,
-  } = useChapterQueryLast(mangatop[0].id);
   if (chapterlerror || !chapterl) {
     return <div>Error</div>;
   }
