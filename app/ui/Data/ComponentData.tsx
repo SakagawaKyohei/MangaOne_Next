@@ -984,7 +984,7 @@ export function ChapterDaDangData() {
         </div>
       </div>
       <div style={{ display: "flex", justifyContent: "end" }}>
-        <Link href={`/them-moi-chuong/${params.mid}`}>
+        <Link href={`/them-moi-chuong/${params.id}`}>
           <Button
             style={{
               display: "flex",
