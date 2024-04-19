@@ -12,7 +12,10 @@ import {
   Upload,
 } from "antd";
 import { ExclamationCircleFilled } from "@ant-design/icons";
-import { InputThemMoiTruyen /*InputChinhSuaTruyen*/ } from "./InputData";
+import {
+  InputChinhSuaTruyen,
+  InputThemMoiTruyen /*InputChinhSuaTruyen*/,
+} from "./InputData";
 import { v4 as uuidv4 } from "uuid";
 import {
   LoadingOutlined,
@@ -40,6 +43,7 @@ import Link from "next/link";
 import useDeleteManga from "@/hooks/MangaManagement/useDeleteManga";
 import useGetMangaTrans from "@/hooks/GetMangaInfo/useGetMangaTrans";
 import NeedLogin from "../NeedLogin";
+import { useParams } from "next/navigation";
 // import useCreateChapter from "../../hooks/ChapterManagement/useCreateChapter";
 // import useGetChapter from "../../hooks/GetMangaInfo/useGetChapter";
 // import useDeleteChapter from "../../hooks/GetMangaInfo/useDeleteChapter";
@@ -115,28 +119,30 @@ const input2: React.CSSProperties = {
   flexDirection: "row",
 };
 
-// export const ThemMoiTruyenData = {
-//   label: (
-//     <div style={{ width: "92%" }}>
-//       <InputThemMoiTruyen />
-//     </div>
-//   ),
-//   title: "THÊM MỚI TRUYỆN",
-//   title1: "Thêm mới truyện",
-// };
+export const ThemMoiTruyenData = {
+  label: (
+    <div style={{ width: "92%" }}>
+      <InputThemMoiTruyen />
+    </div>
+  ),
+  title: "THÊM MỚI TRUYỆN",
+  title1: "Thêm mới truyện",
+};
 
-// export const ChinhSuaTruyenData = {
-//   label: (
-//     <div style={{ width: "92%" }}>
-//       <InputChinhSuaTruyen />
-//     </div>
-//   ),
-//   title: "CHỈNH SỬA TRUYỆN",
-//   title1: "Chỉnh sửa truyên",
-// };
+export const ChinhSuaTruyenData = {
+  label: (
+    <div style={{ width: "92%" }}>
+      <InputChinhSuaTruyen />
+    </div>
+  ),
+  title: "CHỈNH SỬA TRUYỆN",
+  title1: "Chỉnh sửa truyên",
+};
 
 // export function ThemMoiChapterData() {
-//   const { id } = useParams();
+//   const params = useParams<{
+//     id: string;
+//   }>();
 //   const [images, setImages] = useState<Blob[] | null>(null);
 //   const [ten, setten] = useState("");
 //   const [fileList, setFileList] = useState<UploadFile[]>([]);
@@ -145,7 +151,7 @@ const input2: React.CSSProperties = {
 //     {
 //       ten: ten,
 //       view: 0,
-//       manga_id: id,
+//       manga_id: params.id,
 //       content: images,
 //       filelist: fileList,
 //     },
