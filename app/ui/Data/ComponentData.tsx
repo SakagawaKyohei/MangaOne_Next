@@ -23,7 +23,7 @@ import {
   UploadOutlined,
 } from "@ant-design/icons";
 import QLTComponent from "../QuanLyTruyen/QLTComponent";
-// import QLCComponent from "../QuanLyTruyen/QLCComponent";
+import QLCComponent from "../QuanLyTruyen/QLCComponent";
 // import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
@@ -44,6 +44,8 @@ import useDeleteManga from "@/hooks/MangaManagement/useDeleteManga";
 import useGetMangaTrans from "@/hooks/GetMangaInfo/useGetMangaTrans";
 import NeedLogin from "../NeedLogin";
 import { useParams } from "next/navigation";
+import useChapterQuery from "@/hooks/ChapterQuery/useChapterQuery";
+import useDeleteChapter from "@/hooks/useDeleteChapter";
 // import useCreateChapter from "../../hooks/ChapterManagement/useCreateChapter";
 // import useGetChapter from "../../hooks/GetMangaInfo/useGetChapter";
 // import useDeleteChapter from "../../hooks/GetMangaInfo/useDeleteChapter";
@@ -786,238 +788,242 @@ export function TruyenDaDangData() {
   );
 }
 
-// export function ChapterDaDangData() {
-//   const user = useUser();
-//   const { id: mid } = useParams();
+export function ChapterDaDangData() {
+  const { data: user, isLoading, isError } = useUser();
+  const params = useParams<{ id: string }>();
+  const {
+    data: chapter,
+    isLoading: cload,
+    isError: cerror,
+  } = useChapterQuery(params.id);
+  const [chapterid, setchapterid] = useState<string[]>([]); //id chapter duoc chon de delete
 
-//   const chapter = useGetChapter(mid as string); //chinh thanh get chapter
-//   const [chapterid, setchapterid] = useState<string[]>([]); //id chapter duoc chon de delete
+  const addValue = (value: string) => {
+    // Thêm giá trị vào mảng
+    setchapterid((prevArray) => [...prevArray, value]);
+  };
 
-//   const addValue = (value: string) => {
-//     // Thêm giá trị vào mảng
-//     setchapterid((prevArray) => [...prevArray, value]);
-//   };
+  const removeValue = (value: string) => {
+    // Xóa giá trị khỏi mảng
+    setchapterid((prevArray) => prevArray.filter((item) => item !== value));
+  };
+  const deletemanga = useDeleteChapter(chapterid);
+  if (deletemanga.isError) {
+    console.log((deletemanga.error as any).message);
+  }
 
-//   const removeValue = (value: string) => {
-//     // Xóa giá trị khỏi mảng
-//     setchapterid((prevArray) => prevArray.filter((item) => item !== value));
-//   };
-//   const deletemanga = useDeleteChapter(chapterid);
-//   if (deletemanga.isError) {
-//     console.log((deletemanga.error as any).message);
-//   }
+  const [checkall, setcheckall] = useState(false);
+  const [search, setsearch] = useState("");
+  const [search1, setsearch1] = useState(""); //khi bấm tìm kiếm mới xử lý search
+  if (deletemanga.isSuccess) {
+    window.location.reload();
+  }
 
-//   const [checkall, setcheckall] = useState(false);
-//   const [search, setsearch] = useState("");
-//   const [search1, setsearch1] = useState(""); //khi bấm tìm kiếm mới xử lý search
-//   if (deletemanga.isSuccess) {
-//     window.location.reload();
-//   }
+  const { confirm } = Modal;
+  const showDeleteConfirm = () => {
+    confirm({
+      title: "Bạn muốn xóa chương?",
+      icon: <ExclamationCircleFilled />,
+      content: "Các chương được chọn sẽ bị xóa sau khi xác nhận",
+      okText: "Xác nhận",
+      okType: "danger",
+      cancelText: "Hủy bỏ",
+      onOk() {
+        deletemanga.mutate();
+      },
+      onCancel() {
+        console.log("Cancel");
+      },
+    });
+  };
+  console.log(params.id);
 
-//   const { confirm } = Modal;
-//   const showDeleteConfirm = () => {
-//     confirm({
-//       title: "Bạn muốn xóa chương?",
-//       icon: <ExclamationCircleFilled />,
-//       content: "Các chương được chọn sẽ bị xóa sau khi xác nhận",
-//       okText: "Xác nhận",
-//       okType: "danger",
-//       cancelText: "Hủy bỏ",
-//       onOk() {
-//         deletemanga.mutate();
-//       },
-//       onCancel() {
-//         console.log("Cancel");
-//       },
-//     });
-//   };
+  return (
+    <div style={{ width: "92%" }}>
+      <Row style={{ paddingTop: 25, paddingBottom: 25 }}>
+        <Col offset={10} span={10}>
+          <Input
+            placeholder="Nhập tên chương"
+            style={{
+              borderRadius: 5,
+              width: "100%",
+              height: 32,
+              fontSize: 15,
+            }}
+            onChange={(e) => {
+              setsearch(e.target.value);
+            }}
+          />
+        </Col>
+        <Col offset={1} span={3}>
+          <Button
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: 0,
+              backgroundColor: "#FF9040",
+              color: "white",
+              fontSize: 15,
+              height: 32,
+              width: "100%",
+            }}
+            onClick={() => {
+              setsearch1(search);
+            }}
+          >
+            <p>Tìm kiếm</p>
+          </Button>
+        </Col>
+      </Row>
+      <div
+        className="khung2"
+        style={{
+          marginLeft: "8%",
+          height: "50vh",
 
-//   return (
-//     <div style={{ width: "92%" }}>
-//       <Row style={{ paddingTop: 25, paddingBottom: 25 }}>
-//         <Col offset={10} span={10}>
-//           <Input
-//             placeholder="Nhập tên chương"
-//             style={{
-//               borderRadius: 5,
-//               width: "100%",
-//               height: 32,
-//               fontSize: 15,
-//             }}
-//             onChange={(e) => {
-//               setsearch(e.target.value);
-//             }}
-//           />
-//         </Col>
-//         <Col offset={1} span={3}>
-//           <Button
-//             style={{
-//               display: "flex",
-//               justifyContent: "center",
-//               alignItems: "center",
-//               borderRadius: 0,
-//               backgroundColor: "#FF9040",
-//               color: "white",
-//               fontSize: 15,
-//               height: 32,
-//               width: "100%",
-//             }}
-//             onClick={() => {
-//               setsearch1(search);
-//             }}
-//           >
-//             <p>Tìm kiếm</p>
-//           </Button>
-//         </Col>
-//       </Row>
-//       <div
-//         className="khung2"
-//         style={{
-//           marginLeft: "8%",
-//           height: "50vh",
-
-//           overflow: "hidden",
-//           overflowY: "auto",
-//         }}
-//       >
-//         <div style={{ marginLeft: 20, margin: 5, fontSize: 15 }}>
-//           <Row style={{ marginBottom: 10, marginTop: 10 }}>
-//             <Col span={5}>
-//               <Checkbox
-//                 style={{ marginLeft: 10 }}
-//                 onChange={(e) => {
-//                   setcheckall(!checkall);
-//                   if (e.target.checked) {
-//                     {
-//                       chapter.data?.data
-//                         ?.filter((item) => {
-//                           return search1.toLowerCase() == ""
-//                             ? item
-//                             : item.name.toLowerCase().includes(search1);
-//                         })
-//                         .map((item, index) => removeValue(item.id)); //xóa tất cả id đang được chọn và chọn tất cả
-//                       chapter.data?.data
-//                         ?.filter((item) => {
-//                           return search1.toLowerCase() == ""
-//                             ? item
-//                             : item.name.toLowerCase().includes(search1);
-//                         })
-//                         .map((item, index) => addValue(item.id));
-//                     }
-//                   } else {
-//                     {
-//                       chapter.data?.data
-//                         ?.filter((item) => {
-//                           return search1.toLowerCase() == ""
-//                             ? item
-//                             : item.name.toLowerCase().includes(search1);
-//                         })
-//                         .map((item, index) => removeValue(item.id));
-//                     }
-//                   }
-//                 }}
-//               >
-//                 <p style={{ fontSize: 15 }}>Tên chương</p>
-//               </Checkbox>
-//             </Col>
-//             <Col
-//               span={3}
-//               offset={5}
-//               style={{
-//                 fontSize: 15,
-//                 padding: 0.001,
-//                 display: "flex",
-//                 justifyContent: "center",
-//               }}
-//             >
-//               <p style={{ fontFamily: "Arial, Helvetica, sans-serif" }}></p>
-//             </Col>
-//             <Col
-//               span={3}
-//               style={{
-//                 fontSize: 15,
-//                 padding: 0.001,
-//                 display: "flex",
-//                 justifyContent: "center",
-//                 fontFamily: "Arial, Helvetica, sans-serif",
-//               }}
-//             >
-//               <p> Người đăng</p>
-//             </Col>
-//             <Col
-//               offset={1}
-//               style={{
-//                 fontSize: 15,
-//                 padding: 0.001,
-//                 display: "flex",
-//                 justifyContent: "center",
-//               }}
-//             >
-//               <div style={{ paddingLeft: 10, fontSize: 15 }}>Số lượt xem</div>
-//             </Col>
-//           </Row>
-//           {chapter.data?.data
-//             ?.filter((item) => {
-//               return search1.toLowerCase() == ""
-//                 ? item
-//                 : item.name.toLowerCase().includes(search1);
-//             })
-//             .map((item, index) => (
-//               <>
-//                 <QLCComponent
-//                   tentruyen={item.name}
-//                   mangaid={item.id}
-//                   nguoidang={user.data?.user_metadata.ten}
-//                   soluotxem={item.view}
-//                   checkall={checkall}
-//                   keyy={index.toString()}
-//                   setmangaid={setchapterid}
-//                 />
-//               </>
-//             ))}
-//         </div>
-//       </div>
-//       <div style={{ display: "flex", justifyContent: "end" }}>
-//         <Link to={`/them-moi-chuong/${mid}`}>
-//           <Button
-//             style={{
-//               display: "flex",
-//               justifyContent: "center",
-//               alignItems: "center",
-//               borderRadius: 0,
-//               backgroundColor: "#FF9040",
-//               color: "white",
-//               fontSize: 15,
-//               height: 32,
-//               marginBottom: 25,
-//               marginTop: 25,
-//               marginRight: 20,
-//             }}
-//           >
-//             <p>Thêm chương</p>
-//           </Button>
-//         </Link>
-//         <Button
-//           style={{
-//             display: "flex",
-//             justifyContent: "center",
-//             alignItems: "center",
-//             borderRadius: 0,
-//             backgroundColor: "red",
-//             color: "white",
-//             height: 32,
-//             fontSize: 15,
-//             marginBottom: 25,
-//             marginTop: 25,
-//           }}
-//           onClick={() => {
-//             showDeleteConfirm();
-//             console.log("a");
-//           }}
-//         >
-//           <p>Xóa chương</p>
-//         </Button>
-//       </div>
-//     </div>
-//   );
-// }
+          overflow: "hidden",
+          overflowY: "auto",
+        }}
+      >
+        <div style={{ marginLeft: 20, margin: 5, fontSize: 15 }}>
+          <Row style={{ marginBottom: 10, marginTop: 10 }}>
+            <Col span={5}>
+              <Checkbox
+                style={{ marginLeft: 10 }}
+                onChange={(e) => {
+                  setcheckall(!checkall);
+                  if (e.target.checked) {
+                    {
+                      chapter
+                        ?.filter((item) => {
+                          return search1.toLowerCase() == ""
+                            ? item
+                            : item.name?.toLowerCase().includes(search1);
+                        })
+                        .map((item, index) => removeValue(item.id)); //xóa tất cả id đang được chọn và chọn tất cả
+                      chapter
+                        ?.filter((item) => {
+                          return search1.toLowerCase() == ""
+                            ? item
+                            : item.name?.toLowerCase().includes(search1);
+                        })
+                        .map((item, index) => addValue(item.id));
+                    }
+                  } else {
+                    {
+                      chapter
+                        ?.filter((item) => {
+                          return search1.toLowerCase() == ""
+                            ? item
+                            : item.name?.toLowerCase().includes(search1);
+                        })
+                        .map((item, index) => removeValue(item.id));
+                    }
+                  }
+                }}
+              >
+                <p style={{ fontSize: 15 }}>Tên chương</p>
+              </Checkbox>
+            </Col>
+            <Col
+              span={3}
+              offset={5}
+              style={{
+                fontSize: 15,
+                padding: 0.001,
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <p style={{ fontFamily: "Arial, Helvetica, sans-serif" }}></p>
+            </Col>
+            <Col
+              span={3}
+              style={{
+                fontSize: 15,
+                padding: 0.001,
+                display: "flex",
+                justifyContent: "center",
+                fontFamily: "Arial, Helvetica, sans-serif",
+              }}
+            >
+              <p> Người đăng</p>
+            </Col>
+            <Col
+              offset={1}
+              style={{
+                fontSize: 15,
+                padding: 0.001,
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <div style={{ paddingLeft: 10, fontSize: 15 }}>Số lượt xem</div>
+            </Col>
+          </Row>
+          {chapter
+            ?.filter((item) => {
+              return search1.toLowerCase() == ""
+                ? item
+                : item.name?.toLowerCase().includes(search1);
+            })
+            .map((item, index) => (
+              <>
+                <QLCComponent
+                  tentruyen={item.name ? item.name : ""}
+                  mangaid={item.id}
+                  nguoidang={user?.user?.user_metadata.ten}
+                  soluotxem={item.view ? item.view : 0}
+                  checkall={checkall}
+                  keyy={index.toString()}
+                  setmangaid={setchapterid}
+                />
+              </>
+            ))}
+        </div>
+      </div>
+      <div style={{ display: "flex", justifyContent: "end" }}>
+        <Link href={`/them-moi-chuong/${params.mid}`}>
+          <Button
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: 0,
+              backgroundColor: "#FF9040",
+              color: "white",
+              fontSize: 15,
+              height: 32,
+              marginBottom: 25,
+              marginTop: 25,
+              marginRight: 20,
+            }}
+          >
+            <p>Thêm chương</p>
+          </Button>
+        </Link>
+        <Button
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: 0,
+            backgroundColor: "red",
+            color: "white",
+            height: 32,
+            fontSize: 15,
+            marginBottom: 25,
+            marginTop: 25,
+          }}
+          onClick={() => {
+            showDeleteConfirm();
+            console.log("a");
+          }}
+        >
+          <p>Xóa chương</p>
+        </Button>
+      </div>
+    </div>
+  );
+}
