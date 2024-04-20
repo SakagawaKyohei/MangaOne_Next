@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import "./MangaCart.css";
 import useMangaQuery from "@/hooks/useMangaQuery";
 import useChapterQueryLast from "@/hooks/ChapterQuery/useChapterQueryLast";
+import Link from "next/link";
 
 interface manga {
   mangaid: string;
@@ -31,7 +32,7 @@ function MangaCart(pros: manga) {
 
   return (
     <div className="mangaitem">
-      <a href={`/noi-dung/${pros.mangaid}`}>
+      <Link href={`/noi-dung/${pros.mangaid}`}>
         <div
           style={{
             overflow: "hidden",
@@ -41,20 +42,20 @@ function MangaCart(pros: manga) {
         >
           <img className="mangaimage" src={mangaData.biatruyen as string} />
         </div>
-      </a>
-      <a href={`/noi-dung/${pros.mangaid}`} className="mangaitemtitle">
+      </Link>
+      <Link href={`/noi-dung/${pros.mangaid}`} className="mangaitemtitle">
         <p>{mangaData.name}</p>
-      </a>
+      </Link>
 
       {chapterData.map((item) => (
         <div className="chapterandtime">
           <div className="mangaitemchapter">
-            <a
+            <Link
               href={`/doc-truyen/${pros.mangaid}/${item.id}`}
               className="mangaitemchapter"
             >
               <p>{item.name}</p>
-            </a>
+            </Link>
           </div>
           <div className="mangaitemtime">
             <p>1 giờ trước</p>
