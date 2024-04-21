@@ -1,3 +1,4 @@
+/* eslint-disable no-alert, no-console */
 "use client";
 import "./Navbar.css";
 import * as FaIcons from "react-icons/fa";

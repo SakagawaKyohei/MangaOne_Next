@@ -1,3 +1,4 @@
+/* eslint-disable no-alert, no-console */
 "use client";
 import "./login.css";
 import useLogin from "@/hooks/loginsystem/useLogin";
