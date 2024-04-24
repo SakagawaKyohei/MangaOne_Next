@@ -79,8 +79,9 @@ function NoiDungTruyen() {
   useEffect(() => {
     if (chapterlast20 != null) {
       setdata(chapterlast20);
+      console.log(chapterlast20);
     }
-  }, [chapter]);
+  }, [chapterlast20]);
   const [divheight, setdivheight] = useState(0);
   const dRef = useRef<HTMLParagraphElement>(null);
 
