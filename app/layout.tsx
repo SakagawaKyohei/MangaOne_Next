@@ -29,12 +29,7 @@ export default function RootLayout({
         }}
       >
         <html lang="en">
-          <body
-            className={inter.className}
-            style={{
-              overflow: "hidden",
-            }}
-          >
+          <body className={inter.className}>
             <div>
               <Navbar1 />
               {children}
