@@ -53,12 +53,7 @@ export default function Home() {
     <div>
       {/* navbar 1 de no render khi login xong, neu ko se render trang chu thoi, rootlayout giu nguyen */}
 
-      <div
-        style={{
-          marginLeft: 35,
-          marginRight: 35,
-        }}
-      >
+      <div className="p-4 md:p-8">
         <p style={{ fontSize: 0.01 }}>.</p>{" "}
         {/*collision tăng chiều cao cho div*/}
         <p className="title" style={{ marginBottom: 30, marginTop: 90 }}>

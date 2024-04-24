@@ -291,15 +291,12 @@ function Navbar1() {
   return (
     <div onClick={slidebar ? showSlidebar : undefined}>
       <div className="fixed ">
-        <div
-          className="navbar flex items-center justify-between"
-          style={{ padding: 35 }}
-        >
+        <div className="navbar flex items-center justify-between p-4 md:p-8">
           <div className={slidebar ? "bg" : ""} />
-          <div className="flex items-center flex-shrink-0 text-white mr-12">
+          <div className="flex items-center flex-shrink-0 text-white md:mr-24">
             <div style={{ display: "flex" }}>
               <button className="open-menu" onClick={showSlidebar}>
-                <FaIcons.FaBars style={{ marginTop: 14, marginRight: 40 }} />
+                <FaIcons.FaBars className="mt-5 mr-2 md:mr-8 w-6 h-6 md:w-8 md:h-8 md:mt-4 " />
               </button>
               <Link
                 href="/"
@@ -312,17 +309,14 @@ function Navbar1() {
                 <img
                   src="https://zrhhzqtaizoqtwmnzzbi.supabase.co/storage/v1/object/public/avt/web/logos.svg?t=2024-03-31T03%3A30%3A17.716Z"
                   alt=""
-                  width={47}
-                  height={47}
                   style={{ marginRight: 5, marginTop: 5 }}
+                  className="w-10 h-14 md:w-14 md:h-14"
                 />
                 <h1
                   style={{
-                    fontSize: 22,
-                    marginTop: 17,
-                    marginRight: 10,
                     fontWeight: "bold",
                   }}
+                  className="text-lg mt-5 md:text-2xl md:mt-5"
                 >
                   MangaOne
                 </h1>
@@ -336,31 +330,25 @@ function Navbar1() {
               style={{ width: "100%", paddingTop: 12 }}
             />
           </div>
-          <div className="flex items-center flex-shrink-0 ml-12">
-            <IoMdNotificationsOutline
-              fontSize={30}
-              className="flex shrink"
-              style={{ marginTop: 13 }}
-            />
+          <div className="flex items-center flex-shrink-0 md:ml-24">
+            <IoMdNotificationsOutline className="flex shrink h-8 w-8 md:h-10 md:w-10 mt-2" />
             {user.user == null ? (
               <Link href="/dang-nhap">
-                <Avatar
-                  size={"large"}
+                <img
                   src={
                     "https://zrhhzqtaizoqtwmnzzbi.supabase.co/storage/v1/object/public/avt/web/Chualogin.svg" //chualogin
                   }
-                  style={{ marginTop: 10, marginLeft: 40 }}
-                >
-                  {" "}
-                </Avatar>
+                  style={{ marginTop: 10 }}
+                  className="w-8 h-8 ml-2 md:w-10 md:h-10 md:ml-10"
+                ></img>
               </Link>
             ) : (
               <Dropdown menu={{ items }} trigger={["click"]}>
-                <Avatar
-                  size={"large"}
+                <img
                   src={avt}
-                  style={{ marginTop: 10, marginLeft: 40 }}
-                ></Avatar>
+                  style={{ marginTop: 10, borderRadius: 100 }}
+                  className="w-8 h-8 ml-2 md:w-10 md:h-10 md:ml-10"
+                ></img>
               </Dropdown>
             )}
           </div>
