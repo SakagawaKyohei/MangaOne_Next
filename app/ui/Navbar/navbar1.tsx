@@ -289,162 +289,149 @@ function Navbar1() {
       );
   };
   return (
-    <ConfigProvider
-      theme={{
-        token: {
-          colorPrimary: "#FF9040",
-          borderRadius: 10,
-        },
-      }}
-    >
-      <div
-        style={{ textAlign: "start" }}
-        onClick={slidebar ? showSlidebar : undefined}
-      >
-        <div className="fixed">
-          <div className="navbar">
-            <div className={slidebar ? "bg" : ""} />
-            <Row>
-              <Col span={6}>
-                <div style={{ display: "flex" }}>
-                  <button className="open-menu" onClick={showSlidebar}>
-                    <FaIcons.FaBars
-                      style={{ marginTop: 14, marginRight: 40 }}
-                    />
-                  </button>
-                  <Link
-                    href="/"
-                    style={{
-                      display: "flex",
-                      textDecoration: "none",
-                      color: "black",
-                    }}
-                  >
-                    <img
-                      src="https://zrhhzqtaizoqtwmnzzbi.supabase.co/storage/v1/object/public/avt/web/logos.svg?t=2024-03-31T03%3A30%3A17.716Z"
-                      alt=""
-                      width={55}
-                      height={55}
-                      style={{ marginRight: 5 }}
-                    />
-                    <h1
-                      style={{ fontSize: 25, marginTop: 15, marginRight: 10 }}
-                    >
-                      MangaOne
-                    </h1>
-                  </Link>
-                </div>
-              </Col>
-              <Col span={10} offset={2}>
-                <Search
-                  placeholder="Tìm truyện"
-                  style={{ width: "100%", paddingTop: 12 }}
-                />
-              </Col>
-              <Col
-                offset={2}
-                span={4}
+    <div onClick={slidebar ? showSlidebar : undefined}>
+      <div className="fixed ">
+        <div
+          className="navbar flex items-center justify-between"
+          style={{ padding: 35 }}
+        >
+          <div className={slidebar ? "bg" : ""} />
+          <div className="flex items-center flex-shrink-0 text-white mr-12">
+            <div style={{ display: "flex" }}>
+              <button className="open-menu" onClick={showSlidebar}>
+                <FaIcons.FaBars style={{ marginTop: 14, marginRight: 40 }} />
+              </button>
+              <Link
+                href="/"
                 style={{
                   display: "flex",
-                  justifyContent: "end",
+                  textDecoration: "none",
+                  color: "black",
                 }}
               >
-                <IoMdNotificationsOutline
-                  fontSize={35}
-                  style={{ marginTop: 13 }}
-                />
-                {user.user == null ? (
-                  <Link href="/dang-nhap">
-                    <Avatar
-                      size={"large"}
-                      src={
-                        "https://zrhhzqtaizoqtwmnzzbi.supabase.co/storage/v1/object/public/avt/web/Chualogin.svg" //chualogin
-                      }
-                      style={{ marginTop: 10, marginLeft: 40 }}
-                    >
-                      {" "}
-                    </Avatar>
-                  </Link>
-                ) : (
-                  <Dropdown menu={{ items }} trigger={["click"]}>
-                    <Avatar
-                      size={"large"}
-                      src={avt}
-                      style={{ marginTop: 10, marginLeft: 40 }}
-                    ></Avatar>
-                  </Dropdown>
-                )}
-              </Col>
-            </Row>
-          </div>
-          <div className="line" />
-        </div>
-        <nav
-          className={slidebar ? "nav-menu active" : "nav-menu"}
-          style={{ overflowY: "auto" }}
-        >
-          <ul className="nav-menu-items">
-            <li className="menu-toggle">
-              <Link href="/" style={{ display: "flex" }} onClick={showSlidebar}>
                 <img
                   src="https://zrhhzqtaizoqtwmnzzbi.supabase.co/storage/v1/object/public/avt/web/logos.svg?t=2024-03-31T03%3A30%3A17.716Z"
-                  alt="a"
-                  width={55}
-                  height={55}
-                  style={{ marginLeft: 23, marginRight: 10 }}
+                  alt=""
+                  width={47}
+                  height={47}
+                  style={{ marginRight: 5, marginTop: 5 }}
                 />
-                <h1 style={{ fontSize: 25, marginTop: 15, marginRight: 10 }}>
+                <h1
+                  style={{
+                    fontSize: 22,
+                    marginTop: 17,
+                    marginRight: 10,
+                    fontWeight: "bold",
+                  }}
+                >
                   MangaOne
                 </h1>
               </Link>
-              <button className="close-menu" onClick={showSlidebar}>
-                <aiIcons.AiOutlineClose />
+            </div>
+          </div>
+          <div className=" flex-grow invisible md:visible">
+            <Search
+              placeholder="Tìm truyện"
+              className="hidden md:block"
+              style={{ width: "100%", paddingTop: 12 }}
+            />
+          </div>
+          <div className="flex items-center flex-shrink-0 ml-12">
+            <IoMdNotificationsOutline
+              fontSize={30}
+              className="flex shrink"
+              style={{ marginTop: 13 }}
+            />
+            {user.user == null ? (
+              <Link href="/dang-nhap">
+                <Avatar
+                  size={"large"}
+                  src={
+                    "https://zrhhzqtaizoqtwmnzzbi.supabase.co/storage/v1/object/public/avt/web/Chualogin.svg" //chualogin
+                  }
+                  style={{ marginTop: 10, marginLeft: 40 }}
+                >
+                  {" "}
+                </Avatar>
+              </Link>
+            ) : (
+              <Dropdown menu={{ items }} trigger={["click"]}>
+                <Avatar
+                  size={"large"}
+                  src={avt}
+                  style={{ marginTop: 10, marginLeft: 40 }}
+                ></Avatar>
+              </Dropdown>
+            )}
+          </div>
+        </div>
+        <div className="line" />
+      </div>
+      <nav
+        className={slidebar ? "nav-menu active" : "nav-menu"}
+        style={{ overflowY: "auto" }}
+      >
+        <ul className="nav-menu-items">
+          <li className="menu-toggle">
+            <Link href="/" style={{ display: "flex" }} onClick={showSlidebar}>
+              <img
+                src="https://zrhhzqtaizoqtwmnzzbi.supabase.co/storage/v1/object/public/avt/web/logos.svg?t=2024-03-31T03%3A30%3A17.716Z"
+                alt="a"
+                width={47}
+                height={47}
+                style={{ marginLeft: 23, marginRight: 10, marginTop: 5 }}
+              />
+              <h1 style={{ fontSize: 25, marginTop: 15, marginRight: 10 }}>
+                MangaOne
+              </h1>
+            </Link>
+            <button className="close-menu" onClick={showSlidebar}>
+              <aiIcons.AiOutlineClose />
+            </button>
+          </li>
+          <li key={0} className="nav-title" style={{ paddingLeft: 0 }}>
+            <Link href="/">
+              <button
+                className="nav-title-button"
+                onClick={showSlidebar}
+                style={{
+                  paddingLeft: 35,
+                  width: "170%",
+                }}
+              >
+                <FaIcons.FaHome style={{ fontSize: 25 }} />
+                <span>Trang chủ</span>
+              </button>
+            </Link>
+          </li>
+          {SlidebarData.map((item, index) => (
+            <div>
+              <li key={index}>{TitleOrButton(item)}</li>
+            </div>
+          ))}
+          {user.user != null ? (
+            <li key={0} className="nav-title" style={{ paddingLeft: 0 }}>
+              <button
+                className="nav-title-button"
+                onClick={() => {
+                  logoutmutation.mutate;
+                  router.push("/dang-nhap");
+                }}
+                style={{
+                  paddingLeft: 35,
+                  width: "90%",
+                }}
+              >
+                <IOIcons.IoLogOut style={{ fontSize: 25 }} />
+                <span>Đăng xuất</span>
               </button>
             </li>
-            <li key={0} className="nav-title" style={{ paddingLeft: 0 }}>
-              <Link href="/">
-                <button
-                  className="nav-title-button"
-                  onClick={showSlidebar}
-                  style={{
-                    paddingLeft: 35,
-                    width: "170%",
-                  }}
-                >
-                  <FaIcons.FaHome style={{ fontSize: 25 }} />
-                  <span>Trang chủ</span>
-                </button>
-              </Link>
-            </li>
-            {SlidebarData.map((item, index) => (
-              <div>
-                <li key={index}>{TitleOrButton(item)}</li>
-              </div>
-            ))}
-            {user.user != null ? (
-              <li key={0} className="nav-title" style={{ paddingLeft: 0 }}>
-                <button
-                  className="nav-title-button"
-                  onClick={() => {
-                    logoutmutation.mutate;
-                    router.push("/dang-nhap");
-                  }}
-                  style={{
-                    paddingLeft: 35,
-                    width: "90%",
-                  }}
-                >
-                  <IOIcons.IoLogOut style={{ fontSize: 25 }} />
-                  <span>Đăng xuất</span>
-                </button>
-              </li>
-            ) : (
-              <></>
-            )}
-          </ul>
-        </nav>
-      </div>
-    </ConfigProvider>
+          ) : (
+            <></>
+          )}
+        </ul>
+      </nav>
+    </div>
   );
 }
 

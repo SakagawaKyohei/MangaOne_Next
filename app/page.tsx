@@ -50,9 +50,9 @@ export default function Home() {
     return <div>Error</div>;
   }
   return (
-    <>
+    <div>
       {/* navbar 1 de no render khi login xong, neu ko se render trang chu thoi, rootlayout giu nguyen */}
-      <Navbar1 />
+
       <div
         style={{
           marginLeft: 35,
@@ -177,6 +177,6 @@ export default function Home() {
           </Col>
         </Row>
       </div>
-    </>
+    </div>
   );
 }
