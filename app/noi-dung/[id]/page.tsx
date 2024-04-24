@@ -52,25 +52,22 @@ function NoiDungTruyen() {
     isLoading: gvLoading,
     isError: gvError,
   } = useGetViewManga(params.id);
-  const followdata = useIsFollow(user?.user?.id, mid);
+  const {
+    data: followdata,
+    isSuccess: followsuccess,
+    isLoading: followload,
+    isError: followerror,
+  } = useIsFollow(user?.user?.id, mid);
   const follow = useAddFollow(user?.user?.id, mid);
   const unfollow = useDeleteFollow(user?.user?.id, mid);
   // const history = useAddHistory(user.user?.id, mid);
   let a = false;
 
-  if (followdata.isSuccess) {
-    if (followdata.data?.length != 0) {
+  if (followsuccess) {
+    if (followdata?.length != 0) {
       a = true;
     }
   }
-  if (follow.isSuccess) {
-    a = true;
-  }
-
-  const [isfollow, setisfollow] = useState<boolean>();
-  useEffect(() => {
-    setisfollow(a);
-  }, [a]);
 
   const [chapterdata, setchapterdata] = useState<any[]>([]);
   const pRef = useRef<HTMLParagraphElement>(null);
@@ -146,7 +143,8 @@ function NoiDungTruyen() {
     clLoading ||
     cl20Loading ||
     cLoading ||
-    gvLoading
+    gvLoading ||
+    followload
   ) {
     return <div>Loading...</div>;
   }
@@ -161,7 +159,9 @@ function NoiDungTruyen() {
     clError ||
     !chapter ||
     !chapterlast ||
-    !chapterlast20
+    !chapterlast20 ||
+    followerror ||
+    !follow
   ) {
     return <div>Error</div>;
   }
@@ -224,7 +224,7 @@ function NoiDungTruyen() {
                   >
                     {manga.author == "" ? "Tên tác giả" : manga.author}
                   </p>
-                  {!isfollow ? (
+                  {!followdata?.length ? (
                     <>
                       <Button
                         style={{
@@ -239,7 +239,6 @@ function NoiDungTruyen() {
                         }}
                         onClick={() => {
                           follow.mutate();
-                          setisfollow(true);
                         }}
                       >
                         <p>Theo dõi</p>
@@ -261,7 +260,6 @@ function NoiDungTruyen() {
                         onClick={() => {
                           console.log(mid + "a");
                           unfollow.mutate();
-                          setisfollow(false);
                         }}
                       >
                         <p>Hủy theo dõi</p>
