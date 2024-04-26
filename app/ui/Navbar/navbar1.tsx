@@ -312,9 +312,9 @@ function Navbar1() {
                   alt=""
                   width={0}
                   height={0}
-                  style={{ marginRight: 5, marginTop: 5 }}
+                  style={{ marginRight: 5, marginTop: 10 }}
                   sizes="100vw"
-                  className="w-10 h-14 md:w-14 md:h-14 "
+                  className="w-10 h-10 mt-14 md:w-12 md:h-12 "
                 />
                 <h1
                   style={{
@@ -338,17 +338,11 @@ function Navbar1() {
             <IoMdNotificationsOutline className="flex shrink h-8 w-8 md:h-10 md:w-10 mt-2" />
             {user.user == null ? (
               <Link href="/dang-nhap">
-                <img
-                  src={
-                    "https://zrhhzqtaizoqtwmnzzbi.supabase.co/storage/v1/object/public/avt/web/Chualogin.svg" //chualogin
-                  }
-                  style={{ marginTop: 10 }}
-                  className="w-8 h-8 ml-2 md:w-10 md:h-10 md:ml-10"
-                ></img>
-              </Link>
-            ) : (
-              <Dropdown menu={{ items }} trigger={["click"]}>
-                <img
+                <Image
+                  alt=""
+                  width={0}
+                  height={0}
+                  sizes="100vw"
                   src={avt}
                   style={{
                     marginTop: 10,
@@ -356,7 +350,23 @@ function Navbar1() {
                     objectFit: "cover",
                   }}
                   className="w-8 h-8 ml-2 md:w-10 md:h-10 md:ml-10"
-                ></img>
+                ></Image>
+              </Link>
+            ) : (
+              <Dropdown menu={{ items }} trigger={["click"]}>
+                <Image
+                  alt=""
+                  width={0}
+                  height={0}
+                  sizes="100vw"
+                  src={avt}
+                  style={{
+                    marginTop: 10,
+                    borderRadius: 100,
+                    objectFit: "cover",
+                  }}
+                  className="w-8 h-8 ml-2 md:w-10 md:h-10 md:ml-10"
+                ></Image>
               </Dropdown>
             )}
           </div>
