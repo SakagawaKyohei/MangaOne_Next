@@ -66,9 +66,13 @@ export default function Home() {
                 <div className="topmangabg" />
                 <div className="topmangadetail">
                   <div className="topmangaavt">
-                    <img
+                    <Image
+                      alt=""
+                      width={0}
+                      height={0}
+                      sizes="100vw"
                       src={mangatop1[0].biatruyen as string}
-                      className="topmangaavt"
+                      className="topmangaavt w-full h-auto"
                     />
                   </div>
                   <div className="topmangainfo">

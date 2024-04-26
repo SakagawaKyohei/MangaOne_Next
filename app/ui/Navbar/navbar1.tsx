@@ -20,6 +20,7 @@ import useUser from "@/hooks/useUser";
 import useLogout from "@/hooks/loginsystem/useLogout";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 
 const style: React.CSSProperties = {
   marginTop: 5,
@@ -306,11 +307,14 @@ function Navbar1() {
                   color: "black",
                 }}
               >
-                <img
-                  src="https://zrhhzqtaizoqtwmnzzbi.supabase.co/storage/v1/object/public/avt/web/logos.svg?t=2024-03-31T03%3A30%3A17.716Z"
+                <Image
+                  src="https://zrhhzqtaizoqtwmnzzbi.supabase.co/storage/v1/object/public/avt/web/Logo.png"
                   alt=""
+                  width={0}
+                  height={0}
                   style={{ marginRight: 5, marginTop: 5 }}
-                  className="w-10 h-14 md:w-14 md:h-14"
+                  sizes="100vw"
+                  className="w-10 h-14 md:w-14 md:h-14 "
                 />
                 <h1
                   style={{
@@ -346,7 +350,11 @@ function Navbar1() {
               <Dropdown menu={{ items }} trigger={["click"]}>
                 <img
                   src={avt}
-                  style={{ marginTop: 10, borderRadius: 100 }}
+                  style={{
+                    marginTop: 10,
+                    borderRadius: 100,
+                    objectFit: "cover",
+                  }}
                   className="w-8 h-8 ml-2 md:w-10 md:h-10 md:ml-10"
                 ></img>
               </Dropdown>
