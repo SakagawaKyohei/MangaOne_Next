@@ -52,18 +52,23 @@ export default function Home() {
   return (
     <div>
       {/* navbar 1 de no render khi login xong, neu ko se render trang chu thoi, rootlayout giu nguyen */}
-
       <div className="p-4 md:p-8">
         <p style={{ fontSize: 0.01 }}>.</p>{" "}
         {/*collision tăng chiều cao cho div*/}
-        <p className="title" style={{ marginBottom: 30, marginTop: 90 }}>
+        <p
+          className="title text-xl md:text-3xl"
+          style={{ marginBottom: 30, marginTop: 50 }}
+        >
           Xem nhiều nhất
         </p>
         <Row>
           <Col span={24}>
             <a style={{ color: "black" }}>
               <div className="topmanga">
-                <div className="topmangabg" />
+                <div
+                  className="topmangabg h-full"
+                  style={{ height: "calc(100% + 2rem)" }}
+                />
                 <div className="topmangadetail">
                   <div className="topmangaavt">
                     <Image
@@ -72,34 +77,48 @@ export default function Home() {
                       height={0}
                       sizes="100vw"
                       src={mangatop1[0].biatruyen as string}
-                      className="topmangaavt w-full h-auto"
+                      className="topmangaavt w-28 md:w-52"
                     />
                   </div>
                   <div className="topmangainfo">
-                    <p className="topmangatitle">{mangatop1[0].name}</p>
-                    <Flex gap={10} style={{ marginBottom: 10 }}>
-                      {mangatop1[0].genre?.map((item) => (
-                        <div className="buttontheloai">
-                          {item.toUpperCase()}
-                        </div>
-                      ))}
-                    </Flex>
-                    <div className="noidung" style={{ fontSize: 18 }}>
+                    <p className="topmangatitle mt-1 text-xl md:text-3xl">
+                      {mangatop1[0].name}
+                    </p>
+                    <div className="hidden md:block">
+                      <Flex
+                        gap={10}
+                        style={{ marginBottom: 10 }}
+                        className="invisible md:visible"
+                      >
+                        {mangatop1[0].genre?.map((item) => (
+                          <div className="buttontheloai">
+                            {item.toUpperCase()}
+                          </div>
+                        ))}
+                      </Flex>
+                    </div>
+                    <div
+                      className="noidung hidden md:block"
+                      style={{ fontSize: 18 }}
+                    >
                       {mangatop1[0].detail}
                     </div>
+                    <div
+                      className="noidung md:hidden"
+                      style={{ fontSize: 18 }}
+                    ></div>
                     <div className="tacgiavschuyehuong">
-                      <div style={{ width: "50%" }}>
-                        <i className="tentacgia">{mangatop1[0].author}</i>
+                      <div style={{ width: "100%" }}>
+                        <i className="tentacgia text-basic md:text-lg">
+                          {mangatop1[0].author}
+                        </i>
                       </div>
-                      <div className="chuyenhuong">
-                        <i className="no">No.1</i>
-                        <mdIcons.MdArrowBackIos
-                          fontSize={25}
-                          style={{ marginTop: 5, marginRight: 30 }}
-                        />
+
+                      <div className="chuyenhuong text-basic hidden md:flex">
+                        <i className="no text-lg ">No.1</i>
+                        <mdIcons.MdArrowBackIos style={{ marginRight: 10 }} />
                         <mdIcons.MdArrowForwardIos
-                          fontSize={25}
-                          style={{ marginTop: 5, marginRight: 10 }}
+                          style={{ marginRight: 10 }}
                         />
                       </div>
                     </div>

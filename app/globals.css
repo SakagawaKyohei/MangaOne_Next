@@ -45,13 +45,13 @@ background: #FFF;
 .chuyenhuong
 {
   width: 50%;
-  display: flex;
+justify-content: end;
   flex-direction: row;
   justify-content: end;
 }
 .no{
   color: #FF9040;
-font-size: 21px;
+
 font-style: normal;
 font-weight: 700;
 line-height: normal;
@@ -74,7 +74,7 @@ padding-right: 40px;
   display: none;
 }
 .title{
-  font-size: 30px;
+
   margin: 30px;
   margin-bottom: 0px;
   margin-left: 0px;
@@ -99,7 +99,6 @@ padding-right: 40px;
 
 .topmangatitle
 {
-  font-size: 40px;
   font-weight: bold;
   padding-bottom: 8px;
 }
@@ -128,7 +127,6 @@ padding-right: 40px;
 
 .topmangabg
 {
-  height: 350px;
   background-size:100% 100%;
   width: 100%;
   position:absolute;
@@ -144,7 +142,7 @@ padding-right: 40px;
 /*blur lớn không tràn thế nào?*/
 }
 .topmangaavt{
-  width: 209px;
+
   height: 100%;
 }
 .timebutton
@@ -176,7 +174,7 @@ padding-right: 40px;
 {
   padding-left: 10px;
   display: flex;
-  width: 100%;
+  width: 100vw;
   flex-direction: column;
 }
 .buttontheloai
@@ -191,7 +189,7 @@ padding-right: 40px;
 }
 .tentacgia
 {
-  font-weight:600; font-size: 23px; margin: 5px; margin-left: 0px;
+  font-weight:600;  margin: 5px; margin-left: 0px;
 }
 .noidung
 {
