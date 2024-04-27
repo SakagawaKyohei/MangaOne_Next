@@ -159,7 +159,7 @@ export default function Home() {
             </div>
           </Col>
           {/*Xếp hạng theo mốc thời gian*/}
-          <Col span={8}>
+          <Col span={8} className="hidden md:block">
             <div className="xemnhieunhattitle" style={{ paddingTop: 30 }}>
               <img
                 height={40}
