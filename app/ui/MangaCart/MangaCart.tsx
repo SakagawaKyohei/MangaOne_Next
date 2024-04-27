@@ -43,7 +43,7 @@ function MangaCart(pros: manga) {
       </Link>
       <Link
         href={`/noi-dung/${pros.mangaid}`}
-        className="mangaitemtitle text-basic"
+        className="mangaitemtitle text-xl sm:text-xl"
       >
         <p>{mangaData.name}</p>
       </Link>
@@ -53,7 +53,7 @@ function MangaCart(pros: manga) {
           <div className="mangaitemchapter">
             <Link
               href={`/doc-truyen/${pros.mangaid}/${item.id}`}
-              className="mangaitemchapter text-xs"
+              className="mangaitemchapter text-sm"
             >
               <p>{item.name}</p>
             </Link>

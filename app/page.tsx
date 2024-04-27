@@ -84,11 +84,11 @@ export default function Home() {
                     <p className="topmangatitle mt-1 text-xl md:text-3xl">
                       {mangatop1[0].name}
                     </p>
-                    <div className="hidden md:block">
+                    <div className="hidden sm:block text-xs md:text-sm">
                       <Flex
                         gap={10}
                         style={{ marginBottom: 10 }}
-                        className="invisible md:visible"
+                        className="invisible sm:visible"
                       >
                         {mangatop1[0].genre?.map((item) => (
                           <div className="buttontheloai">
@@ -97,10 +97,7 @@ export default function Home() {
                         ))}
                       </Flex>
                     </div>
-                    <div
-                      className="noidung hidden md:block"
-                      style={{ fontSize: 18 }}
-                    >
+                    <div className="text-basic md:text-lg noidung hidden sm:block">
                       {mangatop1[0].detail}
                     </div>
                     <div
@@ -138,13 +135,13 @@ export default function Home() {
             <div style={{ marginTop: 20 }}>
               <Row
                 gutter={[
-                  { xs: 4, sm: 16, md: 24, lg: 32 },
+                  { xs: 8, sm: 16, md: 24, lg: 32 },
                   { xs: 8, sm: 16, md: 24, lg: 32 },
                 ]}
                 className="flex flex-row"
               >
                 {pagemanga.map((item) => (
-                  <Col className=" min-[0px]:basis-1/2 min-[360px]:basis-1/3 md:basis-1/4">
+                  <Col className=" min-[0px]:basis-1/2 min-[450px]:basis-1/3 sm:basis-1/4">
                     <MangaCart mangaid={item.id} />
                   </Col>
                 ))}
