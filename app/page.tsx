@@ -12,6 +12,7 @@ import Top1time from "./ui/TopTimeManga/Top1time";
 import TimeManga from "./ui/TopTimeManga/TimeManga";
 import Navbar1 from "./ui/Navbar/navbar1";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function Home() {
   //top 1 truyen
@@ -63,7 +64,10 @@ export default function Home() {
         </p>
         <Row>
           <Col span={24}>
-            <a style={{ color: "black" }}>
+            <Link
+              href={`/noi-dung/${mangatop1[0].id}`}
+              style={{ color: "black" }}
+            >
               <div className="topmanga">
                 <div
                   className="topmangabg h-full"
@@ -122,7 +126,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </a>
+            </Link>
           </Col>
         </Row>
         {/*truyen moi cap nhat*/}
