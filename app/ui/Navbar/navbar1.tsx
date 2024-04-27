@@ -297,7 +297,10 @@ function Navbar1() {
           <div className="flex items-center flex-shrink-0 text-white md:mr-24">
             <div style={{ display: "flex" }}>
               <button className="open-menu" onClick={showSlidebar}>
-                <FaIcons.FaBars className="mt-5 mr-2 md:mr-8 w-6 h-6 md:w-8 md:h-8 md:mt-4 " />
+                <FaIcons.FaBars
+                  style={{ color: "black" }}
+                  className="mt-5 mr-2 md:mr-8 w-6 h-6 md:w-8 md:h-8 md:mt-4 "
+                />
               </button>
               <Link
                 href="/"

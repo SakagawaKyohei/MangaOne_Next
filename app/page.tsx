@@ -77,7 +77,7 @@ export default function Home() {
                       height={0}
                       sizes="100vw"
                       src={mangatop1[0].biatruyen as string}
-                      className="topmangaavt w-28 md:w-52"
+                      className="topmangaavt w-48 md:w-72"
                     />
                   </div>
                   <div className="topmangainfo">
