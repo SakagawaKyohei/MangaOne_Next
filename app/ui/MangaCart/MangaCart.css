@@ -28,7 +28,7 @@
   }
   .mangaitemtitle
   {
-    font-size: 20px !important;
+
     color: black;
   }
   .mangaitemtitle:hover{color: blue}
@@ -41,7 +41,7 @@
 .mangaitemtime
 {
   color: #c0c0c0;
-  font-size: 14px;
+
   font-style: italic;
   width: 50%;
   text-align: right;

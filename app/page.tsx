@@ -130,15 +130,21 @@ export default function Home() {
         </Row>
         {/*truyen moi cap nhat*/}
         {/*danh sách truyện*/}
-        <Row gutter={16}>
-          <Col span={16}>
+        <div className="flex flex-row gap-x-4">
+          <div className=" lg:basis-2/3">
             <div>
               <p className="title">Truyện mới cập nhật</p>
             </div>
             <div style={{ marginTop: 20 }}>
-              <Row gutter={[16, 24]}>
+              <Row
+                gutter={[
+                  { xs: 4, sm: 16, md: 24, lg: 32 },
+                  { xs: 8, sm: 16, md: 24, lg: 32 },
+                ]}
+                className="flex flex-row"
+              >
                 {pagemanga.map((item) => (
-                  <Col span={6}>
+                  <Col className=" min-[0px]:basis-1/2 min-[360px]:basis-1/3 md:basis-1/4">
                     <MangaCart mangaid={item.id} />
                   </Col>
                 ))}
@@ -157,9 +163,9 @@ export default function Home() {
                 }}
               />
             </div>
-          </Col>
+          </div>
           {/*Xếp hạng theo mốc thời gian*/}
-          <Col span={8} className="hidden md:block">
+          <div className="basis-1/3 hidden lg:block">
             <div className="xemnhieunhattitle" style={{ paddingTop: 30 }}>
               <img
                 height={40}
@@ -192,8 +198,8 @@ export default function Home() {
                 </>
               }
             </div>
-          </Col>
-        </Row>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -36,14 +36,15 @@ function MangaCart(pros: manga) {
         <div
           style={{
             overflow: "hidden",
-            width: "15vw",
-            height: "23vw",
           }}
         >
           <img className="mangaimage" src={mangaData.biatruyen as string} />
         </div>
       </Link>
-      <Link href={`/noi-dung/${pros.mangaid}`} className="mangaitemtitle">
+      <Link
+        href={`/noi-dung/${pros.mangaid}`}
+        className="mangaitemtitle text-basic"
+      >
         <p>{mangaData.name}</p>
       </Link>
 
@@ -52,12 +53,12 @@ function MangaCart(pros: manga) {
           <div className="mangaitemchapter">
             <Link
               href={`/doc-truyen/${pros.mangaid}/${item.id}`}
-              className="mangaitemchapter"
+              className="mangaitemchapter text-xs"
             >
               <p>{item.name}</p>
             </Link>
           </div>
-          <div className="mangaitemtime">
+          <div className="mangaitemtime text-xs">
             <p>1 giờ trước</p>
           </div>
         </div>
