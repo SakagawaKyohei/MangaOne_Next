@@ -268,7 +268,9 @@ function Navbar1() {
           }}
         >
           {item.icon}
-          <span style={{ marginLeft: 12 }}>{item.title}</span>
+          <span style={{ marginLeft: 12 }} className="text-basic md:text-basic">
+            {item.title}
+          </span>
         </button>
       );
     }
@@ -277,7 +279,9 @@ function Navbar1() {
         <Link href={item.path} style={{ textDecoration: "none" }}>
           <button className={item.cName} onClick={showSlidebar}>
             {item.icon}
-            <span style={{ marginLeft: 12 }}>{item.title}</span>
+            <span style={{ marginLeft: 12 }} className="text-basic md:text-xl">
+              {item.title}
+            </span>
           </button>
         </Link>
       );
@@ -285,7 +289,7 @@ function Navbar1() {
       return (
         <div className={item.cName}>
           {item.icon}
-          <span>{item.title}</span>
+          <span className=" text-sm md:text-sm">{item.title}</span>
         </div>
       );
   };
@@ -414,7 +418,7 @@ function Navbar1() {
             </Link>
           </li>
           {SlidebarData.map((item, index) => (
-            <div>
+            <div style={{ fontSize: 50 }}>
               <li key={index}>{TitleOrButton(item)}</li>
             </div>
           ))}

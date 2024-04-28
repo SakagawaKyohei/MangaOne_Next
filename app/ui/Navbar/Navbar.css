@@ -40,7 +40,8 @@ background: black;
     display: flex;
     border:none;
     background-color: transparent;
-    padding-left: 2rem;
+    padding-left: 1rem;
+    padding-top: 1rem;
     font-size: 2rem;
 }
 .open-menu{
@@ -60,7 +61,7 @@ background: black;
 {
     z-index: 2;
 background-color: white;
-width: 300px;
+width: 280px;
 height:100vh;
 display:flex;
 justify-content:center;

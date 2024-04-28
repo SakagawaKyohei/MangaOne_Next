@@ -50,11 +50,11 @@ function Timkiemnangcao() {
     >
       <div>
         {" "}
-        <div style={{ marginLeft: 35, marginRight: 35 }}>
+        <div className="mr-4 ml-4 md:mr-8 sm:ml-8">
           <p style={{ fontSize: 0.01 }}>a</p>
           <p
+            className=" title text-xl sm:text-3xl"
             style={{
-              fontSize: 30,
               textAlign: "center",
               marginBottom: 20,
               marginTop: 80,
@@ -63,48 +63,51 @@ function Timkiemnangcao() {
             Tìm kiếm nâng cao
           </p>
           <div>
-            <p style={{ fontSize: 20, paddingBottom: 10 }}>
+            <p style={{ paddingBottom: 10 }} className="text-basic sm:text-xl">
               Tên truyện cần tìm
             </p>
             <Input
-              className="bgo"
+              className="text-sm sm:text-lg bgo"
               placeholder="Có thể để trống"
               type="text"
               onChange={(e) => {
                 setname(e.target.value);
               }}
             ></Input>
-            <p style={{ fontSize: 20, paddingBottom: 10 }}>
+            <p style={{ paddingBottom: 10 }} className="text-basic sm:text-xl">
               Tên tác giả của truyện cần tìm
             </p>
             <Input
-              className="bgo"
+              className="text-sm sm:text-lg bgo"
               placeholder="Có thể để trống"
               type="text"
               onChange={(e) => {
                 setauthor(e.target.value);
               }}
             ></Input>
-            <p style={{ fontSize: 20, paddingBottom: 10 }}>
+            <p style={{ paddingBottom: 10 }} className="text-basic sm:text-xl">
               Tên họa sĩ của truyện cần tìm
             </p>
             <Input
-              className="bgo"
+              className="text-sm sm:text-lg bgo"
               placeholder="Có thể để trống"
               type="text"
               onChange={(e) => {
                 setartist(e.target.value);
               }}
             ></Input>
-            <p style={{ fontSize: 20, paddingBottom: 0, paddingTop: 10 }}>
+            <p
+              style={{ paddingBottom: 0, paddingTop: 10 }}
+              className="text-basic sm:text-xl"
+            >
               Thể loại truyện cần tìm
             </p>
             <Row gutter={[0, 30]} style={{ padding: 15, paddingLeft: 0 }}>
               {Theloai.map((item) => (
                 <>
-                  <Col span={6}>
+                  <Col xs={8} sm={6} md={6} lg={6} xl={6}>
                     <Checkbox
-                      style={{ fontSize: 18 }}
+                      className="text-xs sm:text-lg"
                       onChange={() => handleCheckboxChange(item)}
                     >
                       {item}
@@ -129,7 +132,7 @@ function Timkiemnangcao() {
                 <Col span={5}>
                   <Select
                     defaultValue="Vừa cập nhật"
-                    style={{ width: "100%", borderRadius: 0 }}
+                    style={{ width: "100%", borderRadius: 0, fontSize: 200 }}
                     options={[
                       { value: "vuacapnhat", label: "Vừa cập nhật" },
                       { value: "cunhat", label: "Cũ nhất" },
