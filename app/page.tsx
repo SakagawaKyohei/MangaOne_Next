@@ -134,7 +134,7 @@ export default function Home() {
         <div className="flex flex-row gap-x-4">
           <div className=" lg:basis-2/3">
             <div>
-              <p className="title">Truyện mới cập nhật</p>
+              <p className="title text-xl md:text-3xl">Truyện mới cập nhật</p>
             </div>
             <div style={{ marginTop: 20 }}>
               <Row
@@ -145,7 +145,7 @@ export default function Home() {
                 className="flex flex-row"
               >
                 {pagemanga.map((item) => (
-                  <Col className=" min-[0px]:basis-1/2 min-[450px]:basis-1/3 sm:basis-1/4">
+                  <Col className=" min-[0px]:basis-1/2 min-[500px]:basis-1/3 md:basis-1/4">
                     <MangaCart mangaid={item.id} />
                   </Col>
                 ))}
