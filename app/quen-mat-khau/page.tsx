@@ -58,16 +58,16 @@ function QuenMatKhau() {
             height={60}
             style={{
               marginRight: 10,
-              marginTop: 50,
-              marginBottom: 40,
+              marginTop: 70,
+              marginBottom: 30,
               zIndex: 6,
             }}
           />
           <h1
             style={{
-              fontSize: 30,
-              marginBottom: 55,
-              marginTop: 65,
+              fontSize: 25,
+              marginBottom: 30,
+              marginTop: 80,
               marginRight: 10,
               zIndex: 6,
               color: "white",
@@ -76,13 +76,16 @@ function QuenMatKhau() {
             MangaOne
           </h1>
         </Link>
-        <div style={{ order: 2 }} className="loginBorder f">
+        <div
+          style={{ order: 2 }}
+          className="loginBorder f w-full sm:w-5/6 lg:w-3/6"
+        >
           <h1
             style={{
               color: "white",
               textAlign: "center",
-
-              fontSize: 30,
+              marginTop: 10,
+              fontSize: 22,
             }}
           >
             Quên mật khẩu

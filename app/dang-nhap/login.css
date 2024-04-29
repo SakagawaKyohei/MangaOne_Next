@@ -22,9 +22,9 @@
 }
 .loginBorder{
     border-top: 4px solid rgba(235, 190, 101, 1);
-    height: 425px;
+    height: 400px;
     z-index: 6;
-    width: 600px;
+ 
     background-color: rgba(54, 54, 54, 1) ;
     display: flex;
     justify-content: center;
