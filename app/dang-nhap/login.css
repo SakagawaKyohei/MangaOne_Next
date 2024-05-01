@@ -22,7 +22,7 @@
 }
 .loginBorder{
     border-top: 4px solid rgba(235, 190, 101, 1);
-    height: 400px;
+    height: 800px;
     z-index: 6;
  
     background-color: rgba(54, 54, 54, 1) ;
@@ -33,7 +33,7 @@
 }
 .loginBorder.signup
 {
-    height: 550px;
+    height: 500px;
 }
 .loginBorder.f
 {

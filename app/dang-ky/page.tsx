@@ -1,14 +1,16 @@
-/* eslint-disable no-alert, no-console */
 "use client";
-import "./login.css";
-import useLogin from "@/hooks/loginsystem/useLogin";
-import useOLogin from "@/hooks/loginsystem/useOLogin";
-import { Button, Form, Input } from "antd";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import React, { useState } from "react";
 
-export default function MangaPage({ params }: { params: { id: string } }) {
+import { Button, Form, Input } from "antd";
+import "../dang-nhap/login.css";
+
+import Link from "next/link";
+import useCreateUser from "@/hooks/loginsystem/useCreateUser";
+{
+  /*them rang buoc cho cac truong*/
+}
+function DangKy() {
+  //class css
   const InputStyle: React.CSSProperties = {
     border: "none",
     borderRadius: 5,
@@ -33,18 +35,22 @@ export default function MangaPage({ params }: { params: { id: string } }) {
     backgroundColor: "rgba(235, 190, 101, 1)",
   };
 
+  {
+    /*Lỗi nếu gửi mail nhưng chưa xác nhận và đăng ký lần 2 bằng mail đó nhưng thông tin khác và xác nhận thì vẫn giữ thông tin lần đăng ký đầu tiên (ý tưởng: xóa mail lần đăng ký thứ nhất)
+  code UI để hiển thị thông báo đăng ký thành công, thất bại hoặc thiếu trường dữ liệu
+*/
+  }
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const OloginMutation = useOLogin();
+  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
 
-  const loginMutation = useLogin({ email, password });
-
-  const router = useRouter();
-  if (loginMutation.isSuccess) {
-    router.push("/");
-    console.log("done");
-    //tim cach de navigate trang login khi da dang nhap sang home ma khong can load, khi dang o trang khac thi khong navigate
-  }
+  const createUserMutation = useCreateUser({
+    email,
+    password,
+    username,
+  });
 
   return (
     <div className="Black">
@@ -58,14 +64,14 @@ export default function MangaPage({ params }: { params: { id: string } }) {
           }}
         >
           <img
-            src="https://zrhhzqtaizoqtwmnzzbi.supabase.co/storage/v1/object/public/avt/web/logos.svg?t=2024-03-31T12%3A22%3A35.257Z"
+            src="https://zrhhzqtaizoqtwmnzzbi.supabase.co/storage/v1/object/public/avt/web/logos.svg?t=2024-03-31T03%3A30%3A17.716Z"
             alt=""
             width={60}
             height={60}
             style={{
               marginRight: 10,
-              marginTop: 70,
-              marginBottom: 30,
+              marginTop: 10,
+              marginBottom: 20,
               zIndex: 6,
             }}
           />
@@ -73,30 +79,28 @@ export default function MangaPage({ params }: { params: { id: string } }) {
             style={{
               fontSize: 25,
               marginBottom: 30,
-              marginTop: 80,
+              marginTop: 20,
               marginRight: 10,
               zIndex: 6,
               color: "white",
             }}
           >
-            <p>MangaOne</p>
+            MangaOne
           </h1>
         </Link>
         <div
           style={{ order: 2 }}
-          className="loginBorder w-full sm:w-5/6 lg:w-3/6"
+          className="loginBorder signup w-full sm:w-5/6 lg:w-3/6"
         >
           <h1
             style={{
               color: "white",
               textAlign: "center",
-              marginTop: 10,
               fontSize: 22,
             }}
           >
-            Đăng nhập
+            Đăng ký
           </h1>
-
           <Form>
             <div>
               <div style={{ marginTop: 20 }}>
@@ -108,7 +112,7 @@ export default function MangaPage({ params }: { params: { id: string } }) {
                   type="text"
                   name="TenDangNhap"
                   style={InputStyle}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => setUsername(e.target.value)}
                 />
                 <br />
               </div>
@@ -123,7 +127,38 @@ export default function MangaPage({ params }: { params: { id: string } }) {
                 />
                 <br />
               </div>
+              <div style={{ marginTop: 20 }}>
+                <span style={{ color: "white", fontSize: 15 }}>
+                  Xác nhận mật khẩu
+                </span>
+                <br />
+                <Input type="text" name="XacNhan" style={InputStyle} />
+                <br />
+              </div>
+              <div style={{ marginTop: 20 }}>
+                <span style={{ color: "white", fontSize: 15 }}>Email</span>
+                <br />
+                <Input
+                  type="text"
+                  name="Email"
+                  style={InputStyle}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <br />
+              </div>
             </div>
+            {createUserMutation.error ? (
+              <>{(createUserMutation.error as any).message}</>
+            ) : (
+              <></>
+            )}
+            {createUserMutation.isSuccess ? (
+              <>Email kích hoạt đã được gửi đến tài khoản của bạn</>
+            ) : (
+              <></>
+            )}
+            {/*chưa test đăng ký không xác nhận xong dùng mail đó đk tiếp
+             */}
             <div
               style={{
                 marginTop: 15,
@@ -132,55 +167,24 @@ export default function MangaPage({ params }: { params: { id: string } }) {
                 justifyContent: "space-between",
               }}
             >
+              {name}
               <Link
-                href="/dang-ky"
+                href="/dang-nhap"
                 style={{
                   color: "rgba(235, 190, 101, 1)",
                   textDecoration: "none",
                   fontSize: 15,
                 }}
               >
-                Đăng ký
-              </Link>
-              <Link
-                href="/quen-mat-khau"
-                style={{
-                  color: "rgba(235, 190, 101, 1)",
-                  textDecoration: "none",
-                  fontSize: 15,
-                }}
-              >
-                Quên mật khẩu
+                Quay lại đăng nhập {/*co thoi gian them back icon*/}
               </Link>
             </div>
             <Button
               className="font"
               style={ButtonStyle}
-              onClick={() => loginMutation.mutate()}
+              onClick={() => createUserMutation.mutate()}
             >
-              Đăng nhập
-            </Button>
-            <br />
-            {loginMutation.isError && (
-              <p className="text-sm mb-8 text-red-500">
-                {(loginMutation.error as any)?.message}
-              </p>
-            )}
-            <Button
-              className="font GoogleIcon"
-              style={{
-                borderRadius: 0,
-                marginTop: 20,
-                border: "none",
-                fontSize: 17,
-                width: 350,
-                height: 33,
-                fontWeight: "bold",
-                backgroundColor: "rgba(221, 75, 57, 1)",
-              }}
-              onClick={() => OloginMutation.mutate()}
-            >
-              Đăng nhập bằng Google
+              <span>Đăng ký</span>
             </Button>
           </Form>
         </div>
@@ -188,3 +192,5 @@ export default function MangaPage({ params }: { params: { id: string } }) {
     </div>
   );
 }
+
+export default DangKy;

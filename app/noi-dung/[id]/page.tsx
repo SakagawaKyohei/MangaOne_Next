@@ -186,27 +186,37 @@ function NoiDungTruyen() {
             }}
           >
             <div
+              className="mr-4 ml-4 md:mr-8 md:ml-8"
               style={{
-                marginLeft: 35,
-                marginRight: 35,
-
                 position: "relative",
               }}
               ref={dRef}
             >
               <div
+                className="sm:flex "
                 style={{
                   marginTop: "15vh",
-                  display: "flex",
+
                   flexDirection: "row",
                 }}
               >
                 <img
                   src={manga.biatruyen as string}
                   style={{ height: 300, paddingRight: 18 }}
+                  className="hidden sm:block"
                 />
+                <div style={{ marginTop: 100 }}>
+                  <img
+                    src={manga.biatruyen as string}
+                    style={{ height: 250, margin: "0 auto" }}
+                    className="sm:hidden"
+                  />
+                </div>
                 <div>
-                  <h1 style={{ color: "white", paddingBottom: 5 }}>
+                  <h1
+                    style={{ paddingBottom: 5, fontSize: 18 }}
+                    className="text-black flex sm:text-white m-2 flex justify-center sm:block sm:m-0"
+                  >
                     {manga.name}
                   </h1>
 
@@ -217,14 +227,164 @@ function NoiDungTruyen() {
                       paddingBottom: 42,
                       paddingTop: 8,
                     }}
+                    className="hidden sm:block"
                   >
                     {manga.other_name == "" ? manga.name : manga.other_name}
                   </p>
-                  <p
-                    style={{ color: "white", fontSize: 18, paddingBottom: 45 }}
+                  <div>
+                    <p
+                      style={{ fontSize: 18 }}
+                      className="sm:text-white flex flex-row pb-2 sm:pb-12"
+                    >
+                      <p className="sm:hidden pr-1">Tác giả: </p>
+                      {manga.author == "" ? "Tên tác giả" : manga.author}
+                    </p>
+                  </div>
+                  <div className="hidden sm:block">
+                    {!followdata?.length ? (
+                      <>
+                        <Button
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            marginBottom: 20,
+                            backgroundColor: "#FF9040",
+                            color: "white",
+                            fontSize: 18,
+                            height: 45,
+                          }}
+                          onClick={() => {
+                            follow.mutate();
+                          }}
+                        >
+                          <p>Theo dõi</p>
+                        </Button>
+                      </>
+                    ) : (
+                      <>
+                        <Button
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+
+                            backgroundColor: "red",
+                            color: "white",
+                            fontSize: 18,
+                            marginBottom: 20,
+                            height: 45,
+                          }}
+                          onClick={() => {
+                            console.log(mid + "a");
+                            unfollow.mutate();
+                          }}
+                        >
+                          <p>Hủy theo dõi</p>
+                        </Button>
+                      </>
+                    )}
+                  </div>
+
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      flexWrap: "wrap",
+                      overflow: "hidden",
+                    }}
                   >
-                    {manga.author == "" ? "Tên tác giả" : manga.author}
-                  </p>
+                    <p
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        fontSize: 18,
+                      }}
+                      className="mr-1"
+                    >
+                      Thể loại:
+                    </p>
+                    {manga.genre?.map((item) => (
+                      <div>
+                        <button
+                          style={{
+                            backgroundColor: "#D9D9D9",
+                            borderRadius: 10,
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            border: "none",
+                          }}
+                          className="m-2 ml-0"
+                        >
+                          <p
+                            style={{
+                              fontSize: 14,
+                              padding: 3,
+                              paddingLeft: 8,
+                              paddingRight: 8,
+                            }}
+                          >
+                            {item.toLocaleUpperCase()}
+                          </p>
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div
+                    style={{ display: "flex", flexDirection: "row" }}
+                    className="pb-4 sm:pb-0"
+                  >
+                    <div
+                      style={{
+                        marginTop: 12,
+                        display: "flex",
+                        flexDirection: "row",
+                      }}
+                      className="mr-4 sm:mr-8"
+                    >
+                      <faIcons.FaRegStar style={{ marginRight: 10 }} />
+                      <p> 0.00</p>
+                    </div>
+                    <div
+                      style={{
+                        marginTop: 12,
+                        display: "flex",
+                        flexDirection: "row",
+                      }}
+                      className="mr-4 sm:mr-8"
+                    >
+                      <faIcons.FaRegHeart style={{ marginRight: 10 }} />
+                      <p> 0.00</p>
+                    </div>
+                    <div
+                      style={{
+                        marginTop: 12,
+                        display: "flex",
+                        flexDirection: "row",
+                      }}
+                      className="mr-4 sm:mr-8"
+                    >
+                      <faIcons.FaRegComment style={{ marginRight: 10 }} />
+                      <p> 0.00</p>
+                    </div>
+                    <div
+                      style={{
+                        marginTop: 12,
+                        display: "flex",
+                        flexDirection: "row",
+                      }}
+                      className="mr-4 sm:mr-8"
+                    >
+                      <faIcons.FaRegEye style={{ marginRight: 10 }} />
+                      <p> {getview}</p>
+                    </div>
+                  </div>
+                  {/*clear code sau*/}
+                </div>
+                <div className="sm:hidden">
                   {!followdata?.length ? (
                     <>
                       <Button
@@ -256,6 +416,7 @@ function NoiDungTruyen() {
                           backgroundColor: "red",
                           color: "white",
                           fontSize: 18,
+
                           height: 45,
                         }}
                         onClick={() => {
@@ -267,81 +428,6 @@ function NoiDungTruyen() {
                       </Button>
                     </>
                   )}
-
-                  <div style={{ display: "flex", flexDirection: "row" }}>
-                    {manga.genre?.map((item) => (
-                      <div>
-                        <button
-                          style={{
-                            backgroundColor: "#D9D9D9",
-                            borderRadius: 10,
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            border: "none",
-                            marginTop: 30,
-                            marginBottom: 22,
-                            marginRight: 15,
-                          }}
-                        >
-                          <p
-                            style={{
-                              fontSize: 14,
-                              padding: 3,
-                              paddingLeft: 8,
-                              paddingRight: 8,
-                            }}
-                          >
-                            {item.toLocaleUpperCase()}
-                          </p>
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div style={{ display: "flex", flexDirection: "row" }}>
-                    <div
-                      style={{
-                        marginRight: 40,
-                        display: "flex",
-                        flexDirection: "row",
-                      }}
-                    >
-                      <faIcons.FaRegStar style={{ marginRight: 10 }} />
-                      <p> 0.00</p>
-                    </div>
-                    <div
-                      style={{
-                        marginRight: 40,
-                        display: "flex",
-                        flexDirection: "row",
-                      }}
-                    >
-                      <faIcons.FaRegHeart style={{ marginRight: 10 }} />
-                      <p> 0.00</p>
-                    </div>
-                    <div
-                      style={{
-                        marginRight: 40,
-                        display: "flex",
-                        flexDirection: "row",
-                      }}
-                    >
-                      <faIcons.FaRegComment style={{ marginRight: 10 }} />
-                      <p> 0.00</p>
-                    </div>
-                    <div
-                      style={{
-                        marginRight: 35,
-                        display: "flex",
-                        flexDirection: "row",
-                      }}
-                    >
-                      <faIcons.FaRegEye style={{ marginRight: 10 }} />
-                      <p> {getview}</p>
-                    </div>
-                  </div>
-                  {/*clear code sau*/}
                 </div>
               </div>
               <div
@@ -369,7 +455,7 @@ function NoiDungTruyen() {
                     }}
                     ref={divRef}
                   >
-                    <p style={{ fontSize: 18 }} ref={pRef}>
+                    <p style={{ fontSize: 15 }} ref={pRef}>
                       {manga.detail}
                     </p>
                   </div>
@@ -401,7 +487,7 @@ function NoiDungTruyen() {
               ) : (
                 <>
                   <div ref={divRef}>
-                    <p style={{ fontSize: 18 }} ref={pRef}>
+                    <p style={{ fontSize: 15 }} ref={pRef}>
                       {manga.detail}
                     </p>
                   </div>
@@ -580,7 +666,7 @@ function NoiDungTruyen() {
             src={manga.biatruyen as string}
             style={{
               width: "100%",
-              height: "40vh",
+              height: "30vh",
               objectFit: "cover",
               objectPosition: "20% 25%",
             }}
