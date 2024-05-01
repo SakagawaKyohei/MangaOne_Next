@@ -214,7 +214,11 @@ function NoiDungTruyen() {
                 </div>
                 <div>
                   <h1
-                    style={{ paddingBottom: 5, fontSize: 18 }}
+                    style={{
+                      paddingBottom: 5,
+                      fontSize: 22,
+                      fontWeight: "bold",
+                    }}
                     className="text-black flex sm:text-white m-2 flex justify-center sm:block sm:m-0"
                   >
                     {manga.name}
@@ -666,7 +670,7 @@ function NoiDungTruyen() {
             src={manga.biatruyen as string}
             style={{
               width: "100%",
-              height: "30vh",
+              height: "38.5vh",
               objectFit: "cover",
               objectPosition: "20% 25%",
             }}

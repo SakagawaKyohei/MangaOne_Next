@@ -115,6 +115,13 @@ function DocTruyen() {
           Pagination: {
             itemSize: 50,
           },
+          Button: {
+            paddingInlineSM: 10,
+            paddingBlockSM: 14,
+          },
+          Select: {
+            multipleItemHeight: 200,
+          },
         },
       }}
     >
@@ -129,7 +136,7 @@ function DocTruyen() {
       <div>
         <div
           style={{
-            fontSize: 18,
+            fontSize: 16,
             backgroundColor: "black",
           }}
         >
@@ -141,12 +148,8 @@ function DocTruyen() {
                 backgroundColor: "white",
 
                 width: "100%",
-
-                marginLeft: 60,
-                marginRight: 60,
-                marginTop: 80,
-                marginBottom: 20,
               }}
+              className=" mt-14 md:mr-8 md:ml-8 md:mt-16 md:mb-8"
             >
               <div
                 style={{
@@ -168,18 +171,23 @@ function DocTruyen() {
                 <p
                   style={{
                     marginTop: 30,
-                    fontSize: 20,
+                    fontSize: 18,
                     paddingBottom: 15,
-                    marginLeft: 5,
                   }}
                   onClick={() => {}}
                 >
                   {manganame} - {naem}
                 </p>
               </div>
-              <Row style={{ backgroundColor: "#f6f7f8" }}>
+              <Row
+                style={{
+                  backgroundColor: "#f6f7f8",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
                 <Col
-                  offset={7}
                   style={{
                     display: "flex",
                     flexDirection: "row",
@@ -187,12 +195,15 @@ function DocTruyen() {
                     width: "100%",
                     marginBottom: 30,
                     marginTop: 30,
+                    fontSize: 20,
+                    justifyContent: "center",
                   }}
                 >
                   {
                     <Link href={"/"} style={{ color: "#FF9040" }}>
                       <faIcons.FaHome
-                        style={{ fontSize: 20, marginRight: 10 }}
+                        style={{ marginRight: 10, marginLeft: 10 }}
+                        fontSize={23}
                       />
                     </Link>
                   }
@@ -202,20 +213,23 @@ function DocTruyen() {
                       style={{ color: "#FF9040" }}
                     >
                       <faIcons.FaBars
-                        style={{ fontSize: 20, marginRight: 10 }}
+                        style={{ fontSize: 23, marginRight: 10 }}
                       />
                     </Link>
                   }
                   {Number(chapterlist?.length) - 1 == currenti ? (
                     <>
-                      {" "}
                       <Button
                         style={{
                           borderRadius: 0,
                           marginRight: 10,
                           backgroundColor: "#ccc",
                           color: "white",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
                         }}
+                        size="small"
                         onClick={() => {
                           chapterlist?.map((item, key) => {
                             if (key == currenti + 1) {
@@ -239,6 +253,9 @@ function DocTruyen() {
                           marginRight: 10,
                           backgroundColor: "#FF9040",
                           color: "white",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
                         }}
                         onClick={() => {
                           chapterlist?.map((item, key) => {
@@ -249,6 +266,7 @@ function DocTruyen() {
                             }
                           });
                         }}
+                        size="small"
                       >
                         <mdIcons.MdArrowBackIos style={{ color: "white" }} />
                       </Button>
@@ -283,6 +301,9 @@ function DocTruyen() {
                           borderRadius: 0,
                           marginRight: 10,
                           backgroundColor: "#ccc",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
                         }}
                         onClick={() => {
                           chapterlist?.map((item, key) => {
@@ -293,6 +314,7 @@ function DocTruyen() {
                             }
                           });
                         }}
+                        size="small"
                         disabled
                       >
                         <mdIcons.MdArrowForwardIos
@@ -308,7 +330,11 @@ function DocTruyen() {
                           borderRadius: 0,
                           marginRight: 10,
                           backgroundColor: "#FF9040",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
                         }}
+                        size="small"
                         onClick={() => {
                           chapterlist?.map((item, key) => {
                             if (key == currenti - 1) {
@@ -327,17 +353,18 @@ function DocTruyen() {
                   )}
 
                   {!isfollow ? (
-                    <>
+                    <div className="hidden md:block">
                       <Button
                         style={{
                           color: "white",
                           backgroundColor: "#FF9040",
-                          fontSize: 18,
+                          fontSize: 16,
                           display: "flex",
                           justifyContent: "center",
                           alignItems: "center",
                           borderRadius: 0,
                         }}
+                        size="small"
                         onClick={() => {
                           follow.mutate();
                           setisfollow(true);
@@ -352,14 +379,14 @@ function DocTruyen() {
                           Theo dõi
                         </p>
                       </Button>
-                    </>
+                    </div>
                   ) : (
-                    <>
+                    <div className="hidden md:block">
                       <Button
                         style={{
                           color: "white",
                           backgroundColor: "red",
-                          fontSize: 18,
+                          fontSize: 16,
                           display: "flex",
                           justifyContent: "center",
                           alignItems: "center",
@@ -369,6 +396,7 @@ function DocTruyen() {
                           unfollow.mutate();
                           setisfollow(false);
                         }}
+                        size="small"
                       >
                         <p
                           style={{
@@ -379,7 +407,60 @@ function DocTruyen() {
                           Hủy theo dõi
                         </p>
                       </Button>
-                    </>
+                    </div>
+                  )}
+
+                  {!isfollow ? (
+                    <div className="md:hidden">
+                      <Button
+                        size="small"
+                        style={{
+                          color: "white",
+                          backgroundColor: "#FF9040",
+                          fontSize: 18,
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          borderRadius: 0,
+                          marginRight: 10,
+                        }}
+                        onClick={() => {
+                          follow.mutate();
+                          setisfollow(true);
+                        }}
+                      >
+                        <faIcons.FaHeart />
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className="md:hidden">
+                      <Button
+                        style={{
+                          color: "white",
+                          backgroundColor: "red",
+                          fontSize: 18,
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          borderRadius: 0,
+                          marginRight: 10,
+                        }}
+                        onClick={() => {
+                          unfollow.mutate();
+                          setisfollow(false);
+                        }}
+                        size="small"
+                      >
+                        <p
+                          style={{
+                            paddingTop: 10,
+                            paddingBottom: 10,
+                          }}
+                        >
+                          <faIcons.FaTimes />
+                        </p>
+                      </Button>
+                    </div>
                   )}
                 </Col>
               </Row>
