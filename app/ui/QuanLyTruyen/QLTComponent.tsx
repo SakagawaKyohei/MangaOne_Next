@@ -32,10 +32,16 @@ function QLTComponent(pros: Pros) {
           height: 40,
           display: "flex",
           alignItems: "center",
-          fontSize: 15,
         }}
       >
-        <Col span={10}>
+        <Col
+          style={{
+            width: "35%",
+            paddingRight: "10%",
+            padding: 5,
+            paddingTop: 0,
+          }}
+        >
           <Checkbox
             style={{ marginLeft: 10 }}
             checked={checked}
@@ -54,54 +60,61 @@ function QLTComponent(pros: Pros) {
               }
             }}
           >
-            <p style={{ fontSize: 15 }}>{pros.tentruyen}</p>
+            <p className="text-xs sm:text-base">{pros.tentruyen}</p>
           </Checkbox>
         </Col>
         <Col
-          span={3}
-          offset={1}
           style={{
-            fontSize: 15,
-
+            padding: 5,
+            paddingTop: 0,
             display: "flex",
             justifyContent: "center",
             fontFamily: "Arial, Helvetica, sans-serif",
+            width: "22%",
           }}
+          className="text-xs sm:text-base"
         >
           {chapter.data?.length}
         </Col>
         <Col
-          span={3}
           style={{
-            fontSize: 15,
+            width: "16%",
 
             display: "flex",
             justifyContent: "center",
             fontFamily: "Arial, Helvetica, sans-serif",
           }}
+          className="text-xs sm:text-base"
         >
-          {pros.nguoidang}
+          <p>{pros.nguoidang}</p>
         </Col>
-        <Col span={3}>
+        <Col
+          style={{
+            padding: 0.001,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "16%",
+          }}
+          className="text-xs sm:text-base"
+        >
           <div
             style={{
               paddingLeft: 10,
-              fontSize: 15,
 
-              display: "flex",
-              justifyContent: "center",
               fontFamily: "Arial, Helvetica, sans-serif",
             }}
           >
             {pros.soluotxem}
           </div>
         </Col>
-        <Col span={4}>
+        <Col className="flex flex-col sm:flex-row">
           <Link href={`/chinh-sua-truyen/${pros.mangaid}`}>
             <Tooltip title="Chỉnh sửa truyện">
               <img
                 src="https://zrhhzqtaizoqtwmnzzbi.supabase.co/storage/v1/object/public/avt/web/CapNhat.svg"
-                style={{ marginLeft: 35, height: 18 }}
+                style={{ marginLeft: 0 }}
+                className="h-4 w-4"
               />
             </Tooltip>
           </Link>
@@ -109,7 +122,7 @@ function QLTComponent(pros: Pros) {
             <Tooltip title="Danh sách chương">
               <img
                 src="https://zrhhzqtaizoqtwmnzzbi.supabase.co/storage/v1/object/public/avt/web/DanhSach.svg?t=2024-04-13T08%3A41%3A55.996Z"
-                style={{ marginLeft: 20, height: 18, width: 18 }}
+                className="sm:ml-4 sm:mt-0 mt-2 h-4 w-4"
               />
             </Tooltip>
           </Link>

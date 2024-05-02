@@ -28,18 +28,18 @@ function Trangcanhan() {
     <div>
       <p style={{ fontSize: 0.01 }}>.</p>
       <div style={{ marginBottom: 30, marginTop: 80 }}>
-        <Row>
-          <Col span={6}>
+        <div className="flex flex row gap-12 m-4 md:m-8 lg:ml-0">
+          <div className="hidden basis-1/4 lg:block ">
             <AccountPage i={0} />
-          </Col>
-          <Col span={17} offset={1}>
+          </div>
+          <div className="lg:basis-3/4 text-basic w-full">
             <h1
               style={{
                 textAlign: "center",
                 marginTop: 10,
                 marginBottom: 20,
-                fontSize: 21,
               }}
+              className="text-xl"
             >
               THÔNG TIN TÀI KHOẢN
             </h1>
@@ -47,7 +47,6 @@ function Trangcanhan() {
               style={{
                 marginTop: 25,
                 marginBottom: 25,
-                marginRight: 35,
               }}
             >
               <div>
@@ -59,8 +58,8 @@ function Trangcanhan() {
                 </Form>
               </div>
             </div>
-          </Col>
-        </Row>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -39,11 +39,11 @@ function ChapterDaDang() {
         <div>
           <p style={{ fontSize: 0.01 }}>.</p>
           <div style={{ marginBottom: 30, marginTop: 80 }}>
-            <Row>
-              <Col span={6}>
+            <div className="flex flex row gap-12 m-4 md:m-8 lg:ml-0">
+              <div className="hidden basis-1/4 lg:block ">
                 <AccountPage i={2} />
-              </Col>
-              <Col span={17} offset={1}>
+              </div>
+              <div className="lg:basis-3/4 text-basic w-full">
                 <h1
                   style={{
                     textAlign: "center",
@@ -68,8 +68,8 @@ function ChapterDaDang() {
                   />
                   <ChapterDaDangData />
                 </div>
-              </Col>
-            </Row>
+              </div>
+            </div>
           </div>
         </div>
       </div>

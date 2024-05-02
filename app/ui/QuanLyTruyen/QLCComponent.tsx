@@ -33,7 +33,7 @@ function QLCComponent(pros: Pros) {
           fontSize: 15,
         }}
       >
-        <Col span={5}>
+        <Col span={6}>
           <Checkbox
             style={{ marginLeft: 10 }}
             checked={checked}
@@ -52,12 +52,12 @@ function QLCComponent(pros: Pros) {
               }
             }}
           >
-            <p style={{ fontSize: 15 }}>{pros.tentruyen}</p>
+            <p className="text-xs sm:text-base">{pros.tentruyen}</p>
           </Checkbox>
         </Col>
         <Col
           span={3}
-          offset={5}
+          offset={3}
           style={{
             fontSize: 15,
 
@@ -67,37 +67,36 @@ function QLCComponent(pros: Pros) {
           }}
         ></Col>
         <Col
-          span={3}
+          span={4}
           style={{
-            fontSize: 15,
-
             display: "flex",
             justifyContent: "center",
             fontFamily: "Arial, Helvetica, sans-serif",
           }}
+          className="text-xs sm:text-base"
         >
           {pros.nguoidang}
         </Col>
-        <Col span={3} offset={1}>
+        <Col span={4} offset={1}>
           <div
             style={{
               paddingLeft: 10,
-              fontSize: 15,
 
               display: "flex",
               justifyContent: "center",
               fontFamily: "Arial, Helvetica, sans-serif",
             }}
+            className="text-xs sm:text-base"
           >
             {pros.soluotxem}
           </div>
         </Col>
-        <Col span={4}>
+        <Col span={2} offset={1}>
           <Link href={`/chinh-sua-chuong/${pros.mangaid}`}>
             <Tooltip title="Chỉnh sửa chương">
               <img
                 src="https://zrhhzqtaizoqtwmnzzbi.supabase.co/storage/v1/object/public/avt/web/CapNhat.svg?t=2024-04-19T08%3A09%3A14.558Z"
-                style={{ marginLeft: 50, height: 18 }}
+                className="h-4 sm:h-4"
               />
             </Tooltip>
           </Link>

@@ -32,7 +32,7 @@ div{
 {
   border: 1px solid #D9D9D9;
 background: #FFF;
-margin-right: 50px;
+
 
 }
 .khung2
@@ -60,15 +60,12 @@ padding-right: 40px;
 
 
 .center {
-  width: 7%;
+  width: 100%;
 /*chinh lai center khong can dung div*/
   /* Center horizontally*/
   margin: 0 auto;
 }
-.centeravt {
-  width: 7%;
-  margin: 0 45% 0 41%;
-}
+
 
 .hiddenscrollbar::-webkit-scrollbar {
   display: none;

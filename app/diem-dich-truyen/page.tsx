@@ -8,13 +8,11 @@ import AccountPage from "../ui/AccountPage/AccountPage";
 function Diemthuong() {
   const style2: React.CSSProperties = {
     marginBottom: 20,
-    marginRight: 40,
-    fontSize: 18,
+
     display: "flex",
     flexDirection: "row",
   };
   const input2: React.CSSProperties = {
-    fontSize: 18,
     width: "100%",
     paddingTop: 5,
     paddingBottom: 5,
@@ -38,18 +36,18 @@ function Diemthuong() {
     <div>
       <p style={{ fontSize: 0.01 }}>.</p>
       <div style={{ marginBottom: 30, marginTop: 80 }}>
-        <Row>
-          <Col span={6}>
+        <div className="flex flex row gap-12 m-4 md:m-8 lg:ml-0">
+          <div className="hidden basis-1/4 lg:block">
             <AccountPage i={3} />
-          </Col>
-          <Col span={17} offset={1}>
+          </div>
+          <div className="lg:basis-3/4 text-basic ">
             <h1
               style={{
                 textAlign: "center",
                 marginTop: 10,
                 marginBottom: 20,
-                fontSize: 23,
               }}
+              className="text-xl"
             >
               ĐIỂM DỊCH TRUYỆN
             </h1>
@@ -80,11 +78,7 @@ function Diemthuong() {
                 Rút tiền
               </Button>
             </div>
-            <div
-              style={{
-                marginRight: 40,
-              }}
-            >
+            <div style={{}}>
               <div
                 style={{
                   marginBottom: 30,
@@ -107,18 +101,14 @@ function Diemthuong() {
                     color: "white",
                     fontSize: 18,
                     height: 38,
-                    paddingTop: 20,
-                    paddingBottom: 20,
-                    paddingLeft: 30,
-                    paddingRight: 30,
                   }}
                 >
                   <p>Cập nhật</p>
                 </Button>
               </div>
             </div>
-          </Col>
-        </Row>
+          </div>
+        </div>
       </div>
     </div>
   );

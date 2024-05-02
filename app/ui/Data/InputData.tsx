@@ -28,7 +28,7 @@ const style2: React.CSSProperties = {
   paddingTop: 4,
   marginBottom: 12,
   marginRight: 20,
-  fontSize: 16,
+
   display: "flex",
   flexDirection: "row",
 };
@@ -119,9 +119,16 @@ export function InputThemMoiTruyen() {
             }}
           >
             <div style={style2}>
-              <p style={{ fontSize: 16 }}>Tên truyện</p>
+              <p
+                className="text-xs sm:text-base ml-2"
+                style={{ paddingLeft: 5 }}
+              >
+                Tên truyện
+              </p>
               {true ? (
-                <p style={{ color: "red", marginLeft: 5 }}>*</p>
+                <p style={{ color: "red" }} className="ml-1">
+                  *
+                </p>
               ) : (
                 <p></p>
               )}
@@ -153,9 +160,11 @@ export function InputThemMoiTruyen() {
             }}
           >
             <div style={style2}>
-              <p style={{ fontSize: 16 }}>Bìa truyện</p>
-              {true ? (
-                <p style={{ color: "red", marginLeft: 5 }}>*</p>
+              <p className="text-xs sm:text-base ml-2">Bìa truyện</p>
+              {false ? (
+                <p style={{ color: "red" }} className="ml-1">
+                  *
+                </p>
               ) : (
                 <p></p>
               )}
@@ -199,9 +208,11 @@ export function InputThemMoiTruyen() {
             }}
           >
             <div style={style2}>
-              <p style={{ fontSize: 16 }}>Tên khác</p>
+              <p className="text-xs sm:text-base ml-2">Tên khác</p>
               {false ? (
-                <p style={{ color: "red", marginLeft: 5 }}>*</p>
+                <p style={{ color: "red" }} className="ml-1">
+                  *
+                </p>
               ) : (
                 <p></p>
               )}
@@ -234,9 +245,11 @@ export function InputThemMoiTruyen() {
             }}
           >
             <div style={style2}>
-              <p style={{ fontSize: 16 }}>Tác giả</p>
+              <p className="text-xs sm:text-base">Tác giả</p>
               {false ? (
-                <p style={{ color: "red", marginLeft: 5 }}>*</p>
+                <p style={{ color: "red" }} className="ml-1">
+                  *
+                </p>
               ) : (
                 <p></p>
               )}
@@ -266,9 +279,10 @@ export function InputThemMoiTruyen() {
               flexDirection: "column",
               paddingTop: 4,
             }}
+            className="text-xs sm:text-base"
           >
             <div style={style2}>
-              <p style={{ fontSize: 16 }}>Thể loại</p>
+              <p className="ml-2">Thể loại</p>
               {true ? (
                 <p style={{ color: "red", marginLeft: 5 }}>*</p>
               ) : (
@@ -315,7 +329,7 @@ export function InputThemMoiTruyen() {
             }}
           >
             <div style={style2}>
-              <p style={{ fontSize: 16 }}>Tóm tắt truyện</p>
+              <p className="text-xs sm:text-base ml-2">Tóm tắt truyện</p>
               {true ? (
                 <p style={{ color: "red", marginLeft: 5 }}>*</p>
               ) : (
@@ -357,9 +371,10 @@ export function InputThemMoiTruyen() {
                   borderRadius: 0,
                   backgroundColor: "#FF9040",
                   color: "white",
-                  fontSize: 18,
+
                   height: 38,
                 }}
+                className="text-xs sm:text-base"
                 onClick={() => createmanga.mutate()}
               >
                 <p>Thêm mới</p>
@@ -469,7 +484,7 @@ export function InputChinhSuaTruyen() {
             }}
           >
             <div style={style2}>
-              <p style={{ fontSize: 16 }}>Tên truyện</p>
+              <p className="text-xs sm:text-base ml-2">Tên truyện</p>
               {true ? (
                 <p style={{ color: "red", marginLeft: 5 }}>*</p>
               ) : (
@@ -506,7 +521,7 @@ export function InputChinhSuaTruyen() {
             }}
           >
             <div style={style2}>
-              <p style={{ fontSize: 16 }}>Bìa truyện</p>
+              <p className="text-xs sm:text-base ml-2">Bìa truyện</p>
               {true ? (
                 <p style={{ color: "red", marginLeft: 5 }}>*</p>
               ) : (
@@ -564,7 +579,7 @@ export function InputChinhSuaTruyen() {
             }}
           >
             <div style={style2}>
-              <p style={{ fontSize: 16 }}>Tên khác</p>
+              <p className="text-xs sm:text-base ml-2">Tên khác</p>
               {false ? (
                 <p style={{ color: "red", marginLeft: 5 }}>*</p>
               ) : (
@@ -600,7 +615,7 @@ export function InputChinhSuaTruyen() {
             }}
           >
             <div style={style2}>
-              <p style={{ fontSize: 16 }}>Tác giả</p>
+              <p className="text-xs sm:text-base ml-2">Tác giả</p>
               {false ? (
                 <p style={{ color: "red", marginLeft: 5 }}>*</p>
               ) : (
@@ -635,7 +650,7 @@ export function InputChinhSuaTruyen() {
             }}
           >
             <div style={style2}>
-              <p style={{ fontSize: 16 }}>Thể loại</p>
+              <p className="text-xs sm:text-base">Thể loại</p>
               {true ? (
                 <p style={{ color: "red", marginLeft: 5 }}>*</p>
               ) : (
@@ -683,7 +698,7 @@ export function InputChinhSuaTruyen() {
             }}
           >
             <div style={style2}>
-              <p style={{ fontSize: 16 }}>Tóm tắt truyện</p>
+              <p className="text-xs sm:text-base ml-2">Tóm tắt truyện</p>
               {true ? (
                 <p style={{ color: "red", marginLeft: 5 }}>*</p>
               ) : (
@@ -838,35 +853,39 @@ export function InputInfo() {
       {contextHolder}
       <div
         style={{
-          marginBottom: 50,
+          marginBottom: 30,
         }}
       >
         <div style={style}>Ảnh đại diện</div>
 
-        <div className="centeravt">
-          <div onClick={handleInputClick}>
+        <div>
+          <div>
             {image == null ? (
               <img
+                onClick={handleInputClick}
                 src={avt}
                 style={{
                   marginRight: 10,
                   marginTop: 25,
-                  height: 200,
-                  marginBottom: 50,
+                  height: 150,
+                  width: 150,
+                  marginBottom: 30,
                   borderRadius: "100%",
-                  width: 200,
+                  margin: "0 auto",
                 }}
               />
             ) : (
               <img
+                onClick={handleInputClick}
                 src={URL.createObjectURL(image)}
                 style={{
                   marginRight: 10,
                   marginTop: 25,
-                  height: 200,
-                  marginBottom: 50,
+                  height: 150,
+                  width: 150,
+                  marginBottom: 30,
                   borderRadius: "100%",
-                  width: 200,
+                  margin: "0 auto",
                 }}
               />
             )}
@@ -878,6 +897,8 @@ export function InputInfo() {
             ></input>
           </div>
         </div>
+      </div>
+      <div style={{ marginBottom: 20 }}>
         <Row>
           <Col span={24}>
             <div style={style2}>
@@ -1028,10 +1049,6 @@ export function InputInfo() {
                 color: "white",
                 fontSize: 18,
                 height: 38,
-                paddingTop: 20,
-                paddingBottom: 20,
-                paddingLeft: 30,
-                paddingRight: 30,
               }}
               onClick={() => {
                 updatemetadata.mutate();
@@ -1199,10 +1216,6 @@ export function InputChangePass() {
                   color: "white",
                   fontSize: 18,
                   height: 38,
-                  paddingTop: 20,
-                  paddingBottom: 20,
-                  paddingLeft: 30,
-                  paddingRight: 30,
                 }}
                 onClick={() => resetpassword.mutate()}
               >

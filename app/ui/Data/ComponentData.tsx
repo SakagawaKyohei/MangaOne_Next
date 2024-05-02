@@ -12,6 +12,7 @@ import {
   Upload,
 } from "antd";
 import { ExclamationCircleFilled } from "@ant-design/icons";
+import * as faIcons from "react-icons/fa";
 import {
   InputChinhSuaTruyen,
   InputThemMoiTruyen /*InputChinhSuaTruyen*/,
@@ -46,6 +47,7 @@ import NeedLogin from "../NeedLogin";
 import { useParams } from "next/navigation";
 import useChapterQuery from "@/hooks/ChapterQuery/useChapterQuery";
 import useDeleteChapter from "@/hooks/useDeleteChapter";
+import { FaIcons } from "react-icons/fa";
 // import useCreateChapter from "../../hooks/ChapterManagement/useCreateChapter";
 // import useGetChapter from "../../hooks/GetMangaInfo/useGetChapter";
 // import useDeleteChapter from "../../hooks/GetMangaInfo/useDeleteChapter";
@@ -601,43 +603,51 @@ export function TruyenDaDangData() {
   };
   return (
     <div style={{ width: "92%" }}>
-      <Row style={{ paddingTop: 25, paddingBottom: 25 }}>
-        <Col offset={10} span={10}>
-          <Input
-            placeholder="Nhập tên truyện"
-            style={{
-              borderRadius: 5,
-              width: "100%",
-              height: 32,
-              fontSize: 15,
-            }}
-            onChange={(e) => {
-              setsearch(e.target.value);
-            }}
-          />
-        </Col>
-        <Col offset={1} span={3}>
-          <Button
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              borderRadius: 0,
-              backgroundColor: "#FF9040",
-              color: "white",
-              fontSize: 15,
-              height: 32,
-              width: "100%",
-            }}
-            onClick={() => {
-              setsearch1(search);
-              console.log(mangaid);
-            }}
-          >
-            <p>Tìm kiếm</p>
-          </Button>
-        </Col>
-      </Row>
+      <div
+        style={{
+          paddingTop: 25,
+          paddingBottom: 25,
+          display: "flex",
+
+          marginLeft: "8%",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Input
+          placeholder="Nhập tên truyện"
+          style={{
+            borderRadius: 5,
+
+            width: "40%",
+            marginLeft: "20%",
+            height: 32,
+            fontSize: 15,
+          }}
+          onChange={(e) => {
+            setsearch(e.target.value);
+          }}
+        />
+        <Button
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: 0,
+            backgroundColor: "#FF9040",
+            color: "white",
+            fontSize: 15,
+          }}
+          onClick={() => {
+            setsearch1(search);
+            console.log(mangaid);
+          }}
+        >
+          <p className="hidden md:block">Tìm kiếm</p>
+          <faIcons.FaSearch className="md:hidden text-xs sm:text-base" />
+        </Button>
+      </div>
+
       <div
         className="khung2"
         style={{
@@ -649,7 +659,14 @@ export function TruyenDaDangData() {
       >
         <div style={{ marginLeft: 20, margin: 5, fontSize: 15 }}>
           <Row style={{ marginBottom: 10, marginTop: 10 }}>
-            <Col span={5}>
+            <Col
+              style={{
+                width: "35%",
+                paddingRight: "10%",
+                padding: 5,
+                paddingTop: 0,
+              }}
+            >
               <Checkbox
                 style={{ marginLeft: 10 }}
                 onChange={(e) => {
@@ -685,44 +702,51 @@ export function TruyenDaDangData() {
                   }
                 }}
               >
-                <p style={{ fontSize: 15 }}>Tên truyện</p>
+                <p className="text-xs sm:text-base">Tên truyện</p>
               </Checkbox>
             </Col>
             <Col
-              span={3}
-              offset={6}
               style={{
-                fontSize: 15,
-                padding: 0.001,
+                padding: 5,
+                paddingTop: 0,
                 display: "flex",
                 justifyContent: "center",
+
+                width: "22%",
               }}
             >
-              <p style={{ fontFamily: "Arial, Helvetica, sans-serif" }}>
+              <p
+                style={{
+                  fontFamily: "Arial, Helvetica, sans-serif",
+                  marginLeft: 5,
+                }}
+                className="text-xs sm:text-base"
+              >
                 Số chương
               </p>
             </Col>
             <Col
-              span={3}
               style={{
-                fontSize: 15,
-                padding: 0.001,
+                width: "16%",
+
                 display: "flex",
                 justifyContent: "center",
                 fontFamily: "Arial, Helvetica, sans-serif",
               }}
             >
-              <p> Người đăng</p>
+              <p className="text-xs sm:text-base"> Người đăng</p>
             </Col>
             <Col
               style={{
-                fontSize: 15,
                 padding: 0.001,
                 display: "flex",
-                justifyContent: "center",
+
+                width: "16%",
               }}
             >
-              <div style={{ paddingLeft: 10, fontSize: 15 }}>Số lượt xem</div>
+              <div style={{ paddingLeft: 10 }} className="text-xs sm:text-base">
+                Số lượt xem
+              </div>
             </Col>
           </Row>
           {manga
@@ -763,7 +787,7 @@ export function TruyenDaDangData() {
               marginRight: 20,
             }}
           >
-            <p>Thêm truyện</p>
+            <p className="text-xs sm:text-base">Thêm truyện</p>
           </Button>
         </Link>
         <Button
@@ -781,7 +805,7 @@ export function TruyenDaDangData() {
           }}
           onClick={showDeleteConfirm}
         >
-          <p>Xóa truyện</p>
+          <p className="text-xs sm:text-base">Xóa truyện</p>
         </Button>
       </div>
     </div>
@@ -840,42 +864,49 @@ export function ChapterDaDangData() {
 
   return (
     <div style={{ width: "92%" }}>
-      <Row style={{ paddingTop: 25, paddingBottom: 25 }}>
-        <Col offset={10} span={10}>
-          <Input
-            placeholder="Nhập tên chương"
-            style={{
-              borderRadius: 5,
-              width: "100%",
-              height: 32,
-              fontSize: 15,
-            }}
-            onChange={(e) => {
-              setsearch(e.target.value);
-            }}
-          />
-        </Col>
-        <Col offset={1} span={3}>
-          <Button
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              borderRadius: 0,
-              backgroundColor: "#FF9040",
-              color: "white",
-              fontSize: 15,
-              height: 32,
-              width: "100%",
-            }}
-            onClick={() => {
-              setsearch1(search);
-            }}
-          >
-            <p>Tìm kiếm</p>
-          </Button>
-        </Col>
-      </Row>
+      <div
+        style={{
+          paddingTop: 25,
+          paddingBottom: 25,
+          display: "flex",
+
+          marginLeft: "8%",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Input
+          placeholder="Nhập tên truyện"
+          style={{
+            borderRadius: 5,
+
+            width: "40%",
+            marginLeft: "20%",
+            height: 32,
+            fontSize: 15,
+          }}
+          onChange={(e) => {
+            setsearch(e.target.value);
+          }}
+        />
+        <Button
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: 0,
+            backgroundColor: "#FF9040",
+            color: "white",
+            fontSize: 15,
+          }}
+          onClick={() => {
+            setsearch1(search);
+          }}
+        >
+          <p className="hidden md:block">Tìm kiếm</p>
+          <faIcons.FaSearch className="md:hidden text-xs sm:text-base" />
+        </Button>
+      </div>
       <div
         className="khung2"
         style={{
@@ -888,7 +919,7 @@ export function ChapterDaDangData() {
       >
         <div style={{ marginLeft: 20, margin: 5, fontSize: 15 }}>
           <Row style={{ marginBottom: 10, marginTop: 10 }}>
-            <Col span={5}>
+            <Col span={6}>
               <Checkbox
                 style={{ marginLeft: 10 }}
                 onChange={(e) => {
@@ -923,12 +954,12 @@ export function ChapterDaDangData() {
                   }
                 }}
               >
-                <p style={{ fontSize: 15 }}>Tên chương</p>
+                <p className="text-xs sm:text-base">Tên chương</p>
               </Checkbox>
             </Col>
             <Col
               span={3}
-              offset={5}
+              offset={3}
               style={{
                 fontSize: 15,
                 padding: 0.001,
@@ -939,27 +970,29 @@ export function ChapterDaDangData() {
               <p style={{ fontFamily: "Arial, Helvetica, sans-serif" }}></p>
             </Col>
             <Col
-              span={3}
+              span={4}
               style={{
-                fontSize: 15,
                 padding: 0.001,
                 display: "flex",
                 justifyContent: "center",
                 fontFamily: "Arial, Helvetica, sans-serif",
               }}
+              className="text-xs sm:text-base"
             >
               <p> Người đăng</p>
             </Col>
             <Col
               offset={1}
               style={{
-                fontSize: 15,
                 padding: 0.001,
                 display: "flex",
                 justifyContent: "center",
               }}
+              span={4}
             >
-              <div style={{ paddingLeft: 10, fontSize: 15 }}>Số lượt xem</div>
+              <div style={{ paddingLeft: 10 }} className="text-xs sm:text-base">
+                Số lượt xem
+              </div>
             </Col>
           </Row>
           {chapter
@@ -993,12 +1026,13 @@ export function ChapterDaDangData() {
               borderRadius: 0,
               backgroundColor: "#FF9040",
               color: "white",
-              fontSize: 15,
+
               height: 32,
               marginBottom: 25,
               marginTop: 25,
               marginRight: 20,
             }}
+            className="text-xs sm:text-base"
           >
             <p>Thêm chương</p>
           </Button>
@@ -1012,7 +1046,7 @@ export function ChapterDaDangData() {
             backgroundColor: "red",
             color: "white",
             height: 32,
-            fontSize: 15,
+
             marginBottom: 25,
             marginTop: 25,
           }}
@@ -1020,6 +1054,7 @@ export function ChapterDaDangData() {
             showDeleteConfirm();
             console.log("a");
           }}
+          className="text-xs sm:text-base"
         >
           <p>Xóa chương</p>
         </Button>

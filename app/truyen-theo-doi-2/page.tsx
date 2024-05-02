@@ -10,7 +10,6 @@ import AccountPage from "../ui/AccountPage/AccountPage";
 
 function TruyenTheoDoi2() {
   const style2: React.CSSProperties = {
-    marginRight: 35,
     fontSize: 18,
   };
   const input2: React.CSSProperties = {
@@ -46,26 +45,28 @@ function TruyenTheoDoi2() {
     <div>
       <p style={{ fontSize: 0.01 }}>.</p>
       <div style={{ marginBottom: 30, marginTop: 80 }}>
-        <Row>
-          <Col span={6}>
+        <div className="flex flex row gap-12 m-4 md:m-8 lg:ml-0">
+          <div className="hidden basis-1/4 lg:block">
             <AccountPage i={1} />
-          </Col>
-          <Col span={17} offset={1}>
+          </div>
+          <div className="lg:basis-3/4 text-xl">
             <h1
               style={{
                 textAlign: "center",
                 marginTop: 10,
                 marginBottom: 20,
-                fontSize: 21,
               }}
             >
               TRUYỆN THEO DÕI
             </h1>
             <div style={style2}>
-              <Row gutter={[16, 24]}>
+              <Row className="flex flex-row" gutter={[16, 24]}>
                 {midsSuccess ? (
                   mids?.map((item) => (
-                    <Col span={6} key={item.manga_id}>
+                    <Col
+                      key={item.manga_id}
+                      className=" min-[0px]:basis-1/2 min-[500px]:basis-1/3 md:basis-1/4"
+                    >
                       <MangaCart mangaid={item.manga_id} />
                     </Col>
                   ))
@@ -95,8 +96,8 @@ function TruyenTheoDoi2() {
               </div> */}
             </div>
             {/*custom lai*/}
-          </Col>
-        </Row>
+          </div>
+        </div>
       </div>
     </div>
   );

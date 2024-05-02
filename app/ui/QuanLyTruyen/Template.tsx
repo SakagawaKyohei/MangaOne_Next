@@ -23,15 +23,16 @@ function Template(pros: Pros) {
         <div>
           <p style={{ fontSize: 0.01 }}>.</p>
           <div style={{ marginBottom: 30, marginTop: 80 }}>
-            <Row>
-              <Col span={6}>
+            <div className="flex flex row gap-12 m-4 md:m-8 lg:ml-0">
+              <Col className="basis-1/4 lg:block hidden">
                 <AccountPage i={2} />
               </Col>
-              <Col span={17} offset={1}>
+              <Col className="w-full lg:basis-3/4">
                 <h1
                   style={{
                     textAlign: "center",
                     marginTop: 10,
+
                     marginBottom: 20,
                     fontSize: 21,
                   }}
@@ -50,7 +51,7 @@ function Template(pros: Pros) {
                   {pros.components}
                 </div>
               </Col>
-            </Row>
+            </div>
           </div>
         </div>
       </div>
