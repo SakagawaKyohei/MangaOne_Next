@@ -52,18 +52,23 @@ function Diemthuong() {
                 marginTop: 10,
                 marginBottom: 20,
               }}
-              className="text-xl"
+              className="md:text-xl"
             >
               ĐIỂM DỊCH TRUYỆN
             </h1>
-            <p style={style2}>
+            <p style={style2} className="text-base md:text-lg">
               Điểm dịch truyện có thể quy đổi ra tiền mặt, mỗi điểm tương ứng
               1.000đ. Mỗi 500 view truyện bạn dịch sẽ nhận được 1 điểm dịch
               truyện
             </p>
             <div style={style2}>
-              <p>Điểm hiện tại của bạn:</p>
-              <p style={{ color: "red", marginLeft: 5 }}>0</p>
+              <p className="text-base md:text-lg">Điểm hiện tại của bạn:</p>
+              <p
+                style={{ color: "red", marginLeft: 5 }}
+                className="text-base md:text-lg"
+              >
+                0
+              </p>
               <Button
                 style={{
                   display: "flex",
@@ -72,12 +77,12 @@ function Diemthuong() {
 
                   backgroundColor: "#FF9040",
                   color: "white",
-                  fontSize: 16,
 
                   marginLeft: 10,
                   paddingLeft: 10,
                   paddingRight: 10,
                 }}
+                className="text-base md:text-lg"
               >
                 {/*custom lai*/}
                 Rút tiền
@@ -89,7 +94,7 @@ function Diemthuong() {
                   marginBottom: 30,
                 }}
               >
-                <div style={style2}>
+                <div style={style2} className="text-base md:text-lg">
                   Số tài khoản ngân hàng
                   <p style={{ color: "red", marginLeft: 5 }}>*</p>
                 </div>
@@ -104,9 +109,10 @@ function Diemthuong() {
                     borderRadius: 0,
                     backgroundColor: "#FF9040",
                     color: "white",
-                    fontSize: 18,
+
                     height: 38,
                   }}
+                  className="text-base md:text-lg"
                 >
                   <p>Cập nhật</p>
                 </Button>

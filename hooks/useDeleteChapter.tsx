@@ -7,7 +7,7 @@ import { CreateMangaQuery } from "@/queries/CreateMangaQuery";
 import { DeleteManga } from "@/queries/MangaManagement/DeleteManga";
 import useSupabase from "./useSupabase";
 import { DeleteChapter } from "@/queries/GetMangaInfo/DeleteChapter";
-function useDeleteManga(id: string[]) {
+function useDeleteChapter(id: string[]) {
   const client = useSupabase();
 
   const mutationFn = async () => {
@@ -21,4 +21,4 @@ function useDeleteManga(id: string[]) {
   return useMutation({ mutationFn });
 }
 
-export default useDeleteManga;
+export default useDeleteChapter;
