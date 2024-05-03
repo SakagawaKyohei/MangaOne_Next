@@ -5,6 +5,7 @@ import { Col, Row } from "antd";
 import AccountPage from "../ui/AccountPage/AccountPage";
 import NeedLogin from "../ui/NeedLogin";
 import { TruyenDaDangData } from "../ui/Data/ComponentData";
+import AccountPageRow from "../ui/AccountPage/AccountPageRow";
 
 function TruyenDaDang() {
   const { data: user, isLoading, isError } = useUser();
@@ -17,11 +18,14 @@ function TruyenDaDang() {
         <div>
           <p style={{ fontSize: 0.01 }}>.</p>
           <div style={{ marginBottom: 30, marginTop: 80 }}>
-            <div className="flex flex row gap-12 m-4 md:m-8 lg:ml-0">
-              <div className="hidden basis-1/4 lg:block ">
+            <div className="md:hidden">
+              <AccountPageRow i={2} />
+            </div>
+            <div className="flex flex row gap-12 m-4 md:m-8 md:ml-0">
+              <div className="hidden basis-1/4 md:block ">
                 <AccountPage i={2} />
               </div>
-              <div className="lg:basis-3/4 text-basic w-full">
+              <div className="md:basis-3/4 text-basic w-full">
                 <h1
                   style={{
                     textAlign: "center",

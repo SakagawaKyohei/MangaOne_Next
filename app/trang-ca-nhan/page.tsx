@@ -5,6 +5,7 @@ import NeedLogin from "../ui/NeedLogin";
 import useUser from "@/hooks/useUser";
 import AccountPage from "../ui/AccountPage/AccountPage";
 import { InputInfo } from "../ui/Data/InputData";
+import AccountPageRow from "../ui/AccountPage/AccountPageRow";
 
 function Trangcanhan() {
   const { data: user, isLoading, isError } = useUser();
@@ -28,11 +29,14 @@ function Trangcanhan() {
     <div>
       <p style={{ fontSize: 0.01 }}>.</p>
       <div style={{ marginBottom: 30, marginTop: 80 }}>
-        <div className="flex flex row gap-12 m-4 md:m-8 lg:ml-0">
-          <div className="hidden basis-1/4 lg:block ">
+        <div className="md:hidden">
+          <AccountPageRow i={0} />
+        </div>
+        <div className="flex flex row gap-12 m-4 md:m-8 md:ml-0">
+          <div className="hidden basis-1/4 md:block ">
             <AccountPage i={0} />
           </div>
-          <div className="lg:basis-3/4 text-basic w-full">
+          <div className="md:basis-3/4 text-basic w-full">
             <h1
               style={{
                 textAlign: "center",

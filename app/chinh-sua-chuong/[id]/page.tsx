@@ -7,6 +7,7 @@ import { useParams } from "next/navigation";
 import AccountPage from "@/app/ui/AccountPage/AccountPage";
 import { ChinhSuaChapterData } from "@/app/ui/Data/ComponentData";
 import useChapterQueryCID from "@/hooks/ChapterQuery/useChapterQueryCID";
+import AccountPageRow from "@/app/ui/AccountPage/AccountPageRow";
 
 function ChinhSuaChapter() {
   const params = useParams<{ id: string }>();
@@ -33,8 +34,11 @@ function ChinhSuaChapter() {
           <div>
             <p style={{ fontSize: 0.01 }}>.</p>
             <div style={{ marginBottom: 30, marginTop: 80 }}>
-              <div className="flex flex row gap-12 m-4 md:m-8 lg:ml-0 ">
-                <div className="hidden basis-1/4 lg:block ">
+              <div className="md:hidden">
+                <AccountPageRow i={2} />
+              </div>
+              <div className="flex flex row gap-12 m-4 md:m-8 md:ml-0 ">
+                <div className="hidden basis-1/4 md:block ">
                   <AccountPage i={2} />
                 </div>
                 <div className="lg:basis-3/4 text-basic w-full">

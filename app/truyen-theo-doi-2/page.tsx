@@ -7,6 +7,7 @@ import MangaCart from "../ui/MangaCart/MangaCart";
 import useUser from "@/hooks/useUser";
 import useMangaFollowID from "@/hooks/follow/useMangaFollowID";
 import AccountPage from "../ui/AccountPage/AccountPage";
+import AccountPageRow from "../ui/AccountPage/AccountPageRow";
 
 function TruyenTheoDoi2() {
   const style2: React.CSSProperties = {
@@ -45,11 +46,14 @@ function TruyenTheoDoi2() {
     <div>
       <p style={{ fontSize: 0.01 }}>.</p>
       <div style={{ marginBottom: 30, marginTop: 80 }}>
-        <div className="flex flex row gap-12 m-4 md:m-8 lg:ml-0">
-          <div className="hidden basis-1/4 lg:block">
+        <div className="md:hidden">
+          <AccountPageRow i={2} />
+        </div>
+        <div className="flex flex row gap-12 m-4 md:m-8 md:ml-0">
+          <div className="hidden basis-1/4 md:block">
             <AccountPage i={1} />
           </div>
-          <div className="lg:basis-3/4 text-xl">
+          <div className="md:basis-3/4 text-xl">
             <h1
               style={{
                 textAlign: "center",

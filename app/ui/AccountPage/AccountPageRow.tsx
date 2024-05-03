@@ -10,50 +10,38 @@ interface Pros {
   i: number;
 }
 
-function AccountPage(pros: Pros) {
+function AccountPageRow(pros: Pros) {
   const router = useRouter();
   const logout = useLogout();
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        whiteSpace: "nowrap",
+        width: "95vw",
+        overflowX: "auto",
+        height: "30",
+      }}
+    >
       {AccountbarData.map((item, index) => (
         <Link
           href={item.path}
-          className={index == pros.i ? "navbutton selected" : "navbutton"}
+          className={index == pros.i ? "navbutton2 selected" : "navbutton2"}
+          style={{ margin: 15, marginBottom: 10 }}
         >
           <div
             style={{
-              marginLeft: "23%",
               display: "flex",
               flexDirection: "row",
             }}
           >
-            <div className="hidden lg:block">{item.icon}</div>
             <p style={{ fontSize: 16 }}>{item.title}</p>
           </div>
         </Link>
       ))}
-
-      <div
-        style={{
-          marginLeft: "23%",
-          display: "flex",
-          flexDirection: "row",
-        }}
-        className="navbutton"
-        onClick={() => {
-          logout.mutate();
-          router.push("/dang-nhap");
-        }}
-      >
-        <FaIcons.FaSignOutAlt
-          style={{ marginRight: 15, fontSize: 18 }}
-          className="hidden lg:block"
-        />
-        <p style={{ fontSize: 16 }}>Đăng xuất</p>
-      </div>
     </div>
   );
 }
 
-export default AccountPage;
+export default AccountPageRow;
 export {};

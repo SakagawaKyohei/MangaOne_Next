@@ -6,10 +6,23 @@
     align-items: center;
     font-size: 16px;
     color: black;
+
 }
 .navbutton.selected
 {    color: white;
     background-color: #FF9040;
+}
+.navbutton2
+{
+  
+    align-items: center;
+ 
+    color: black;
+}
+.navbutton2.selected
+{    
+    color:  #FF9040;
+    text-decoration: underline;
 }
 .navbutton.selected:hover
 {    color: white;

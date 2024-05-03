@@ -6,6 +6,7 @@ import AccountPage from "../ui/AccountPage/AccountPage";
 import useUser from "@/hooks/useUser";
 import NeedLogin from "../ui/NeedLogin";
 import { InputChangePass } from "../ui/Data/InputData";
+import AccountPageRow from "../ui/AccountPage/AccountPageRow";
 
 function Doimaukhau() {
   const style2: React.CSSProperties = {
@@ -31,11 +32,14 @@ function Doimaukhau() {
     <div>
       <p style={{ fontSize: 0.01 }}>.</p>
       <div style={{ marginBottom: 30, marginTop: 80 }}>
-        <div className="flex flex row gap-12 m-4 md:m-8 lg:ml-0">
-          <div className="hidden basis-1/4 lg:block">
+        <div className="md:hidden">
+          <AccountPageRow i={4} />
+        </div>
+        <div className="flex flex row gap-12 m-4 md:m-8 md:ml-0">
+          <div className="hidden basis-1/4 md:block">
             <AccountPage i={4} />
           </div>
-          <div className="lg:basis-3/4 text-basic w-full">
+          <div className="md:basis-3/4 text-basic w-full">
             <h1
               style={{
                 textAlign: "center",
