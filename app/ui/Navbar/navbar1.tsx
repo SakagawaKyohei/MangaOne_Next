@@ -252,6 +252,7 @@ function Navbar1() {
   //   // Google Analytics
   //   setPath(window.location.pathname);
   // }, [loca]);
+  const navigate = useRouter();
   const { Search } = Input;
   const showSlidebar = () => setslidebar(!slidebar);
   const router = useRouter();
@@ -264,13 +265,11 @@ function Navbar1() {
             console.log("a");
             showSlidebar();
             const newRandomElement = getRandomElement();
-            // navigate(`/noi-dung/${newRandomElement}`);
+            navigate.push(`/noi-dung/${newRandomElement}`);
           }}
         >
           {item.icon}
-          <span style={{ marginLeft: 12 }} className="text-basic md:text-basic">
-            {item.title}
-          </span>
+          <span style={{ marginLeft: 12 }}>{item.title}</span>
         </button>
       );
     }
