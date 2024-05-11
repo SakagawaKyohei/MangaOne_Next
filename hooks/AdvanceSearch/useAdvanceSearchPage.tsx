@@ -1,8 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { GetChapter } from "@/queries/GetChapter/GetChapter";
 import useSupabase from "../useSupabase";
-import { MangaFollowIDQuery } from "@/queries/follow/MangaFollowIDQuery";
-import { AdvanceSearchAll } from "@/queries/AdvanceSearch/AdvanceSearchAll";
 import { AdvanceSearchPage } from "@/queries/AdvanceSearch/AdvanceSearchPage";
 
 function useAdvanceSearchPage(

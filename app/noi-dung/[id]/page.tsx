@@ -1,6 +1,6 @@
 "use client";
 import * as faIcons from "react-icons/fa";
-import { Button, Col, Row } from "antd";
+import { Button, Col, Pagination, Row } from "antd";
 import { FaAngleDoubleRight } from "react-icons/fa";
 import TextArea from "antd/es/input/TextArea";
 import { useEffect, useRef, useState } from "react";
@@ -16,6 +16,11 @@ import useDeleteFollow from "@/hooks/follow/useDeleteFollow";
 import useAddFollow from "@/hooks/follow/useAddFollow";
 import useIsFollow from "@/hooks/follow/useIsFollow";
 import useGetViewManga from "@/hooks/GetMangaInfo/useGetViewManga";
+import CommentComponent from "@/app/ui/CommentComponent";
+import useCommentManga from "@/hooks/comment/useCommentManga";
+import useSupabase from "@/hooks/useSupabase";
+import useQueryCommentManga from "@/hooks/comment/useQueryCommentManga";
+import useCommentMangaAll from "@/hooks/comment/useCommentMangaAll";
 function NoiDungTruyen() {
   const params = useParams<{
     id: string;
@@ -58,8 +63,40 @@ function NoiDungTruyen() {
     isLoading: followload,
     isError: followerror,
   } = useIsFollow(user?.user?.id, mid);
+  const [page, setpages] = useState(1);
+  const {
+    data: comment,
+    isLoading: cl,
+    isError: ce,
+    refetch: r,
+  } = useQueryCommentManga(page);
+  const {
+    data: cmtlist,
+    isLoading: listload,
+    isError: listerror,
+  } = useCommentMangaAll(); // Không thêm [0]
+  console.log(comment);
   const follow = useAddFollow(user?.user?.id, mid);
   const unfollow = useDeleteFollow(user?.user?.id, mid);
+  const [text, settext] = useState("");
+  const sendcomment = useCommentManga(user?.user?.id, mid, text);
+  const supabase = useSupabase();
+  useEffect(() => {
+    const channel = supabase
+      .channel("room2")
+      .on(
+        "postgres_changes",
+        { event: "INSERT", schema: "public", table: "cmtmanga" },
+        (payload) => {
+          console.log("Change received!", payload);
+          r();
+        }
+      )
+      .subscribe();
+    return () => {
+      channel.unsubscribe();
+    };
+  }, []);
   // const history = useAddHistory(user.user?.id, mid);
   let a = false;
 
@@ -145,7 +182,8 @@ function NoiDungTruyen() {
     cl20Loading ||
     cLoading ||
     gvLoading ||
-    followload
+    followload ||
+    listload
   ) {
     return <div>Loading...</div>;
   }
@@ -162,11 +200,12 @@ function NoiDungTruyen() {
     !chapterlast ||
     !chapterlast20 ||
     followerror ||
-    !follow
+    !follow ||
+    !cmtlist ||
+    listerror
   ) {
     return <div>Error</div>;
   }
-  console.log(getview);
   return (
     <div>
       <div
@@ -661,9 +700,40 @@ function NoiDungTruyen() {
                 <p style={{ fontSize: 17, marginLeft: 10 }}>BÌNH LUẬN </p>
               </div>
               <TextArea
-                style={{ height: 150, fontSize: 17 }}
+                style={{ height: 115, fontSize: 17, marginBottom: 30 }}
+                onChange={(e) => {
+                  settext(e.target.value);
+                }}
+                onKeyDown={(e) => {
+                  if (e.key == "Enter") {
+                    sendcomment.mutate();
+                  }
+                }}
                 placeholder="Viết bình luận"
               />
+              {comment?.data?.map((value) => {
+                return (
+                  <CommentComponent
+                    name={value.ho.slice(1, -1)}
+                    avt={value.avt.slice(1, -1)}
+                    text={value.comment}
+                  />
+                );
+              })}
+              <div className="pagination">
+                <Pagination
+                  total={cmtlist.data?.length}
+                  pageSize={10}
+                  showSizeChanger={false}
+                  showLessItems
+                  current={page}
+                  onChange={(e) => {
+                    // navigate.push(("/" + e) as string);
+                    setpages(e);
+                    r();
+                  }}
+                />
+              </div>
             </div>
           </div>
           <img
