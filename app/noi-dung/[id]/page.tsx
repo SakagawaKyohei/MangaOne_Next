@@ -711,15 +711,17 @@ function NoiDungTruyen() {
                 }}
                 placeholder="Viết bình luận"
               />
-              {comment?.data?.map((value) => {
-                return (
+              {(comment?.data as any[] | null | undefined)?.map(
+                (value, index) => (
                   <CommentComponent
-                    name={value.ho.slice(1, -1)}
-                    avt={value.avt.slice(1, -1)}
-                    text={value.comment}
+                    key={index}
+                    name={value?.ho?.slice(1, -1)}
+                    avt={value?.avt?.slice(1, -1)}
+                    text={value?.comment}
                   />
-                );
-              })}
+                )
+              )}
+
               <div className="pagination">
                 <Pagination
                   total={cmtlist.data?.length}
