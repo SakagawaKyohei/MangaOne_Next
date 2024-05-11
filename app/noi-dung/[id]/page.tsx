@@ -69,13 +69,12 @@ function NoiDungTruyen() {
     isLoading: cl,
     isError: ce,
     refetch: r,
-  } = useQueryCommentManga(page);
+  } = useQueryCommentManga(page, mid);
   const {
     data: cmtlist,
     isLoading: listload,
     isError: listerror,
-  } = useCommentMangaAll(); // Không thêm [0]
-  console.log(comment);
+  } = useCommentMangaAll(mid); // Không thêm [0]
   const follow = useAddFollow(user?.user?.id, mid);
   const unfollow = useDeleteFollow(user?.user?.id, mid);
   const [text, settext] = useState("");
@@ -206,6 +205,7 @@ function NoiDungTruyen() {
   ) {
     return <div>Error</div>;
   }
+  console.log(cmtlist);
   return (
     <div>
       <div
@@ -715,9 +715,10 @@ function NoiDungTruyen() {
                 (value, index) => (
                   <CommentComponent
                     key={index}
-                    name={value?.ho?.slice(1, -1)}
+                    name={value?.ten?.slice(1, -1)}
                     avt={value?.avt?.slice(1, -1)}
                     text={value?.comment}
+                    ho={value?.ho?.slice(1, -1)}
                   />
                 )
               )}

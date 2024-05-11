@@ -1,5 +1,6 @@
 interface comment {
   avt: string;
+  ho: string;
   name: string;
   text: string;
 }
@@ -14,8 +15,21 @@ function CommentComponent(pros: comment) {
           marginBottom: 35,
         }}
       >
-        <p style={{ margin: 8, fontWeight: "bold", color: "#ff9040" }}>
-          {pros.name}
+        <p
+          style={{
+            margin: 8,
+            fontWeight: "bold",
+            color: "#ff9040",
+            display: "flex",
+            flexDirection: "row",
+          }}
+        >
+          {pros.name == null ? (
+            <></>
+          ) : (
+            <div style={{ marginRight: 4 }}> {pros.name}</div>
+          )}
+          {pros.ho}
         </p>
 
         <div style={{ border: "1px solid #d8d8d8", margin: 8 }} />

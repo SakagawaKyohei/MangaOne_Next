@@ -6,12 +6,12 @@ import { QueryMessage } from "@/queries/message/QueryMessage";
 import { QueryCommentManga } from "@/queries/Comment/QueryCommentManga";
 import { QueryCommentMangaAll } from "@/queries/Comment/QueryCommentMangaAll";
 
-function useCommentMangaAll() {
+function useCommentMangaAll(mangaid: any) {
   const client = useSupabase();
-  const queryKey = ["commentlist"];
+  const queryKey = ["commentlist" + mangaid];
 
   const queryFn = async () => {
-    return QueryCommentMangaAll(client);
+    return QueryCommentMangaAll(client, mangaid);
   };
 
   return useQuery({ queryKey, queryFn });
