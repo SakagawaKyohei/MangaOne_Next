@@ -5,7 +5,7 @@ export function OLoginQuery(client: TypeSupabaseClient) {
   return client.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: `https://manga-one-orpin.vercel.app/`,
+      redirectTo: "https://manga-one-orpin.vercel.app/",
     },
   });
 }
