@@ -2,14 +2,15 @@ import { GetMangaByID } from "@/queries/GetMangaByID";
 import { useQuery } from "@tanstack/react-query";
 import useSupabase from "../useSupabase";
 import { GetAllMangaList } from "@/queries/GetMangaList/GetAllMangaList";
-import { QueryMessage } from "@/queries/message/QueryMessage";
+import { QueryMessageBox } from "@/queries/messages/QueryMessageBox";
+import { QueryMessage } from "@/queries/messages/QueryMessage";
 
-function useQueryMessage() {
+function useQueryMessage(user1: string, user2: string) {
   const client = useSupabase();
-  const queryKey = ["messagek"];
+  const queryKey = ["message" + user1 + user2];
 
   const queryFn = async () => {
-    return QueryMessage(client).then((result) => result.data);
+    return QueryMessage(client, user1, user2).then((result) => result.data);
   };
 
   return useQuery({ queryKey, queryFn });

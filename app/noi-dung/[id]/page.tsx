@@ -715,6 +715,8 @@ function NoiDungTruyen() {
                 (value, index) => (
                   <CommentComponent
                     key={index}
+                    uid2={value?.uid}
+                    uid={user.user?.id as any}
                     name={value?.ten?.slice(1, -1)}
                     avt={value?.avt?.slice(1, -1)}
                     text={value?.comment}
