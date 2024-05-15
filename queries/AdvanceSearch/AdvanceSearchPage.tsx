@@ -21,7 +21,7 @@ export function AdvanceSearchPage(
     .from("manga")
     .select("*")
     .range((page - 1) * 12, page * 12 - 1)
-    .ilike("name", `%${name}%`)
+    .ilike("name", `%${name.replace(/%20/g, " ")}%`)
     .ilike("author", `%${author}%`)
     .contains("genre", genre)
     .order("created_at", { ascending: false });

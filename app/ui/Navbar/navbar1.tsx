@@ -133,6 +133,8 @@ function Navbar1() {
     isLoading: mbl,
     refetch: r2,
   } = useQueryMessageBox(user?.user?.id as any);
+  const [name, setname] = useState("");
+  const nav = useRouter();
   if (isLoading || mbl) {
     return <div>Loading...</div>;
   }
@@ -352,6 +354,16 @@ function Navbar1() {
               placeholder="Tìm truyện"
               className="hidden md:block"
               style={{ width: "100%", paddingTop: 12 }}
+              onChange={(e) => {
+                setname(e.target.value);
+              }}
+              value={name}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  nav.push(`/ket-qua/${name}/null/null/1`);
+                  setname("");
+                }
+              }}
             />
           </div>
           <div className="flex items-center flex-shrink-0 md:ml-24">
