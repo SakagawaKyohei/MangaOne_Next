@@ -13,6 +13,7 @@ import { Input, Avatar, Row, Col, Dropdown, Button, MenuProps } from "antd";
 import { ConfigProvider } from "antd";
 //thêm màu cho selected color
 import { IoMdNotificationsOutline, IoMdPerson } from "react-icons/io";
+import { IoChatbubblesOutline } from "react-icons/io5";
 import React from "react";
 import { ImBook } from "react-icons/im";
 import useSupabase from "@/hooks/useSupabase";
@@ -21,6 +22,7 @@ import useLogout from "@/hooks/loginsystem/useLogout";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import useQueryMessageBox from "@/hooks/messages/useQueryMessageBox";
 
 const style: React.CSSProperties = {
   marginTop: 5,
@@ -124,14 +126,25 @@ const SlidebarData = [
 function Navbar1() {
   const [slidebar, setslidebar] = useState(false);
   const logoutmutation = useLogout();
-  const { data: user, isLoading, isError } = useUser();
-  if (isLoading) {
+  const { data: user, isLoading, isError, isSuccess } = useUser();
+  const {
+    data: messagebox,
+    isError: mbe,
+    isLoading: mbl,
+    refetch: r2,
+  } = useQueryMessageBox(user?.user?.id as any);
+  if (isLoading || mbl) {
     return <div>Loading...</div>;
+  }
+  if (isSuccess) {
+    r2();
   }
 
   if (isError || !user) {
     return <div>Error</div>;
   }
+
+  console.log(messagebox);
   let avt = user.user?.user_metadata.avt;
   let ten = user.user?.user_metadata.ten;
   let ho = user.user?.user_metadata.ho;
@@ -253,6 +266,7 @@ function Navbar1() {
   //   setPath(window.location.pathname);
   // }, [loca]);
   const navigate = useRouter();
+
   const { Search } = Input;
   const showSlidebar = () => setslidebar(!slidebar);
   const router = useRouter();
@@ -341,6 +355,13 @@ function Navbar1() {
             />
           </div>
           <div className="flex items-center flex-shrink-0 md:ml-24">
+            <Link
+              href={`/messages/${user.user?.id}/${
+                messagebox ? messagebox[0].user2 : "null"
+              }`}
+            >
+              <IoChatbubblesOutline className="flex shrink h-6 w-6 md:h-8 md:w-8 mt-2 mr-6" />
+            </Link>
             <IoMdNotificationsOutline className="flex shrink h-8 w-8 md:h-10 md:w-10 mt-2" />
             {user.user == null ? (
               <Link href="/dang-nhap">

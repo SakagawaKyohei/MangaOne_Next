@@ -22,12 +22,13 @@ export async function SendMessage(
   // Tiếp tục sử dụng messages như là một mảng...
 
   messages = [{ nguoigui: user1, text: text }, ...messages];
+  const now: Date = new Date();
 
   const { data: data2, error: e2 } = await client
     .from("messages")
-    .upsert({ messages: messages, user1: user2, user2: user1 });
+    .upsert({ messages: messages, user1: user2, user2: user1, update_at: now });
 
   return client
     .from("messages")
-    .upsert({ messages: messages, user1: user1, user2: user2 });
+    .upsert({ messages: messages, user1: user1, user2: user2, update_at: now });
 }

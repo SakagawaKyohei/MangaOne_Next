@@ -32,6 +32,7 @@ export default function Messages() {
     isLoading: ml,
   } = useQueryMessage(id1, id2);
   const [text, settext] = useState("");
+  const [text2, settext2] = useState("");
   const sendmess = useSendMessage(id1, id2, text);
   const supabase = useSupabase();
   const [messagelist, setmessagelist] = useState([]);
@@ -127,7 +128,9 @@ export default function Messages() {
                           {item.user2info[0].ten?.slice(1, -1)}
                         </p>
                       </div>
-                      <p style={{ color: "#7589a3", fontSize: 14 }}>Tin nhắn</p>
+                      <p style={{ color: "#7589a3", fontSize: 14 }}>
+                        {item.messages[0].text}
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -276,8 +279,10 @@ export default function Messages() {
                   paddingLeft: 10,
                   border: "none",
                 }}
+                value={text2}
                 onChange={(e) => {
                   settext(e.target.value);
+                  settext2(e.target.value);
                 }}
                 onKeyDown={(e) => {
                   if (e.key == "Enter") {
