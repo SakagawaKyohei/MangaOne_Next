@@ -20,8 +20,8 @@ export function AdvanceSearchAll(
   return client
     .from("manga")
     .select("*")
-    .ilike("name", `%${name}%`)
-    .ilike("author", `%${author}%`)
+    .ilike("name", `%${name.replace(/%20/g, " ")}%`)
+    .ilike("author", `%${author.replace(/%20/g, " ")}%`)
     .contains("genre", genre)
     .order("created_at", { ascending: false });
 }

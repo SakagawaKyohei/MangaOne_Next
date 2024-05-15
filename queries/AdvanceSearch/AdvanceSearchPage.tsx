@@ -22,7 +22,7 @@ export function AdvanceSearchPage(
     .select("*")
     .range((page - 1) * 12, page * 12 - 1)
     .ilike("name", `%${name.replace(/%20/g, " ")}%`)
-    .ilike("author", `%${author}%`)
+    .ilike("author", `%${author.replace(/%20/g, " ")}%`)
     .contains("genre", genre)
     .order("created_at", { ascending: false });
 }
