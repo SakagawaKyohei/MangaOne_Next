@@ -9,12 +9,22 @@ import * as FaUIcons from "react-icons/fa";
 import * as IoUIcons from "react-icons/io";
 // import { Link, useLocation, useNavigate } from "react-router-dom";
 //import logo from "../../images/logos.svg";
-import { Input, Avatar, Row, Col, Dropdown, Button, MenuProps } from "antd";
+import {
+  Input,
+  Avatar,
+  Row,
+  Col,
+  Dropdown,
+  Button,
+  MenuProps,
+  Flex,
+} from "antd";
 import { ConfigProvider } from "antd";
 //thêm màu cho selected color
 import { IoMdNotificationsOutline, IoMdPerson } from "react-icons/io";
 import { IoChatbubblesOutline } from "react-icons/io5";
 import React from "react";
+
 import { ImBook } from "react-icons/im";
 import useSupabase from "@/hooks/useSupabase";
 import useUser from "@/hooks/useUser";
@@ -23,6 +33,8 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import useQueryMessageBox from "@/hooks/messages/useQueryMessageBox";
+import useNumNotSeen from "@/hooks/messages/useNumNotSeen";
+import useSeen from "@/hooks/messages/useSeen";
 
 const style: React.CSSProperties = {
   marginTop: 5,
@@ -127,6 +139,7 @@ function Navbar1() {
   const [slidebar, setslidebar] = useState(false);
   const logoutmutation = useLogout();
   const { data: user, isLoading, isError, isSuccess } = useUser();
+  const { data: notseen, refetch: r } = useNumNotSeen(user?.user?.id as any);
   const {
     data: messagebox,
     isError: mbe,
@@ -135,6 +148,28 @@ function Navbar1() {
   } = useQueryMessageBox(user?.user?.id as any);
   const [name, setname] = useState("");
   const nav = useRouter();
+  const supabase = useSupabase();
+  const seen = useSeen(
+    user?.user?.id,
+    messagebox ? messagebox[0].user2 : "null"
+  );
+  useEffect(() => {
+    const channel = supabase
+      .channel("message")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "messages" },
+        (payload: any) => {
+          console.log("Change received!", payload);
+          r();
+          r2();
+        }
+      )
+      .subscribe();
+    return () => {
+      channel.unsubscribe();
+    };
+  }, []);
   if (isLoading || mbl) {
     return <div>Loading...</div>;
   }
@@ -271,6 +306,7 @@ function Navbar1() {
 
   const { Search } = Input;
   const showSlidebar = () => setslidebar(!slidebar);
+
   const router = useRouter();
   const TitleOrButton = (item: any) => {
     if (item.title == "Chọn ngẫu nhiên") {
@@ -371,8 +407,39 @@ function Navbar1() {
               href={`/messages/${user.user?.id}/${
                 messagebox ? messagebox[0].user2 : "null"
               }`}
+              onClick={() => {
+                seen.mutate();
+              }}
             >
-              <IoChatbubblesOutline className="flex shrink h-6 w-6 md:h-8 md:w-8 mt-2 mr-6" />
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "end",
+                  alignItems: "end",
+                }}
+              >
+                {notseen?.length == 0 ? (
+                  <></>
+                ) : (
+                  <div
+                    style={{
+                      backgroundColor: "red",
+                      position: "fixed",
+
+                      marginRight: 20,
+                      marginBottom: 18,
+                      padding: "0px 6px",
+                      borderRadius: 100,
+                    }}
+                  >
+                    <p style={{ color: "white", fontSize: 14 }}>
+                      {notseen?.length}
+                    </p>
+                  </div>
+                )}
+
+                <IoChatbubblesOutline className="flex shrink h-6 w-6 md:h-8 md:w-8 mt-2 mr-6" />
+              </div>
             </Link>
             <IoMdNotificationsOutline className="flex shrink h-8 w-8 md:h-10 md:w-10 mt-2" />
             {user.user == null ? (

@@ -28,6 +28,17 @@ div{
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.messagebox {
+  transition: background-color 0.3s ease; /* Thêm transition để tạo hiệu ứng mềm mại */
+  border-radius: 5px;
+}
+
+.messagebox:hover {
+  background-color: #CCCCCC; /* Màu nền thay đổi khi hover */
+}
+.messageboxseleted {
+  background-color: #ffa6003c;
+}
 .khung
 {
   border: 1px solid #D9D9D9;

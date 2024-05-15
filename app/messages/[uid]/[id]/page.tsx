@@ -10,10 +10,12 @@ import useMessage from "antd/es/message/useMessage";
 import useQueryMessage from "@/hooks/messages/useQueryMessage";
 import useSendMessage from "@/hooks/messages/useSendMessage";
 import useSupabase from "@/hooks/useSupabase";
+import useSeen from "@/hooks/messages/useSeen";
 
 export default function Messages() {
   //top 1 truyen
   const params = useParams<{ uid: string; id: string }>();
+  const [selected, setselected] = useState(params.id);
   const {
     data: messagebox,
     isError: mbe,
@@ -34,6 +36,7 @@ export default function Messages() {
   const [text, settext] = useState("");
   const [text2, settext2] = useState("");
   const sendmess = useSendMessage(id1, id2, text);
+  const seen = useSeen(id1, id2);
   const supabase = useSupabase();
   const [messagelist, setmessagelist] = useState([]);
   useEffect(() => {
@@ -90,14 +93,23 @@ export default function Messages() {
 
                 {messagebox.map((item) => (
                   <div
+                    key={item.id} // Remember to add a unique key
                     style={{
                       display: "flex",
                       flexDirection: "row",
-                      marginBottom: 20,
+                      padding: 10,
                     }}
+                    className={
+                      selected === item.user2
+                        ? "messageboxseleted"
+                        : "messagebox"
+                    }
                     onClick={() => {
                       setid1(item.user1);
                       setid2(item.user2);
+                      seen.mutate();
+                      setselected(item.user2); // Update selected directly with item.user2
+                      console.log(selected);
                     }}
                   >
                     <Image
@@ -120,18 +132,44 @@ export default function Messages() {
                             marginBottom: 5,
                             fontSize: 16,
                             marginRight: 3,
+                            fontWeight: item.seen ? "normal" : "bold",
                           }}
                         >
                           {item.user2info[0].ho?.slice(1, -1)}
                         </p>
-                        <p style={{ marginBottom: 5, fontSize: 16 }}>
+                        <p
+                          style={{
+                            marginBottom: 5,
+                            fontSize: 16,
+                            fontWeight: item.seen ? "normal" : "bold",
+                          }}
+                        >
                           {item.user2info[0].ten?.slice(1, -1)}
                         </p>
                       </div>
-                      <p style={{ color: "#7589a3", fontSize: 14 }}>
+                      <p
+                        style={{
+                          color: item.seen ? "#7589a3" : "black",
+                          fontSize: 14,
+                          fontWeight: item.seen ? "normal" : "bold",
+                        }}
+                      >
                         {item.messages[0].text}
                       </p>
                     </div>
+                    {item.seen ? (
+                      <></>
+                    ) : (
+                      <div
+                        className="h-3 w-3"
+                        style={{
+                          borderRadius: 100,
+                          backgroundColor: "green",
+                          margin: "auto 0",
+                          marginLeft: "auto",
+                        }}
+                      />
+                    )}
                   </div>
                 ))}
               </div>
@@ -283,6 +321,12 @@ export default function Messages() {
                 onChange={(e) => {
                   settext(e.target.value);
                   settext2(e.target.value);
+                  seen.mutate();
+                  console.log("a");
+                }}
+                onClick={() => {
+                  seen.mutate();
+                  console.log("a");
                 }}
                 onKeyDown={(e) => {
                   if (e.key == "Enter") {

@@ -24,9 +24,13 @@ export async function SendMessage(
   messages = [{ nguoigui: user1, text: text }, ...messages];
   const now: Date = new Date();
 
-  const { data: data2, error: e2 } = await client
-    .from("messages")
-    .upsert({ messages: messages, user1: user2, user2: user1, update_at: now });
+  const { data: data2, error: e2 } = await client.from("messages").upsert({
+    messages: messages,
+    user1: user2,
+    user2: user1,
+    update_at: now,
+    seen: false,
+  });
 
   return client
     .from("messages")
