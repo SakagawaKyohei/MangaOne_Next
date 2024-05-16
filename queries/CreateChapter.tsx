@@ -52,5 +52,6 @@ export async function CreateChapter(
     content: chapterurl, //url tất cả trang truyện
     view: chapter.view,
     filelist: chapter.filelist,
+    reader: [],
   });
 }
