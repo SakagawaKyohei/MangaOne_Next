@@ -589,7 +589,18 @@ function NoiDungTruyen() {
                                   href={`/doc-truyen/${params.id}/${item.id}`}
                                   className="mangaitemtitle1"
                                 >
-                                  <p style={{ paddingLeft: 10 }}>{item.name}</p>
+                                  <p
+                                    style={{
+                                      paddingLeft: 10,
+                                      color: item.reader
+                                        ? item.reader.includes(user.user?.id)
+                                          ? "#ccc"
+                                          : "black"
+                                        : "black",
+                                    }}
+                                  >
+                                    {item.name}
+                                  </p>
                                 </Link>
                               </Col>
                               <Col

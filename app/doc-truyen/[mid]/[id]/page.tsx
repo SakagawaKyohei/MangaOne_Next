@@ -23,6 +23,7 @@ import useChapterQuery from "@/hooks/ChapterQuery/useChapterQuery";
 import useChapterQueryCID from "@/hooks/ChapterQuery/useChapterQueryCID";
 import usePlusView from "@/hooks/usePlusView";
 import useAddHistory from "@/hooks/history/useAddHistory";
+import useBookMark from "@/hooks/useBookMark";
 //code lại more khi tràn thể loại
 //chỉnh sửa đường dẫn tương đối image giữa các file
 //lỗi flex nhiều màn hình image
@@ -41,6 +42,7 @@ function DocTruyen() {
     isLoading: chapterload,
     isError: chaptererror,
   } = useChapterQueryCID(params.id as string);
+  const bookmark = useBookMark(params.id, user?.user?.id);
   const history = useAddHistory(user?.user?.id, params.mid);
   const follow = useAddFollow(user?.user?.id, params.mid);
   const unfollow = useDeleteFollow(user?.user?.id, params.mid);
@@ -57,6 +59,7 @@ function DocTruyen() {
   let a = false;
   useEffect(() => {
     history.mutate();
+    bookmark.mutate();
   }, [user?.user]);
 
   if (followdata.isSuccess) {
