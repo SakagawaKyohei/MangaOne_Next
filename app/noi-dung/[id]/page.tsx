@@ -24,6 +24,7 @@ import useCommentMangaAll from "@/hooks/comment/useCommentMangaAll";
 import useRateManga from "@/hooks/rate/useRateManga";
 import useQueryRate from "@/hooks/rate/useQueryRate";
 import useStarOfManga from "@/hooks/rate/useStarOfManga";
+import NeedLogin from "@/app/ui/NeedLogin";
 function NoiDungTruyen() {
   const params = useParams<{
     id: string;
@@ -232,10 +233,15 @@ function NoiDungTruyen() {
     return <div>Loading...</div>;
   }
 
+  if (user?.user == null) {
+    return <NeedLogin />;
+  }
+
   if (
     isError ||
     !manga ||
     mangaerror ||
+    !user ||
     cl20Error ||
     cError ||
     clError ||
@@ -253,6 +259,7 @@ function NoiDungTruyen() {
   ) {
     return <div>Error</div>;
   }
+
   console.log(starofmanga);
   return (
     <div>
