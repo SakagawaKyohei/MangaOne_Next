@@ -445,7 +445,9 @@ function NoiDungTruyen() {
                       >
                         <faIcons.FaRegStar style={{ marginRight: 10 }} />
                         <p>
-                          {starofmanga[0].avg ? starofmanga[0].avg : "0.00"}
+                          {starofmanga[0]["avg"]
+                            ? starofmanga[0]["avg"]
+                            : "0.00"}
                         </p>
                       </div>
                     </div>
