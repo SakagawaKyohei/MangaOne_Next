@@ -507,7 +507,7 @@ function NoiDungTruyen() {
                         >
                           <img
                             src={
-                              numstar >= star
+                              numstar && numstar >= star
                                 ? "https://zrhhzqtaizoqtwmnzzbi.supabase.co/storage/v1/object/public/avt/web/1star.png"
                                 : "https://zrhhzqtaizoqtwmnzzbi.supabase.co/storage/v1/object/public/avt/web/0star.png"
                             }
