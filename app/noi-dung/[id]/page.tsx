@@ -236,7 +236,6 @@ function NoiDungTruyen() {
     isError ||
     !manga ||
     mangaerror ||
-    !user ||
     cl20Error ||
     cError ||
     clError ||
