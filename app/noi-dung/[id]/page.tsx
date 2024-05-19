@@ -1,6 +1,6 @@
 "use client";
 import * as faIcons from "react-icons/fa";
-import { Button, Col, Pagination, Row } from "antd";
+import { Button, Col, Pagination, Row, message } from "antd";
 import { FaAngleDoubleRight } from "react-icons/fa";
 import TextArea from "antd/es/input/TextArea";
 import { useEffect, useRef, useState } from "react";
@@ -21,6 +21,8 @@ import useCommentManga from "@/hooks/comment/useCommentManga";
 import useSupabase from "@/hooks/useSupabase";
 import useQueryCommentManga from "@/hooks/comment/useQueryCommentManga";
 import useCommentMangaAll from "@/hooks/comment/useCommentMangaAll";
+import useRateManga from "@/hooks/rate/useRateManga";
+import useQueryRate from "@/hooks/rate/useQueryRate";
 function NoiDungTruyen() {
   const params = useParams<{
     id: string;
@@ -65,6 +67,13 @@ function NoiDungTruyen() {
   } = useIsFollow(user?.user?.id, mid);
   const [page, setpages] = useState(1);
   const {
+    data: rate,
+    isLoading: rl,
+    isError: re,
+    refetch: rr,
+  } = useQueryRate(user?.user?.id as any, mid);
+  const [isratting, setisratting] = useState(false);
+  const {
     data: comment,
     isLoading: cl,
     isError: ce,
@@ -78,6 +87,10 @@ function NoiDungTruyen() {
   const follow = useAddFollow(user?.user?.id, mid);
   const unfollow = useDeleteFollow(user?.user?.id, mid);
   const [text, settext] = useState("");
+  const [numstar, setnumstar] = useState<number | null>(
+    rate && rate.length > 0 && rate[0].star ? rate[0].star : 0
+  );
+  const ratemutate = useRateManga(user?.user?.id, mid, numstar);
   const sendcomment = useCommentManga(user?.user?.id, mid, text);
   const supabase = useSupabase();
   useEffect(() => {
@@ -96,6 +109,19 @@ function NoiDungTruyen() {
       channel.unsubscribe();
     };
   }, []);
+  useEffect(() => {
+    const channel = supabase
+      .channel("room3")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "rate" },
+        async (payload) => {
+          rr();
+        }
+      )
+      .subscribe();
+  }, []);
+
   // const history = useAddHistory(user.user?.id, mid);
   let a = false;
 
@@ -112,6 +138,7 @@ function NoiDungTruyen() {
 
   const [data, setdata] = useState<any[]>();
   const [more, setmore] = useState(false);
+  const [rated, setrated] = useState(true);
   useEffect(() => {
     if (chapterlast20 != null) {
       setdata(chapterlast20);
@@ -145,6 +172,14 @@ function NoiDungTruyen() {
       setdivheight(dRef.current.clientHeight);
     }
   }, [chapterdata]);
+  useEffect(() => {
+    if (!rl && !re && rate && rate.length > 0 && rate[0].star != null) {
+      setrated(true);
+    } else {
+      setrated(false);
+    }
+    console.log(a);
+  }, [rl, re, rate]);
 
   useEffect(() => {
     if (pRef.current) {
@@ -182,7 +217,8 @@ function NoiDungTruyen() {
     cLoading ||
     gvLoading ||
     followload ||
-    listload
+    listload ||
+    rl
   ) {
     return <div>Loading...</div>;
   }
@@ -201,11 +237,13 @@ function NoiDungTruyen() {
     followerror ||
     !follow ||
     !cmtlist ||
-    listerror
+    listerror ||
+    !rate ||
+    re
   ) {
     return <div>Error</div>;
   }
-  console.log(cmtlist);
+
   return (
     <div>
       <div
@@ -262,7 +300,6 @@ function NoiDungTruyen() {
                   >
                     {manga.name}
                   </h1>
-
                   <p
                     style={{
                       color: "white",
@@ -328,7 +365,6 @@ function NoiDungTruyen() {
                       </>
                     )}
                   </div>
-
                   <div
                     style={{
                       display: "flex",
@@ -375,21 +411,29 @@ function NoiDungTruyen() {
                       </div>
                     ))}
                   </div>
-
                   <div
                     style={{ display: "flex", flexDirection: "row" }}
                     className="pb-4 sm:pb-0"
                   >
-                    <div
-                      style={{
-                        marginTop: 12,
-                        display: "flex",
-                        flexDirection: "row",
-                      }}
-                      className="mr-4 sm:mr-8"
-                    >
-                      <faIcons.FaRegStar style={{ marginRight: 10 }} />
-                      <p> 0.00</p>
+                    <div>
+                      <div
+                        style={{
+                          marginTop: 12,
+                          display: "flex",
+                          flexDirection: "row",
+                        }}
+                        className="mr-4 sm:mr-8"
+                        onClick={() => {
+                          if (!isratting) {
+                            setisratting(true);
+                          } else {
+                            setisratting(false);
+                          }
+                        }}
+                      >
+                        <faIcons.FaRegStar style={{ marginRight: 10 }} />
+                        <p> 0.00</p>
+                      </div>
                     </div>
                     <div
                       style={{
@@ -425,7 +469,70 @@ function NoiDungTruyen() {
                       <p> {getview}</p>
                     </div>
                   </div>
-                  {/*clear code sau*/}
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: isratting ? "flex" : "none",
+                        paddingTop: 10,
+                        marginTop: 20,
+                        paddingBottom: 10,
+                        backgroundColor: "#eee",
+                        maxWidth: "max-content",
+                      }}
+                    >
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <div
+                          onMouseEnter={() => {
+                            if (!rated) {
+                              setnumstar(star);
+                            }
+                          }}
+                          onMouseLeave={() => {
+                            if (!rated) {
+                              setnumstar(0);
+                            }
+                          }}
+                          onClick={() => {
+                            setnumstar(star);
+                            ratemutate.mutate();
+                            setrated(true);
+
+                            message.success("Bạn đã đánh giá truyện");
+                          }}
+                        >
+                          <img
+                            src={
+                              numstar >= star
+                                ? "https://zrhhzqtaizoqtwmnzzbi.supabase.co/storage/v1/object/public/avt/web/1star.png"
+                                : "https://zrhhzqtaizoqtwmnzzbi.supabase.co/storage/v1/object/public/avt/web/0star.png"
+                            }
+                            style={{
+                              marginRight: 10,
+                              marginLeft: 10,
+                              height: 30,
+                              width: 30,
+                            }}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                    <button
+                      onClick={() => {
+                        setnumstar(null);
+                        setrated(false);
+                        ratemutate.mutate();
+
+                        message.success("Bạn đã hủy đánh giá");
+                      }}
+                    >
+                      Bỏ đánh giá
+                    </button>
+                  </div>
                 </div>
                 <div className="sm:hidden">
                   {!followdata?.length ? (
@@ -435,7 +542,6 @@ function NoiDungTruyen() {
                           display: "flex",
                           justifyContent: "center",
                           alignItems: "center",
-
                           backgroundColor: "#FF9040",
                           color: "white",
                           fontSize: 18,

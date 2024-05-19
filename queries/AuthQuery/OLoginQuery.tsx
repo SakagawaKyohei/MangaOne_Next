@@ -4,8 +4,8 @@ import { TypeSupabaseClient } from "@/utils/supabase";
 export function OLoginQuery(client: TypeSupabaseClient) {
   return client.auth.signInWithOAuth({
     provider: "google",
-    options: {
-      redirectTo: "https://manga-one-orpin.vercel.app/",
-    },
+    // options: {
+    //   redirectTo: "https://manga-one-orpin.vercel.app/",
+    // },
   });
 }
