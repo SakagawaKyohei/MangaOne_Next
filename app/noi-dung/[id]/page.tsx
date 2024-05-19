@@ -23,6 +23,7 @@ import useQueryCommentManga from "@/hooks/comment/useQueryCommentManga";
 import useCommentMangaAll from "@/hooks/comment/useCommentMangaAll";
 import useRateManga from "@/hooks/rate/useRateManga";
 import useQueryRate from "@/hooks/rate/useQueryRate";
+import useStarOfManga from "@/hooks/rate/useStarOfManga";
 function NoiDungTruyen() {
   const params = useParams<{
     id: string;
@@ -47,6 +48,13 @@ function NoiDungTruyen() {
     isLoading: cLoading,
     isError: cError,
   } = useChapterQuery(mid);
+
+  const {
+    data: starofmanga,
+    refetch: rs,
+    isLoading: sml,
+    isError: sme,
+  } = useStarOfManga(mid);
   const {
     data: chapterlast20,
     isSuccess: cl20Success,
@@ -87,9 +95,7 @@ function NoiDungTruyen() {
   const follow = useAddFollow(user?.user?.id, mid);
   const unfollow = useDeleteFollow(user?.user?.id, mid);
   const [text, settext] = useState("");
-  const [numstar, setnumstar] = useState<number | null>(
-    rate && rate.length > 0 && rate[0].star ? rate[0].star : 0
-  );
+  const [numstar, setnumstar] = useState<number | null>();
   const ratemutate = useRateManga(user?.user?.id, mid, numstar);
   const sendcomment = useCommentManga(user?.user?.id, mid, text);
   const supabase = useSupabase();
@@ -117,6 +123,7 @@ function NoiDungTruyen() {
         { event: "*", schema: "public", table: "rate" },
         async (payload) => {
           rr();
+          rs();
         }
       )
       .subscribe();
@@ -173,6 +180,7 @@ function NoiDungTruyen() {
     }
   }, [chapterdata]);
   useEffect(() => {
+    setnumstar(rate && rate.length > 0 && rate[0].star ? rate[0].star : 0);
     if (!rl && !re && rate && rate.length > 0 && rate[0].star != null) {
       setrated(true);
     } else {
@@ -218,7 +226,8 @@ function NoiDungTruyen() {
     gvLoading ||
     followload ||
     listload ||
-    rl
+    rl ||
+    sml
   ) {
     return <div>Loading...</div>;
   }
@@ -239,11 +248,13 @@ function NoiDungTruyen() {
     !cmtlist ||
     listerror ||
     !rate ||
-    re
+    re ||
+    sme ||
+    !starofmanga
   ) {
     return <div>Error</div>;
   }
-
+  console.log(starofmanga);
   return (
     <div>
       <div
@@ -424,6 +435,7 @@ function NoiDungTruyen() {
                         }}
                         className="mr-4 sm:mr-8"
                         onClick={() => {
+                          console.log(numstar);
                           if (!isratting) {
                             setisratting(true);
                           } else {
@@ -432,7 +444,9 @@ function NoiDungTruyen() {
                         }}
                       >
                         <faIcons.FaRegStar style={{ marginRight: 10 }} />
-                        <p> 0.00</p>
+                        <p>
+                          {starofmanga[0].avg ? starofmanga[0].avg : "0.00"}
+                        </p>
                       </div>
                     </div>
                     <div
@@ -521,7 +535,19 @@ function NoiDungTruyen() {
                         </div>
                       ))}
                     </div>
-                    <button
+                    <Button
+                      style={{
+                        display:
+                          isratting && numstar && numstar >= 1 && rated
+                            ? "flex"
+                            : "none",
+
+                        marginTop: 30,
+                        paddingBottom: 10,
+                        backgroundColor: "#eee",
+                        maxWidth: "max-content",
+                        marginLeft: 10,
+                      }}
                       onClick={() => {
                         setnumstar(null);
                         setrated(false);
@@ -531,7 +557,7 @@ function NoiDungTruyen() {
                       }}
                     >
                       Bỏ đánh giá
-                    </button>
+                    </Button>
                   </div>
                 </div>
                 <div className="sm:hidden">
