@@ -8,6 +8,7 @@
   display: initial; /* Hiển thị thanh cuộn */
 }
 
+.ant-popover-content{ margin-right: 20px;}
 .scrollable::-webkit-scrollbar-thumb {
   background-color: #888; /* Màu sắc của thanh cuộn */
   border-radius: 4px; /* Bo tròn cạnh của thanh cuộn */

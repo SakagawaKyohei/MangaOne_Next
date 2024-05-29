@@ -3,6 +3,7 @@
 import "./Navbar.css";
 import * as FaIcons from "react-icons/fa";
 import * as aiIcons from "react-icons/ai";
+import { IoWarning } from "react-icons/io5";
 import * as IOIcons from "react-icons/io5";
 import { useEffect, useState } from "react";
 import * as FaUIcons from "react-icons/fa";
@@ -18,6 +19,7 @@ import {
   Button,
   MenuProps,
   Flex,
+  Popover,
 } from "antd";
 import { ConfigProvider } from "antd";
 //thêm màu cho selected color
@@ -35,6 +37,11 @@ import Image from "next/image";
 import useQueryMessageBox from "@/hooks/messages/useQueryMessageBox";
 import useNumNotSeen from "@/hooks/messages/useNumNotSeen";
 import useSeen from "@/hooks/messages/useSeen";
+import useNoti from "@/hooks/noti/useNoti";
+import useGetNoti from "@/hooks/noti/useGetNoti";
+import useNumNotiNotSeen from "@/hooks/noti/useNumNotiNotSeen";
+import useSeenAllNoti from "@/hooks/noti/useSeenAllNoti";
+import { SeenAllNoti } from "@/queries/noti/SeenAllNoti";
 
 const style: React.CSSProperties = {
   marginTop: 5,
@@ -137,17 +144,42 @@ const SlidebarData = [
 ];
 function Navbar1() {
   const [slidebar, setslidebar] = useState(false);
+  const [isopennoti, setisopennoti] = useState(false);
+  const [countopen, setcountopen] = useState(0);
   const logoutmutation = useLogout();
   const { data: user, isLoading, isError, isSuccess } = useUser();
   const { data: notseen, refetch: r } = useNumNotSeen(user?.user?.id as any);
+  const {
+    data: noti,
+    isLoading: nl,
+    isError: ne,
+    isSuccess: ns,
+    refetch: rn,
+  } = useGetNoti(user?.user?.id as any);
+  const {
+    data: notinotseen,
+    isLoading: nnsl,
+    isError: nnse,
+    isSuccess: nnss,
+    refetch: rns,
+  } = useNumNotiNotSeen(user?.user?.id as any);
   const {
     data: messagebox,
     isError: mbe,
     isLoading: mbl,
     refetch: r2,
   } = useQueryMessageBox(user?.user?.id as any);
+  const seennoti = useSeenAllNoti(user?.user?.id as any);
   const [name, setname] = useState("");
   const nav = useRouter();
+  const [open, setOpen] = useState(false);
+
+  const hide = () => {
+    setOpen(false);
+  };
+  const handleOpenChange = (newOpen: boolean) => {
+    setOpen(newOpen);
+  };
   const supabase = useSupabase();
   const seen = useSeen(
     user?.user?.id,
@@ -170,14 +202,31 @@ function Navbar1() {
       channel.unsubscribe();
     };
   }, []);
-  if (isLoading || mbl) {
+
+  useEffect(() => {
+    const channel = supabase
+      .channel("noti")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "noti" },
+        (payload: any) => {
+          rns();
+          rn();
+        }
+      )
+      .subscribe();
+    return () => {
+      channel.unsubscribe();
+    };
+  }, []);
+  if (isLoading || mbl || nl) {
     return <div>Loading...</div>;
   }
   if (isSuccess) {
     r2();
   }
 
-  if (isError || !user) {
+  if (isError || !user || !noti || ne) {
     return <div>Error</div>;
   }
 
@@ -441,7 +490,85 @@ function Navbar1() {
                 <IoChatbubblesOutline className="flex shrink h-6 w-6 md:h-8 md:w-8 mt-2 mr-6" />
               </div>
             </Link>
-            <IoMdNotificationsOutline className="flex shrink h-8 w-8 md:h-10 md:w-10 mt-2" />
+            <Popover
+              content={
+                <div style={{ overflow: "auto", width: "25vw" }}>
+                  {noti?.map((item) =>
+                    item.type == "warned" ? (
+                      <>
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            fontSize: 16,
+                            marginTop: 10,
+                            backgroundColor: !item.seen ? "#eee" : "white",
+                            paddingLeft: 10,
+                            paddingTop: 5,
+                            paddingBottom: 5,
+                          }}
+                        >
+                          <IoWarning
+                            style={{
+                              color: "#FFA500",
+                              fontSize: 40,
+                              marginRight: 20,
+                            }}
+                          />
+                          <div style={{ width: "100%" }}>
+                            <p style={{ overflowWrap: "break-word" }}>
+                              Bạn vừa bị quản trị viên cảnh cáo với lý do:
+                              {" " + item.message}
+                            </p>
+                          </div>
+                        </div>
+                      </>
+                    ) : null
+                  )}
+                </div>
+              }
+              title="Thông báo"
+              trigger="click"
+              open={open}
+              onOpenChange={handleOpenChange}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "end",
+                  alignItems: "end",
+                }}
+              >
+                {notinotseen?.length == 0 || countopen > 0 ? (
+                  <></>
+                ) : (
+                  <div
+                    style={{
+                      backgroundColor: "red",
+                      position: "fixed",
+
+                      marginBottom: 18,
+                      padding: "0px 6px",
+                      borderRadius: 100,
+                    }}
+                  >
+                    <p style={{ color: "white", fontSize: 14 }}>
+                      {notinotseen?.length}
+                    </p>
+                  </div>
+                )}
+                <IoMdNotificationsOutline
+                  className="flex shrink h-8 w-8 md:h-10 md:w-10 mt-2"
+                  onClick={() => {
+                    setcountopen(countopen + 1);
+                    setisopennoti(!isopennoti);
+                    if (isopennoti) {
+                      seennoti.mutate();
+                    }
+                  }}
+                />
+              </div>
+            </Popover>
             {user.user == null ? (
               <Link href="/dang-nhap">
                 <Image
