@@ -37,6 +37,11 @@ div{
 .messagebox:hover {
   background-color: #CCCCCC; /* Màu nền thay đổi khi hover */
 }
+
+.threedot{
+  color: white;
+}
+.threedot:hover{color: black;}
 .messageboxseleted {
   background-color: #ffa6003c;
 }

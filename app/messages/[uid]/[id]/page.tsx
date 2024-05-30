@@ -154,7 +154,7 @@ export default function Messages() {
                           fontWeight: item.seen ? "normal" : "bold",
                         }}
                       >
-                        {item.messages[0].text}
+                        {item.messages ? item.messages[0].text : ""}
                       </p>
                     </div>
                     {item.seen ? (

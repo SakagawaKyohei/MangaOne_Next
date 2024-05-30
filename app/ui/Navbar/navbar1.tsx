@@ -226,7 +226,7 @@ function Navbar1() {
     r2();
   }
 
-  if (isError || !user || !noti || ne) {
+  if (isError || !user) {
     return <div>Error</div>;
   }
 
