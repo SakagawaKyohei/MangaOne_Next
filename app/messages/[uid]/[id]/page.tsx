@@ -11,6 +11,8 @@ import useQueryMessage from "@/hooks/messages/useQueryMessage";
 import useSendMessage from "@/hooks/messages/useSendMessage";
 import useSupabase from "@/hooks/useSupabase";
 import useSeen from "@/hooks/messages/useSeen";
+import NeedLogin from "@/app/ui/NeedLogin";
+import useUser from "@/hooks/useUser";
 
 export default function Messages() {
   //top 1 truyen
@@ -33,12 +35,17 @@ export default function Messages() {
     refetch: r,
     isLoading: ml,
   } = useQueryMessage(id1, id2);
+  const { data: user, isLoading, isError } = useUser();
+  if (user?.user == null) {
+    return <NeedLogin />;
+  }
   const [text, settext] = useState("");
   const [text2, settext2] = useState("");
   const sendmess = useSendMessage(id1, id2, text);
   const seen = useSeen(id1, id2);
   const supabase = useSupabase();
   const [messagelist, setmessagelist] = useState([]);
+
   useEffect(() => {
     const channel = supabase
       .channel("message" + id1 + id2)
