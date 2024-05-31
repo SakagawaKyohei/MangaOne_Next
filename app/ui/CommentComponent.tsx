@@ -5,16 +5,26 @@ import Link from "next/link";
 import { useState } from "react";
 import { AiOutlineEllipsis } from "react-icons/ai";
 import NeedLogin from "./NeedLogin";
+import useDeleteComment from "@/hooks/comment/useDeleteComment";
 
 interface comment {
+  id: any;
   avt: string;
   ho: string;
   name: string;
   text: string;
   uid: string;
   uid2: string;
+  onDataUpdate: (newData: string) => void;
+  onidUpdate: (newid: string) => void;
 }
 function CommentComponent(pros: comment) {
+  const handleChange = (newData: string) => {
+    pros.onDataUpdate(newData);
+  };
+  const handleidChange = (newid: string) => {
+    pros.onidUpdate(newid);
+  };
   const { data: user, isLoading, isError } = useUser();
   const [open, setOpen] = useState(false);
 
@@ -25,6 +35,7 @@ function CommentComponent(pros: comment) {
     setOpen(newOpen);
   };
   const addmessagebox = useAddMessageBox(pros.uid as any, pros.uid2);
+  const deletecomment = useDeleteComment(pros.id);
   return (
     <div style={{ display: "flex" }}>
       <div style={{ maxWidth: "max-content" }} className="threedot">
@@ -46,14 +57,26 @@ function CommentComponent(pros: comment) {
           <>
             <Popover
               content={
-                <div>
-                  <p style={{ fontWeight: "bold" }}>Xóa bình luận</p>
-                  <p style={{ marginTop: 10, fontWeight: "bold" }}>
-                    Cảnh cáo người dùng
-                  </p>
-                  <p style={{ marginTop: 10, fontWeight: "bold" }}>
-                    Cấm người dùng
-                  </p>
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <button
+                    onClick={() => {
+                      deletecomment.mutate();
+                      setOpen(false);
+                    }}
+                  >
+                    <p style={{ fontWeight: "bold" }}>Xóa bình luận</p>
+                  </button>
+                  <button>
+                    {" "}
+                    <p style={{ marginTop: 10, fontWeight: "bold" }}>
+                      Cảnh cáo người dùng
+                    </p>
+                  </button>
+                  <button>
+                    <p style={{ marginTop: 10, fontWeight: "bold" }}>
+                      Cấm người dùng
+                    </p>
+                  </button>
                 </div>
               }
               title=""
@@ -76,11 +99,28 @@ function CommentComponent(pros: comment) {
           <>
             <Popover
               content={
-                <div>
-                  <p style={{ fontWeight: "bold" }}>Chỉnh sửa bình luận</p>
-                  <p style={{ marginTop: 10, fontWeight: "bold" }}>
-                    Xóa bình luận
-                  </p>
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <button>
+                    <p
+                      style={{ fontWeight: "bold" }}
+                      onClick={() => {
+                        handleChange(pros.text);
+                        handleidChange(pros.id);
+                        setOpen(false);
+                      }}
+                    >
+                      Chỉnh sửa bình luận
+                    </p>
+                  </button>
+                  <button
+                    onClick={() => {
+                      deletecomment.mutate();
+                    }}
+                  >
+                    <p style={{ marginTop: 10, fontWeight: "bold" }}>
+                      Xóa bình luận
+                    </p>
+                  </button>
                 </div>
               }
               title=""

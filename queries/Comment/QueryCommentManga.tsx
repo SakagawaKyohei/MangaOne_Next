@@ -6,7 +6,7 @@ export function QueryCommentManga(
   manga_id: any
 ) {
   return client.rpc(
-    "commentmanga4" as never,
+    "commentmanga5" as never,
     {
       start_index: (page - 1) * 10,
       end_index: page * 10 - 1,

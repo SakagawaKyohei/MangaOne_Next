@@ -25,6 +25,8 @@ import useRateManga from "@/hooks/rate/useRateManga";
 import useQueryRate from "@/hooks/rate/useQueryRate";
 import useStarOfManga from "@/hooks/rate/useStarOfManga";
 import NeedLogin from "@/app/ui/NeedLogin";
+import useEditComment from "@/hooks/comment/useEditComment";
+import useDeleteComment from "@/hooks/comment/useDeleteComment";
 function NoiDungTruyen() {
   const params = useParams<{
     id: string;
@@ -99,16 +101,20 @@ function NoiDungTruyen() {
   const [numstar, setnumstar] = useState<number | null>();
   const ratemutate = useRateManga(user?.user?.id, mid, numstar);
   const sendcomment = useCommentManga(user?.user?.id, mid, text);
+
+  const [cmtid, setcmtid] = useState("");
+  const editcomment = useEditComment(cmtid, user?.user?.id, mid, text);
   const supabase = useSupabase();
   useEffect(() => {
     const channel = supabase
       .channel("room2")
       .on(
         "postgres_changes",
-        { event: "INSERT", schema: "public", table: "cmtmanga" },
+        { event: "*", schema: "public", table: "cmtmanga" },
         (payload) => {
           console.log("Change received!", payload);
           r();
+          setcmtid("");
         }
       )
       .subscribe();
@@ -143,7 +149,6 @@ function NoiDungTruyen() {
   const pRef = useRef<HTMLParagraphElement>(null);
   const [pheight, setpheight] = useState(0);
   const [xemthem, setxemthem] = useState(false);
-
   const [data, setdata] = useState<any[]>();
   const [more, setmore] = useState(false);
   const [rated, setrated] = useState(true);
@@ -261,6 +266,12 @@ function NoiDungTruyen() {
   }
 
   console.log(starofmanga);
+  const handleDataUpdate = (newData: string) => {
+    settext(newData);
+  };
+  const handleidUpdate = (newid: string) => {
+    setcmtid(newid);
+  };
   return (
     <div>
       <div
@@ -852,12 +863,13 @@ function NoiDungTruyen() {
               </div>
               <TextArea
                 style={{ height: 115, fontSize: 17, marginBottom: 30 }}
+                value={text}
                 onChange={(e) => {
                   settext(e.target.value);
                 }}
                 onKeyDown={(e) => {
                   if (e.key == "Enter") {
-                    sendcomment.mutate();
+                    editcomment.mutate();
                   }
                 }}
                 placeholder="Viết bình luận"
@@ -865,6 +877,7 @@ function NoiDungTruyen() {
               {(comment?.data as any[] | null | undefined)?.map(
                 (value, index) => (
                   <CommentComponent
+                    id={value.id}
                     key={index}
                     uid2={value?.uid}
                     uid={user.user?.id as any}
@@ -872,6 +885,8 @@ function NoiDungTruyen() {
                     avt={value?.avt?.slice(1, -1)}
                     text={value?.comment}
                     ho={value?.ho?.slice(1, -1)}
+                    onDataUpdate={handleDataUpdate}
+                    onidUpdate={handleidUpdate}
                   />
                 )
               )}

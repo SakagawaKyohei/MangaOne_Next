@@ -9,7 +9,12 @@ export async function EditCommentManga(
   Mangaid: string,
   text: string
 ) {
+  if (id == "") {
+    return client
+      .from("cmtmanga")
+      .insert({ user_id: Userid, manga_id: Mangaid, detail: text });
+  }
   return client
     .from("cmtmanga")
-    .insert({ id: id, user_id: Userid, manga_id: Mangaid, detail: text });
+    .upsert({ id: id, user_id: Userid, manga_id: Mangaid, detail: text });
 }
