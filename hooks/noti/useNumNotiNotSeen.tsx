@@ -15,7 +15,7 @@ function useNumNotiNotSeen(user: string) {
     return NumNotiNotSeen(client, user).then((result) => result.data);
   };
 
-  return useQuery({ queryKey, queryFn });
+  return useQuery({ queryKey, queryFn, staleTime: 0 });
 }
 
 export default useNumNotiNotSeen;

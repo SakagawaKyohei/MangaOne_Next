@@ -6,7 +6,7 @@ import { QueryCommentManga } from "@/queries/Comment/QueryCommentManga";
 
 function useQueryCommentManga(page: number, mangaid: any) {
   const client = useSupabase();
-  const queryKey = ["comment2" + page];
+  const queryKey = ["comment6" + page];
 
   const queryFn = async () => {
     return QueryCommentManga(client, page, mangaid);

@@ -875,20 +875,23 @@ function NoiDungTruyen() {
                 placeholder="Viết bình luận"
               />
               {(comment?.data as any[] | null | undefined)?.map(
-                (value, index) => (
-                  <CommentComponent
-                    id={value.id}
-                    key={index}
-                    uid2={value?.uid}
-                    uid={user.user?.id as any}
-                    name={value?.ten?.slice(1, -1)}
-                    avt={value?.avt?.slice(1, -1)}
-                    text={value?.comment}
-                    ho={value?.ho?.slice(1, -1)}
-                    onDataUpdate={handleDataUpdate}
-                    onidUpdate={handleidUpdate}
-                  />
-                )
+                (value, index) =>
+                  value && value.role?.slice(1, -1) != "banned" ? (
+                    <CommentComponent
+                      id={value.id}
+                      key={index}
+                      uid2={value?.uid}
+                      uid={user.user?.id as any}
+                      name={value?.ten?.slice(1, -1)}
+                      avt={value?.avt?.slice(1, -1)}
+                      text={value?.comment}
+                      ho={value?.ho?.slice(1, -1)}
+                      onDataUpdate={handleDataUpdate}
+                      onidUpdate={handleidUpdate}
+                    />
+                  ) : (
+                    <></>
+                  )
               )}
 
               <div className="pagination">

@@ -37,11 +37,9 @@ import Image from "next/image";
 import useQueryMessageBox from "@/hooks/messages/useQueryMessageBox";
 import useNumNotSeen from "@/hooks/messages/useNumNotSeen";
 import useSeen from "@/hooks/messages/useSeen";
-import useNoti from "@/hooks/noti/useNoti";
 import useGetNoti from "@/hooks/noti/useGetNoti";
 import useNumNotiNotSeen from "@/hooks/noti/useNumNotiNotSeen";
 import useSeenAllNoti from "@/hooks/noti/useSeenAllNoti";
-import { SeenAllNoti } from "@/queries/noti/SeenAllNoti";
 
 const style: React.CSSProperties = {
   marginTop: 5,
@@ -145,7 +143,9 @@ const SlidebarData = [
 function Navbar1() {
   const [slidebar, setslidebar] = useState(false);
   const [isopennoti, setisopennoti] = useState(false);
+  const [isopennoti2, setisopennoti2] = useState(false);
   const [countopen, setcountopen] = useState(0);
+
   const logoutmutation = useLogout();
   const { data: user, isLoading, isError, isSuccess } = useUser();
   const { data: notseen, refetch: r } = useNumNotSeen(user?.user?.id as any);
@@ -183,7 +183,9 @@ function Navbar1() {
   const supabase = useSupabase();
   const seen = useSeen(
     user?.user?.id,
-    messagebox ? messagebox[0].user2 : "null"
+    messagebox && messagebox[0] && messagebox[0].user2
+      ? messagebox[0].user2
+      : "null"
   );
   useEffect(() => {
     const channel = supabase
@@ -393,6 +395,9 @@ function Navbar1() {
         </div>
       );
   };
+  if (user?.user?.user_metadata.role == "banned") {
+    return <></>;
+  }
   return (
     <div onClick={slidebar ? showSlidebar : undefined}>
       <div className="fixed ">
@@ -454,7 +459,9 @@ function Navbar1() {
           <div className="flex items-center flex-shrink-0 md:ml-24">
             <Link
               href={`/messages/${user.user?.id}/${
-                messagebox ? messagebox[0].user2 : "null"
+                messagebox && messagebox[0] && messagebox[0].user2
+                  ? messagebox[0].user2
+                  : "null"
               }`}
               onClick={() => {
                 seen.mutate();
@@ -539,7 +546,7 @@ function Navbar1() {
                   alignItems: "end",
                 }}
               >
-                {notinotseen?.length == 0 || countopen > 0 ? (
+                {notinotseen?.length == 0 || isopennoti2 ? (
                   <></>
                 ) : (
                   <div
@@ -564,6 +571,13 @@ function Navbar1() {
                     setisopennoti(!isopennoti);
                     if (isopennoti) {
                       seennoti.mutate();
+                    }
+                    if (!isopennoti) {
+                      setisopennoti2(!isopennoti2);
+                    } else {
+                      setTimeout(() => {
+                        setisopennoti2(!isopennoti2);
+                      }, 1000);
                     }
                   }}
                 />

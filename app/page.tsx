@@ -13,6 +13,8 @@ import TimeManga from "./ui/TopTimeManga/TimeManga";
 import Navbar1 from "./ui/Navbar/navbar1";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import useUser from "@/hooks/useUser";
+import Banned from "./ui/Banned";
 
 export default function Home() {
   //top 1 truyen
@@ -23,6 +25,7 @@ export default function Home() {
     isLoading: top1load,
     isError: top1error,
   } = useMangaTopQuery(); // Không thêm [0]
+  const { data: user, isLoading, isError } = useUser();
 
   const {
     data: mangalist,
@@ -49,6 +52,13 @@ export default function Home() {
     pageerror
   ) {
     return <div>Error</div>;
+  }
+  if (user?.user?.user_metadata.role == "banned") {
+    return (
+      <>
+        <Banned />
+      </>
+    );
   }
   return (
     <div>

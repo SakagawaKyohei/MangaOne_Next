@@ -1,11 +1,14 @@
 import useAddMessageBox from "@/hooks/messages/useAddMessageBox";
 import useUser from "@/hooks/useUser";
-import { Popover } from "antd";
+import { Modal, Popover } from "antd";
 import Link from "next/link";
 import { useState } from "react";
 import { AiOutlineEllipsis } from "react-icons/ai";
 import NeedLogin from "./NeedLogin";
+import { ExclamationCircleFilled } from "@ant-design/icons";
 import useDeleteComment from "@/hooks/comment/useDeleteComment";
+import useNoti from "@/hooks/noti/useNoti";
+import useUpdateUserRole from "@/hooks/Admin/useUpdateUserRole";
 
 interface comment {
   id: any;
@@ -19,6 +22,47 @@ interface comment {
   onidUpdate: (newid: string) => void;
 }
 function CommentComponent(pros: comment) {
+  const { confirm } = Modal;
+  const [role, setrole] = useState("user");
+  const [warningmessage, setwarningmessage] = useState("");
+  const warning = useNoti(pros.uid2, warningmessage, "warned");
+  const updaterole = useUpdateUserRole(role, pros.uid2);
+  const showwarningConfirm = () => {
+    confirm({
+      title: "Bạn muốn cảnh cáo người dùng?",
+      icon: <ExclamationCircleFilled />,
+      content: "Người dùng đang chọn sẽ bị cảnh cáo",
+      okText: "Xác nhận",
+      okType: "danger",
+      cancelText: "Hủy bỏ",
+      onOk() {
+        setrole("warned");
+        updaterole.mutate();
+        warning.mutate();
+      },
+      onCancel() {
+        console.log("Cancel");
+      },
+    });
+  };
+  const showbannedConfirm = () => {
+    confirm({
+      title: "Bạn muốn cấm người dùng?",
+      icon: <ExclamationCircleFilled />,
+      content: "Người dùng đang chọn sẽ bị cấm",
+      okText: "Xác nhận",
+      okType: "danger",
+      cancelText: "Hủy bỏ",
+      onOk() {
+        setrole("banned");
+        updaterole.mutate();
+        window.location.reload();
+      },
+      onCancel() {
+        console.log("Cancel");
+      },
+    });
+  };
   const handleChange = (newData: string) => {
     pros.onDataUpdate(newData);
   };
@@ -36,6 +80,7 @@ function CommentComponent(pros: comment) {
   };
   const addmessagebox = useAddMessageBox(pros.uid as any, pros.uid2);
   const deletecomment = useDeleteComment(pros.id);
+
   return (
     <div style={{ display: "flex" }}>
       <div style={{ maxWidth: "max-content" }} className="threedot">
@@ -66,13 +111,13 @@ function CommentComponent(pros: comment) {
                   >
                     <p style={{ fontWeight: "bold" }}>Xóa bình luận</p>
                   </button>
-                  <button>
+                  <button onClick={showwarningConfirm}>
                     {" "}
                     <p style={{ marginTop: 10, fontWeight: "bold" }}>
                       Cảnh cáo người dùng
                     </p>
                   </button>
-                  <button>
+                  <button onClick={showbannedConfirm}>
                     <p style={{ marginTop: 10, fontWeight: "bold" }}>
                       Cấm người dùng
                     </p>
@@ -92,8 +137,7 @@ function CommentComponent(pros: comment) {
             </Popover>
           </>
         )}
-        {user?.user?.user_metadata.role == "admin" ||
-        user?.user?.id != pros.uid2 ? (
+        {user?.user?.id != pros.uid2 ? (
           <></>
         ) : (
           <>

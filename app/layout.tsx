@@ -5,6 +5,8 @@ import { ReactQueryClientProvider } from "@/components/ReactQueryClientProvider"
 import { ConfigProvider } from "antd";
 import Navbar1 from "./ui/Navbar/navbar1";
 import { inter } from "@/app/ui/fonts";
+import useUser from "@/hooks/useUser";
+import Banned from "./ui/Banned";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -32,6 +34,7 @@ export default function RootLayout({
           <body className={inter.className}>
             <div>
               <Navbar1 />
+              {}
               {children}
             </div>
           </body>
