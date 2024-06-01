@@ -23,11 +23,8 @@ function Admin() {
             <div className="md:hidden">
               <AccountPageRow i={2} />
             </div>
-            <div className="flex flex row gap-12 m-4 md:m-8 md:ml-0">
-              <div className="hidden basis-1/4 md:block ">
-                <AccountPage i={2} />
-              </div>
-              <div className="md:basis-3/4 text-basic w-full">
+            <div className="flex flex row gap-12 m-4 md:m-8">
+              <div className="text-basic w-full">
                 <h1
                   style={{
                     textAlign: "center",
@@ -36,7 +33,7 @@ function Admin() {
                     fontSize: 21,
                   }}
                 >
-                  TRUYỆN ĐÃ ĐĂNG
+                  QUẢN LÝ NGƯỜI DÙNG
                 </h1>
                 <div className="khung">
                   <p style={{ fontSize: 17, padding: 15 }}>

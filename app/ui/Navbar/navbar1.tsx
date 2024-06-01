@@ -8,6 +8,7 @@ import * as IOIcons from "react-icons/io5";
 import { useEffect, useState } from "react";
 import * as FaUIcons from "react-icons/fa";
 import * as IoUIcons from "react-icons/io";
+import { MdAdminPanelSettings } from "react-icons/md";
 // import { Link, useLocation, useNavigate } from "react-router-dom";
 //import logo from "../../images/logos.svg";
 import {
@@ -75,6 +76,26 @@ const getRandomElement = () => {
   return mangas[randomIndex];
 };
 
+const admin = [
+  {
+    title: "Quản trị",
+    path: "",
+    icon: <MdAdminPanelSettings style={{ fontSize: 26 }} />,
+    cName: "nav-title",
+  },
+  {
+    title: "Giao dịch O-coin",
+    path: "",
+
+    cName: "nav-button",
+  },
+  {
+    title: "Quản lý người dùng",
+    path: "/admin",
+
+    cName: "nav-button",
+  },
+];
 const SlidebarData = [
   {
     title: "Dành cho tôi",
@@ -662,6 +683,17 @@ function Navbar1() {
               <li key={index}>{TitleOrButton(item)}</li>
             </div>
           ))}
+          {user.user?.user_metadata.role == "admin" ? (
+            <div>
+              {admin.map((item, index) => (
+                <div style={{ fontSize: 50 }}>
+                  <li key={index}>{TitleOrButton(item)}</li>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <></>
+          )}
           {user.user != null ? (
             <li key={0} className="nav-title" style={{ paddingLeft: 0 }}>
               <button

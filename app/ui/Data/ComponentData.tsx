@@ -902,7 +902,7 @@ export function AdminData() {
         }}
       >
         <Input
-          placeholder="Nhập tên truyện"
+          placeholder="Nhập tên người dùng"
           style={{
             borderRadius: 5,
 

@@ -149,10 +149,12 @@ function QLUComponent(pros: Pros) {
               className="hidden sm:flex"
             >
               <p className="text-xs sm:text-base">
-                {pros.tentruyen.slice(0, 5)}
+                {pros.tentruyen.slice(0, 15)}
               </p>
               <p>...</p>
-              <p className="text-xs sm:text-base">{pros.tentruyen.slice(-5)}</p>
+              <p className="text-xs sm:text-base">
+                {pros.tentruyen.slice(-15)}
+              </p>
             </div>
           </Checkbox>
         </Col>
