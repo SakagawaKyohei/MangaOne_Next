@@ -1,6 +1,6 @@
 import useAddMessageBox from "@/hooks/messages/useAddMessageBox";
 import useUser from "@/hooks/useUser";
-import { Modal, Popover } from "antd";
+import { Button, Input, Modal, Popover } from "antd";
 import Link from "next/link";
 import { useState } from "react";
 import { AiOutlineEllipsis } from "react-icons/ai";
@@ -78,6 +78,15 @@ function CommentComponent(pros: comment) {
   const handleOpenChange = (newOpen: boolean) => {
     setOpen(newOpen);
   };
+
+  const [open2, setOpen2] = useState(false);
+
+  const hide2 = () => {
+    setOpen2(false);
+  };
+  const handleOpenChange2 = (newOpen: boolean) => {
+    setOpen2(newOpen);
+  };
   const addmessagebox = useAddMessageBox(pros.uid as any, pros.uid2);
   const deletecomment = useDeleteComment(pros.id);
 
@@ -111,12 +120,39 @@ function CommentComponent(pros: comment) {
                   >
                     <p style={{ fontWeight: "bold" }}>Xóa bình luận</p>
                   </button>
-                  <button onClick={showwarningConfirm}>
-                    {" "}
-                    <p style={{ marginTop: 10, fontWeight: "bold" }}>
-                      Cảnh cáo người dùng
-                    </p>
-                  </button>
+
+                  <Popover
+                    content={
+                      <div style={{ overflow: "auto" }}>
+                        <Input
+                          style={{ float: "left", marginBottom: 15 }}
+                          size="small"
+                          onChange={(e) => {
+                            setwarningmessage(e.target.value);
+                          }}
+                        />
+                        <Button
+                          style={{ float: "left" }}
+                          onClick={showwarningConfirm}
+                        >
+                          Xác nhận
+                        </Button>
+                        <Button onClick={hide2} style={{ float: "right" }}>
+                          Close
+                        </Button>
+                      </div>
+                    }
+                    title="Nội dung cảnh báo"
+                    trigger="click"
+                    open={open2}
+                    onOpenChange={handleOpenChange2}
+                  >
+                    <button>
+                      <p style={{ marginTop: 10, fontWeight: "bold" }}>
+                        Cảnh cáo người dùng
+                      </p>
+                    </button>
+                  </Popover>
                   <button onClick={showbannedConfirm}>
                     <p style={{ marginTop: 10, fontWeight: "bold" }}>
                       Cấm người dùng

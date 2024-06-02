@@ -927,7 +927,6 @@ export function AdminData() {
           }}
           onClick={() => {
             setsearch1(search);
-            console.log(mangaid);
           }}
         >
           <p className="hidden md:block">Tìm kiếm</p>
@@ -965,7 +964,9 @@ export function AdminData() {
                         ?.filter((item) => {
                           return search1.toLowerCase() == ""
                             ? item
-                            : item.name?.toLowerCase().includes(search1);
+                            : item.raw_user_meta_data.ten
+                                ?.toLowerCase()
+                                .includes(search1);
                         })
                         .map((item, index) => removeValue(item.id)); //xóa tất cả id đang được chọn và chọn tất cả
                       manga
@@ -982,7 +983,9 @@ export function AdminData() {
                         ?.filter((item) => {
                           return search1.toLowerCase() == ""
                             ? item
-                            : item.name?.toLowerCase().includes(search1);
+                            : item.raw_user_meta_data.ten
+                                ?.toLowerCase()
+                                .includes(search1);
                         })
                         .map((item, index) => removeValue(item.id));
                     }
@@ -1036,7 +1039,7 @@ export function AdminData() {
             ?.filter((item) => {
               return search1.toLowerCase() == ""
                 ? item
-                : item.name?.toLowerCase().includes(search1);
+                : item.raw_user_meta_data.ten?.toLowerCase().includes(search1);
             })
             .map((item, index) => (
               <>
