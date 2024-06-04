@@ -2,10 +2,13 @@
 "use client";
 import "./Navbar.css";
 import * as FaIcons from "react-icons/fa";
+import { TiDelete } from "react-icons/ti";
 import * as aiIcons from "react-icons/ai";
 import { IoWarning } from "react-icons/io5";
+import { IoCloseCircle } from "react-icons/io5";
 import * as IOIcons from "react-icons/io5";
 import { useEffect, useState } from "react";
+import { IoMdCloseCircleOutline } from "react-icons/io";
 import * as FaUIcons from "react-icons/fa";
 import * as IoUIcons from "react-icons/io";
 import { MdAdminPanelSettings } from "react-icons/md";
@@ -615,12 +618,34 @@ function Navbar1() {
                           ) : (
                             <></>
                           )}
-
-                          <div style={{ width: "100%" }}>
-                            <p style={{ overflowWrap: "break-word" }}>
-                              {item.message}
-                            </p>
-                          </div>
+                          {item.type == "deletemanga" ? (
+                            <>
+                              <IoCloseCircle
+                                style={{
+                                  color: "red",
+                                  fontSize: 40,
+                                  marginRight: 20,
+                                }}
+                              />
+                              <span>
+                                {"Bộ truyện "}
+                                <strong>{item.link}</strong>
+                                {" của bạn đã bị xóa với lý do "}
+                                <strong>{item.message}</strong>
+                              </span>
+                            </>
+                          ) : (
+                            <></>
+                          )}
+                          {item.type != "deletemanga" ? (
+                            <div style={{ width: "100%" }}>
+                              <p style={{ overflowWrap: "break-word" }}>
+                                {item.message}
+                              </p>
+                            </div>
+                          ) : (
+                            <></>
+                          )}
                         </div>
                       </>
                     )

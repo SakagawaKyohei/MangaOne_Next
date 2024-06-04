@@ -1,12 +1,12 @@
 "use client";
 import * as faIcons from "react-icons/fa";
-import { Button, Col, Pagination, Row, message } from "antd";
+import { Button, Col, Input, Pagination, Popover, Row, message } from "antd";
 import { FaAngleDoubleRight } from "react-icons/fa";
 import TextArea from "antd/es/input/TextArea";
 import { useEffect, useRef, useState } from "react";
 // import useAddHistory from "../hooks/history/useAddHistory";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import useUser from "@/hooks/useUser";
 import useMangaQuery from "@/hooks/useMangaQuery";
 import useChapterQuery from "@/hooks/ChapterQuery/useChapterQuery";
@@ -26,12 +26,19 @@ import useQueryRate from "@/hooks/rate/useQueryRate";
 import useStarOfManga from "@/hooks/rate/useStarOfManga";
 import NeedLogin from "@/app/ui/NeedLogin";
 import useEditComment from "@/hooks/comment/useEditComment";
-import useDeleteComment from "@/hooks/comment/useDeleteComment";
+import { AiOutlineMore } from "react-icons/ai";
+import { IoMdCloseCircleOutline } from "react-icons/io";
+import { IoCloseCircle } from "react-icons/io5";
+import useNoti from "@/hooks/noti/useNoti";
+import useDeleteManga from "@/hooks/MangaManagement/useDeleteManga";
+
 function NoiDungTruyen() {
   const params = useParams<{
     id: string;
   }>();
+
   const mid = params.id ? params.id.toString() : "";
+  const mangaids = [mid];
   const { data: user, isLoading, isError } = useUser();
   const {
     data: manga,
@@ -98,9 +105,17 @@ function NoiDungTruyen() {
   const follow = useAddFollow(user?.user?.id, mid);
   const unfollow = useDeleteFollow(user?.user?.id, mid);
   const [text, settext] = useState("");
+  const [notimessage, setnotimessage] = useState("");
   const [numstar, setnumstar] = useState<number | null>();
   const ratemutate = useRateManga(user?.user?.id, mid, numstar);
   const sendcomment = useCommentManga(user?.user?.id, mid, text);
+  const notiuser = useNoti(
+    manga?.nguoi_dang,
+    notimessage,
+    "deletemanga",
+    manga?.name as string
+  );
+  const deletemanga = useDeleteManga(mangaids);
 
   const [cmtid, setcmtid] = useState("");
   const editcomment = useEditComment(cmtid, user?.user?.id, mid, text);
@@ -152,6 +167,7 @@ function NoiDungTruyen() {
   const [data, setdata] = useState<any[]>();
   const [more, setmore] = useState(false);
   const [rated, setrated] = useState(true);
+
   useEffect(() => {
     if (chapterlast20 != null) {
       setdata(chapterlast20);
@@ -194,6 +210,15 @@ function NoiDungTruyen() {
     }
     console.log(a);
   }, [rl, re, rate]);
+  const [open, setOpen] = useState(false);
+  const router = useRouter();
+
+  const hide = () => {
+    setOpen(false);
+  };
+  const handleOpenChange = (newOpen: boolean) => {
+    setOpen(newOpen);
+  };
 
   useEffect(() => {
     if (pRef.current) {
@@ -272,6 +297,7 @@ function NoiDungTruyen() {
   const handleidUpdate = (newid: string) => {
     setcmtid(newid);
   };
+
   return (
     <div>
       <div
@@ -349,49 +375,96 @@ function NoiDungTruyen() {
                     </p>
                   </div>
                   <div className="hidden sm:block">
-                    {!followdata?.length ? (
-                      <>
-                        <Button
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            marginBottom: 20,
-                            backgroundColor: "#FF9040",
-                            color: "white",
-                            fontSize: 18,
-                            height: 45,
-                          }}
-                          onClick={() => {
-                            follow.mutate();
-                          }}
-                        >
-                          <p>Theo dõi</p>
-                        </Button>
-                      </>
-                    ) : (
-                      <>
-                        <Button
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
+                    <div style={{ display: "flex", flexDirection: "row" }}>
+                      {!followdata?.length ? (
+                        <>
+                          <Button
+                            style={{
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              marginBottom: 20,
+                              backgroundColor: "#FF9040",
+                              color: "white",
+                              fontSize: 18,
+                              height: 45,
+                            }}
+                            onClick={() => {
+                              follow.mutate();
+                            }}
+                          >
+                            <p>Theo dõi</p>
+                          </Button>
+                        </>
+                      ) : (
+                        <>
+                          <Button
+                            style={{
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
 
-                            backgroundColor: "red",
-                            color: "white",
-                            fontSize: 18,
-                            marginBottom: 20,
-                            height: 45,
-                          }}
-                          onClick={() => {
-                            console.log(mid + "a");
-                            unfollow.mutate();
-                          }}
+                              backgroundColor: "red",
+                              color: "white",
+                              fontSize: 18,
+                              marginBottom: 20,
+                              height: 45,
+                            }}
+                            onClick={() => {
+                              console.log(mid + "a");
+                              unfollow.mutate();
+                            }}
+                          >
+                            <p>Hủy theo dõi</p>
+                          </Button>
+                        </>
+                      )}
+                      {user.user.user_metadata.role == "admin" ? (
+                        <Popover
+                          content={
+                            <div style={{ overflow: "auto" }}>
+                              <Input
+                                style={{ float: "left", marginBottom: 15 }}
+                                size="small"
+                                onChange={(e) => {
+                                  setnotimessage(e.target.value);
+                                }}
+                              />
+                              <Button
+                                style={{ float: "left" }}
+                                onClick={() => {
+                                  notiuser.mutate();
+                                  deletemanga.mutate();
+                                  message.success("Xóa truyện thành công");
+                                  setTimeout(() => {
+                                    router.push("/");
+                                  }, 500);
+                                }}
+                              >
+                                Xác nhận
+                              </Button>
+                              <Button onClick={hide} style={{ float: "right" }}>
+                                Close
+                              </Button>
+                            </div>
+                          }
+                          title="Lý do xóa truyện"
+                          trigger="click"
+                          open={open}
+                          onOpenChange={handleOpenChange}
                         >
-                          <p>Hủy theo dõi</p>
-                        </Button>
-                      </>
-                    )}
+                          <IoMdCloseCircleOutline
+                            style={{
+                              fontSize: 35,
+                              marginTop: 5,
+                              marginLeft: 8,
+                            }}
+                          />
+                        </Popover>
+                      ) : (
+                        <></>
+                      )}
+                    </div>
                   </div>
                   <div
                     style={{

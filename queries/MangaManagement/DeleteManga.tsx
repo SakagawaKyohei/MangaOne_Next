@@ -21,6 +21,10 @@ export async function DeleteManga(client: TypeSupabaseClient, id: string[]) {
         .from("history")
         .delete()
         .eq("manga_id", mangaId);
+      const { error: commentError } = await client
+        .from("cmtmanga")
+        .delete()
+        .eq("manga_id", mangaId);
       if (chapterError) {
         throw chapterError;
       }
@@ -31,6 +35,9 @@ export async function DeleteManga(client: TypeSupabaseClient, id: string[]) {
         throw rateError;
       }
       if (historyError) {
+        throw historyError;
+      }
+      if (commentError) {
         throw historyError;
       }
 

@@ -4,7 +4,7 @@ import { Button, Input, Modal, Popover } from "antd";
 import Link from "next/link";
 import { useState } from "react";
 import { AiOutlineEllipsis } from "react-icons/ai";
-import NeedLogin from "./NeedLogin";
+import { IoMdCloseCircleOutline } from "react-icons/io";
 import { ExclamationCircleFilled } from "@ant-design/icons";
 import useDeleteComment from "@/hooks/comment/useDeleteComment";
 import useNoti from "@/hooks/noti/useNoti";
