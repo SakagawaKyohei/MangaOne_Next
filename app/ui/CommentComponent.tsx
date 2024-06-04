@@ -25,7 +25,7 @@ function CommentComponent(pros: comment) {
   const { confirm } = Modal;
   const [role, setrole] = useState("user");
   const [warningmessage, setwarningmessage] = useState("");
-  const warning = useNoti(pros.uid2, warningmessage, "warned");
+  const warning = useNoti(pros.uid2, warningmessage, "warned", "");
   const updaterole = useUpdateUserRole(role, pros.uid2);
   const showwarningConfirm = () => {
     confirm({

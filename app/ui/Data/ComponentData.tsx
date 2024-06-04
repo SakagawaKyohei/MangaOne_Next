@@ -52,6 +52,8 @@ import useCreateChapter from "@/hooks/useCreateChapter";
 import useChapterQueryCID from "@/hooks/ChapterQuery/useChapterQueryCID";
 import QLUComponent from "../QuanLyTruyen/QLUComponent";
 import useGetUserList from "@/hooks/Admin/useGetUserList";
+import QLCoinComponent from "../QuanLyTruyen/QLCoinComponent";
+import useBillAll from "@/hooks/O-coin/useBillAll";
 
 // import useCreateChapter from "../../hooks/ChapterManagement/useCreateChapter";
 // import useGetChapter from "../../hooks/GetMangaInfo/useGetChapter";
@@ -1050,6 +1052,198 @@ export function AdminData() {
                   soluotxem={item.raw_user_meta_data.ho}
                   ten={item.raw_user_meta_data.ten}
                   checkall={checkall}
+                  keyy={index.toString()}
+                  setmangaid={setmangaid}
+                />
+              </>
+            ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function GiaoDichData() {
+  const [mangaid, setmangaid] = useState<string[]>([]); //id manga duoc chon de delete
+  const [checkall, setcheckall] = useState(false);
+  const [search, setsearch] = useState("");
+  const [search1, setsearch1] = useState(""); //khi bấm tìm kiếm mới xử lý search
+  const { data: user, isLoading, isError } = useUser();
+
+  const deletemanga = useDeleteManga(mangaid);
+  const {
+    data: manga,
+    isLoading: mangal,
+    isError: mangae,
+  } = useGetMangaTrans(user?.user?.id as string);
+
+  const { data: userlist, isLoading: ull, isError: ule } = useBillAll();
+  if (isLoading || mangal || ull) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError || !user || mangae || !manga || !userlist || ule) {
+    return <div>Error</div>;
+  }
+  if (deletemanga.isError) {
+    console.log((deletemanga.error as any).message);
+  }
+
+  if (deletemanga.isSuccess) {
+    window.location.reload();
+  }
+
+  const { confirm } = Modal;
+
+  console.log(userlist);
+  return (
+    <div style={{ width: "92%" }}>
+      <div
+        style={{
+          paddingTop: 25,
+          paddingBottom: 25,
+          display: "flex",
+
+          marginLeft: "8%",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Input
+          placeholder="Nhập tên người dùng"
+          style={{
+            borderRadius: 5,
+
+            width: "40%",
+            marginLeft: "20%",
+            height: 32,
+            fontSize: 15,
+          }}
+          onChange={(e) => {
+            setsearch(e.target.value);
+          }}
+        />
+        <Button
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: 0,
+            backgroundColor: "#FF9040",
+            color: "white",
+            fontSize: 15,
+          }}
+          onClick={() => {
+            setsearch1(search);
+          }}
+        >
+          <p className="hidden md:block">Tìm kiếm</p>
+          <faIcons.FaSearch className="md:hidden text-xs sm:text-base" />
+        </Button>
+      </div>
+
+      <div
+        className="khung2"
+        style={{
+          marginLeft: "8%",
+          height: "50vh",
+          overflow: "hidden",
+          overflowY: "auto",
+        }}
+      >
+        <div style={{ marginLeft: 20, margin: 5, fontSize: 15 }}>
+          <Row style={{ marginBottom: 10, marginTop: 10 }}>
+            <Col
+              style={{
+                width: "20%",
+                paddingRight: "10%",
+                padding: 5,
+                paddingTop: 0,
+              }}
+            >
+              <p className="text-xs sm:text-base" style={{ marginLeft: 10 }}>
+                ID yêu cầu
+              </p>
+            </Col>
+            <Col
+              style={{
+                padding: 5,
+                paddingTop: 0,
+                display: "flex",
+                justifyContent: "center",
+
+                width: "20%",
+              }}
+            >
+              <p
+                style={{
+                  fontFamily: "Arial, Helvetica, sans-serif",
+                  marginLeft: 5,
+                }}
+                className="text-xs sm:text-base"
+              >
+                Tên người dùng
+              </p>
+            </Col>
+            <Col
+              style={{
+                width: "20%",
+
+                display: "flex",
+                justifyContent: "center",
+                fontFamily: "Arial, Helvetica, sans-serif",
+              }}
+            >
+              <p className="text-xs sm:text-base"> Thời gian rút</p>
+            </Col>
+            <Col
+              style={{
+                width: "19%",
+
+                display: "flex",
+                justifyContent: "center",
+                fontFamily: "Arial, Helvetica, sans-serif",
+              }}
+            >
+              <p className="text-xs sm:text-base"> Số tài khoản</p>
+            </Col>
+            <Col
+              style={{
+                width: "10%",
+
+                display: "flex",
+                justifyContent: "center",
+                fontFamily: "Arial, Helvetica, sans-serif",
+              }}
+            >
+              <p className="text-xs sm:text-base"> Số tiền</p>
+            </Col>
+            <Col
+              style={{
+                padding: 0.001,
+                display: "flex",
+
+                width: "16%",
+              }}
+            ></Col>
+          </Row>
+          {(userlist as any[] | null | undefined)
+            ?.filter((item) => {
+              return search1.toLowerCase() == ""
+                ? item
+                : item.ten?.toLowerCase().includes(search1);
+            })
+            .map((item, index) => (
+              <>
+                <QLCoinComponent
+                  mayeucau={item.mayeucau ? item.mayeucau : ""}
+                  ho={item.ho.slice(1, -1)}
+                  ten={item.ten.slice(1, -1)}
+                  ngaygui={item.ngaygui}
+                  trangthai={item.trangthai}
+                  sotien={item.ocoin}
+                  stk={item.stk}
+                  memid={item.memid}
                   keyy={index.toString()}
                   setmangaid={setmangaid}
                 />

@@ -8,12 +8,12 @@ import { SendMessage } from "@/queries/messages/SendMessage";
 import { SeenAllNoti } from "@/queries/noti/SeenAllNoti";
 import { Withraw } from "@/queries/O-coin/Withraw";
 
-function useWithraw(user: any, ocoin: number) {
+function useWithraw(user: any, ocoin: number, id: any) {
   const client = useSupabase();
 
   const mutationFn = async () => {
     try {
-      const result = await Withraw(client, user, ocoin);
+      const result = await Withraw(client, user, ocoin, id);
     } catch (error) {
       throw error; // re-throw the error to be caught by the caller
     }

@@ -1,14 +1,14 @@
 import { TypeSupabaseClient } from "@/utils/supabase";
 
-export function TotalWith(
+export function Bill(
   client: TypeSupabaseClient,
 
-  userid: any
+  billid: any
 ) {
   return client.rpc(
-    "totalwith2" as never,
+    "bill2" as never,
     {
-      input_userid: userid,
+      gdid: billid,
     } as any
   );
 }

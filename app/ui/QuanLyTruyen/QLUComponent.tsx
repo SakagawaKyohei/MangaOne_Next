@@ -18,6 +18,7 @@ import { ExclamationCircleFilled } from "@ant-design/icons";
 import { AiOutlineUnlock } from "react-icons/ai";
 import useUpdateUserRole from "@/hooks/Admin/useUpdateUserRole";
 import useNoti from "@/hooks/noti/useNoti";
+import { IoCheckmarkDoneCircleSharp } from "react-icons/io5";
 interface Pros {
   tentruyen: string;
   mangaid: string;
@@ -101,7 +102,7 @@ function QLUComponent(pros: Pros) {
   const [checked, setchecked] = useState(pros.checkall);
   const [role, setrole] = useState("user");
   const [warningmessage, setwarningmessage] = useState("");
-  const warning = useNoti(pros.mangaid, warningmessage, "warned");
+  const warning = useNoti(pros.mangaid, warningmessage, "warned", "");
   const updaterole = useUpdateUserRole(role, pros.mangaid);
   if (prev != pros.checkall) {
     setchecked(pros.checkall);

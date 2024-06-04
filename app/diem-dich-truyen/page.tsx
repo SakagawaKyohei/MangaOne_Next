@@ -8,10 +8,12 @@ import AccountPageRow from "../ui/AccountPage/AccountPageRow";
 import useUpdateUserMetadata from "@/hooks/loginsystem/useUpdateUserMetadata";
 import upload from "antd/es/upload";
 import useTotalView from "@/hooks/O-coin/useTotalView";
+import { v4 as uuidv4 } from "uuid";
 import { ExclamationCircleFilled } from "@ant-design/icons";
 import useWithraw from "@/hooks/O-coin/useWithraw";
 import useTotalWith from "@/hooks/O-coin/useTotalWith";
 import useSupabase from "@/hooks/useSupabase";
+import useNoti from "@/hooks/noti/useNoti";
 
 function Diemthuong() {
   const style2: React.CSSProperties = {
@@ -40,9 +42,11 @@ function Diemthuong() {
     isError: twe,
     refetch: rw,
   } = useTotalWith(user?.user?.id as any);
+  const id = uuidv4();
+
   const supabase = useSupabase();
   const [soluong, setsoluong] = useState(0);
-  const withraw = useWithraw(user?.user?.id, soluong);
+  const withraw = useWithraw(user?.user?.id, soluong, id);
   const [show, setshow] = useState(false);
   const [ten, setten] = useState("");
   const [ho, setho] = useState("");
@@ -91,6 +95,23 @@ function Diemthuong() {
     avt: avt,
   };
   const updatemetadata = useUpdateUserMetadata(user1 as any);
+  const notiuser = useNoti(
+    user?.user?.id,
+    "Yêu cầu rút tiền đã được gửi, tiền sẽ được chuyển đến tài khoản bạn trong 3 ngày",
+    "wait",
+    id
+  );
+  const notiadmin = useNoti(
+    "7862bb4c-1bae-49d6-a0fc-82f9f9af7b4c",
+    "Người dùng" +
+      " " +
+      user?.user?.user_metadata.ho +
+      " " +
+      user?.user?.user_metadata.ten +
+      " muốn rút O-coin",
+    "adminwait",
+    "admin"
+  );
 
   if (isLoading || cl || twl) {
     return <div>Loading...</div>;
@@ -194,6 +215,8 @@ function Diemthuong() {
                           setshow(false);
                           setOpen(false);
                           withraw.mutate();
+                          notiadmin.mutate();
+                          notiuser.mutate();
                           message.success("Gửi yêu cầu rút tiền thành công");
                         }
                       }}
@@ -215,10 +238,8 @@ function Diemthuong() {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-
                     backgroundColor: "#FF9040",
                     color: "white",
-
                     marginLeft: 10,
                     paddingLeft: 10,
                     paddingRight: 10,

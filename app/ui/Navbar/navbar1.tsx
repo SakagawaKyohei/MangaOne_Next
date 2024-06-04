@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import * as FaUIcons from "react-icons/fa";
 import * as IoUIcons from "react-icons/io";
 import { MdAdminPanelSettings } from "react-icons/md";
+import { AiOutlineDollarCircle } from "react-icons/ai";
 // import { Link, useLocation, useNavigate } from "react-router-dom";
 //import logo from "../../images/logos.svg";
 import {
@@ -27,6 +28,7 @@ import { ConfigProvider } from "antd";
 import { IoMdNotificationsOutline, IoMdPerson } from "react-icons/io";
 import { IoChatbubblesOutline } from "react-icons/io5";
 import React from "react";
+import { IoIosTime } from "react-icons/io";
 
 import { ImBook } from "react-icons/im";
 import useSupabase from "@/hooks/useSupabase";
@@ -85,8 +87,7 @@ const admin = [
   },
   {
     title: "Giao dịch O-coin",
-    path: "",
-
+    path: "/giao-dich-o-coin",
     cName: "nav-button",
   },
   {
@@ -520,7 +521,9 @@ function Navbar1() {
             </Link>
             <Popover
               content={
-                <div style={{ overflow: "auto", width: "25vw" }}>
+                <div
+                  style={{ overflow: "auto", width: "25vw", maxHeight: 500 }}
+                >
                   {noti?.map((item) =>
                     item.type == "warned" ? (
                       <>
@@ -551,7 +554,76 @@ function Navbar1() {
                           </div>
                         </div>
                       </>
-                    ) : null
+                    ) : (
+                      <>
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            fontSize: 16,
+                            marginTop: 10,
+                            backgroundColor: !item.seen ? "#eee" : "white",
+                            paddingLeft: 10,
+                            paddingTop: 5,
+                            paddingBottom: 5,
+                          }}
+                          onClick={() => {
+                            if (item.link != null) {
+                              router.push(`/withdraw-detail/${item.link}`);
+                            }
+                            if (item.type == "adminwait") {
+                              router.push("/giao-dich-o-coin");
+                            }
+                          }}
+                        >
+                          {item.type == "wait" ? (
+                            <>
+                              <IoIosTime
+                                style={{
+                                  color: "#FFA500",
+                                  fontSize: 40,
+                                  marginRight: 20,
+                                }}
+                              />
+                            </>
+                          ) : (
+                            <></>
+                          )}
+                          {item.type == "adminwait" ? (
+                            <>
+                              <IoIosTime
+                                style={{
+                                  color: "#FFA500",
+                                  fontSize: 40,
+                                  marginRight: 20,
+                                }}
+                              />
+                            </>
+                          ) : (
+                            <></>
+                          )}
+                          {item.type == "done" ? (
+                            <>
+                              <aiIcons.AiFillDollarCircle
+                                style={{
+                                  color: "green",
+                                  fontSize: 40,
+                                  marginRight: 20,
+                                }}
+                              />
+                            </>
+                          ) : (
+                            <></>
+                          )}
+
+                          <div style={{ width: "100%" }}>
+                            <p style={{ overflowWrap: "break-word" }}>
+                              {item.message}
+                            </p>
+                          </div>
+                        </div>
+                      </>
+                    )
                   )}
                 </div>
               }
@@ -594,10 +666,10 @@ function Navbar1() {
                       seennoti.mutate();
                     }
                     if (!isopennoti) {
-                      setisopennoti2(!isopennoti2);
+                      setisopennoti2(!isopennoti);
                     } else {
                       setTimeout(() => {
-                        setisopennoti2(!isopennoti2);
+                        setisopennoti2(!isopennoti);
                       }, 1000);
                     }
                   }}
