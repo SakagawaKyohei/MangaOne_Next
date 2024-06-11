@@ -130,6 +130,7 @@ function NoiDungTruyen() {
           console.log("Change received!", payload);
           r();
           setcmtid("");
+          settext("");
         }
       )
       .subscribe();

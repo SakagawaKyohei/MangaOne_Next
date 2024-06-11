@@ -56,6 +56,7 @@ export default function Messages() {
           console.log("Change received!", payload);
           r();
           r2();
+          settext2("");
         }
       )
       .subscribe();
@@ -328,7 +329,7 @@ export default function Messages() {
                 onChange={(e) => {
                   settext(e.target.value);
                   settext2(e.target.value);
-                  seen.mutate();
+
                   console.log("a");
                 }}
                 onClick={() => {
